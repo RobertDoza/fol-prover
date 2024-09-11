@@ -1,7 +1,15 @@
+MAIN = main
 EXECUTABLE = test
+FORMULA = formula
 
-$(EXECUTABLE): main.cpp
-	g++ $< -o $@
+$(EXECUTABLE): $(MAIN).o $(FORMULA).o
+	g++ $^ -o $@
+
+$(MAIN).o: $(MAIN).cpp
+	g++ -c $< -o $@
+
+$(FORMULA).o: $(FORMULA).cpp $(FORMULA).hpp
+	g++ -c $< -o $@
 
 .PHONY: clean
 
