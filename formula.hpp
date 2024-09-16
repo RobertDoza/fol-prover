@@ -20,9 +20,7 @@ class Variable : public Term {
 			:_name(name)
 		{}
 		
-		std::string to_string() const override {
-			return _name;
-		}
+		std::string to_string() const override;
 	private:
 		std::string _name;
 };
@@ -33,9 +31,7 @@ class Constant : public Term {
 			:_name(name)
 		{}
 		
-		std::string to_string() const override {
-			return _name;
-		}
+		std::string to_string() const override;
 	private:
 		std::string _name;
 };
@@ -46,24 +42,7 @@ class ComplexTerm : public Term {
 			:_function_symbol(f), _subterms(terms)
 		{}
 		
-		std::string to_string() const override {
-			std::stringstream s;
-			
-			s << _function_symbol;
-			
-			s << "(";
-			
-			for (size_t i = 0; i < _subterms.size(); ++i) {
-				s << _subterms[i]->to_string();
-				if (i < _subterms.size() - 1) {
-					s << ", ";
-				}
-			}
-			
-			s << ")";
-			
-			return s.str();
-		}
+		std::string to_string() const override;
 	private:
 		std::string _function_symbol;
 		std::vector<std::shared_ptr<Term>> _subterms;
