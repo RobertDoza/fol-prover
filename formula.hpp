@@ -93,13 +93,18 @@ class ComplexAtom : public Atom {
 };
 
 // Logical Connective
-class LogicalConnective : public Formula {};
+class LogicalConnective : public Formula {
+	protected:
+		virtual std::string symbol() const = 0;
+};
 
 class UnaryConnective : public LogicalConnective {
 	public:
 		UnaryConnective(const std::shared_ptr<Formula>& sub)
 			:_subformula(sub)
 		{}
+		
+		std::string to_string() const override;
 	protected:
 		std::shared_ptr<Formula> _subformula;
 };
@@ -110,7 +115,8 @@ class Negation : public UnaryConnective {
 			:UnaryConnective(sub)
 		{}
 		
-		std::string to_string() const override;
+	private:
+		std::string symbol() const override;
 };
 
 class BinaryConnective : public LogicalConnective {
@@ -118,6 +124,8 @@ class BinaryConnective : public LogicalConnective {
 		BinaryConnective(const std::shared_ptr<Formula>& l, const std::shared_ptr<Formula>& r)
 			:_left_subformula(l), _right_subformula(r)
 		{}
+		
+		std::string to_string() const override;
 	protected:
 		std::shared_ptr<Formula> _left_subformula;
 		std::shared_ptr<Formula> _right_subformula;
@@ -129,7 +137,8 @@ class Conjunction : public BinaryConnective {
 			:BinaryConnective(l, r)
 		{}
 		
-		std::string to_string() const override;
+	private:
+		std::string symbol() const override;
 };
 
 class Disjunction : public BinaryConnective {
@@ -138,7 +147,8 @@ class Disjunction : public BinaryConnective {
 			:BinaryConnective(l, r)
 		{}
 		
-		std::string to_string() const override;
+	private:
+		std::string symbol() const override;
 };
 
 class Implication : public BinaryConnective {
@@ -147,7 +157,8 @@ class Implication : public BinaryConnective {
 			:BinaryConnective(l, r)
 		{}
 		
-		std::string to_string() const override;
+	private:
+		std::string symbol() const override;
 };
 
 class Equivalence : public BinaryConnective {
@@ -156,7 +167,8 @@ class Equivalence : public BinaryConnective {
 			:BinaryConnective(l, r)
 		{}
 		
-		std::string to_string() const override;
+	private:
+		std::string symbol() const override;
 };
 
 // Quantifier

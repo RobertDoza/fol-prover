@@ -58,23 +58,31 @@ std::string ComplexAtom::to_string() const {
 	return s.str();
 }
 
-std::string Negation::to_string() const {
-	return " ¬ " + _subformula->to_string();
+std::string UnaryConnective::to_string() const {
+	return symbol() + " (" + _subformula->to_string() + ")";
 }
 
-std::string Conjunction::to_string() const {
-	return _left_subformula->to_string() + " ∧ " + _right_subformula->to_string();
+std::string BinaryConnective::to_string() const {
+	return "(" + _left_subformula->to_string() + ") " + symbol() + " (" + _right_subformula->to_string() + ")";
 }
 
-std::string Disjunction::to_string() const {
-	return _left_subformula->to_string() + " ∨ " + _right_subformula->to_string();
+std::string Negation::symbol() const {
+	return "¬";
 }
 
-std::string Implication::to_string() const {
-	return _left_subformula->to_string() + " → " + _right_subformula->to_string();
+std::string Conjunction::symbol() const {
+	return "∧";
 }
 
-std::string Equivalence::to_string() const {
-	return _left_subformula->to_string() + " ↔ " + _right_subformula->to_string();
+std::string Disjunction::symbol() const {
+	return "∨";
+}
+
+std::string Implication::symbol() const {
+	return "→";
+}
+
+std::string Equivalence::symbol() const {
+	return "↔";
 }
 
