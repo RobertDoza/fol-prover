@@ -2,6 +2,10 @@
 
 class Formula {};
 
+class Term {};
+class Variable : public Term {};
+class Constant : public Term {};
+
 class AtomicFormula : public Formula {};
 
 class LogicalConnective : public Formula {};
