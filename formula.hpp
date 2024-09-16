@@ -11,11 +11,15 @@ class Formula {
 		virtual std::string to_string() const = 0;
 };
 
+std::ostream& operator<<(std::ostream& out, const Formula& formula);
+
 // Term
 class Term {
 	public:
 		virtual std::string to_string() const = 0;
 };
+
+std::ostream& operator<<(std::ostream& out, const Term& term);
 
 class Variable : public Term {
 	public:

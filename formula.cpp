@@ -1,5 +1,15 @@
 #include "formula.hpp"
 
+std::ostream& operator<<(std::ostream& out, const Formula& formula) {
+	out << formula.to_string();
+	return out;
+}
+
+std::ostream& operator<<(std::ostream& out, const Term& term) {
+	out << term.to_string();
+	return out;
+}
+
 std::string Variable::to_string() const {
 	return _name;
 }
