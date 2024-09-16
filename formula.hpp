@@ -7,7 +7,8 @@
 
 // Base formula class
 class Formula {
-	virtual std::string to_string() const = 0;
+	public:
+		virtual std::string to_string() const = 0;
 };
 
 // Term
@@ -53,8 +54,14 @@ class ComplexTerm : public Term {
 // Atomic Formula
 class AtomicFormula : public Formula {};
 class LogicalConstant : public AtomicFormula {};
-class True : public LogicalConstant {};
-class False : public LogicalConstant {};
+class True : public LogicalConstant {
+	public:
+		std::string to_string() const override;
+};
+class False : public LogicalConstant {
+	public:
+		std::string to_string() const override;
+};
 
 class Atom : public AtomicFormula {
 	public:
@@ -65,13 +72,22 @@ class Atom : public AtomicFormula {
 		std::string _predicate_symbol;
 };
 
-class SimpleAtom : public Atom {};
+class SimpleAtom : public Atom {
+	public:
+		SimpleAtom(const std::string& p)
+			:Atom(p)
+		{}
+		
+		std::string to_string() const override;
+};
 
 class ComplexAtom : public Atom {
 	public:
 		ComplexAtom(const std::string& p, const std::vector<std::shared_ptr<Term>>& terms)
 			:Atom(p), _terms(terms)
 		{}
+		
+		std::string to_string() const override;
 	private:
 		std::vector<std::shared_ptr<Term>> _terms;
 };
