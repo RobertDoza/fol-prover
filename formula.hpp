@@ -114,7 +114,6 @@ class Negation : public UnaryConnective {
 		Negation(const std::shared_ptr<Formula>& sub)
 			:UnaryConnective(sub)
 		{}
-		
 	private:
 		std::string symbol() const override;
 };
@@ -136,7 +135,6 @@ class Conjunction : public BinaryConnective {
 		Conjunction(const std::shared_ptr<Formula>& l, const std::shared_ptr<Formula>& r)
 			:BinaryConnective(l, r)
 		{}
-		
 	private:
 		std::string symbol() const override;
 };
@@ -146,7 +144,6 @@ class Disjunction : public BinaryConnective {
 		Disjunction(const std::shared_ptr<Formula>& l, const std::shared_ptr<Formula>& r)
 			:BinaryConnective(l, r)
 		{}
-		
 	private:
 		std::string symbol() const override;
 };
@@ -156,7 +153,6 @@ class Implication : public BinaryConnective {
 		Implication(const std::shared_ptr<Formula>& l, const std::shared_ptr<Formula>& r)
 			:BinaryConnective(l, r)
 		{}
-		
 	private:
 		std::string symbol() const override;
 };
@@ -166,13 +162,40 @@ class Equivalence : public BinaryConnective {
 		Equivalence(const std::shared_ptr<Formula>& l, const std::shared_ptr<Formula>& r)
 			:BinaryConnective(l, r)
 		{}
-		
 	private:
 		std::string symbol() const override;
 };
 
 // Quantifier
-class Quantifier : public Formula {};
-class ForAll : public Quantifier {};
-class Exists : public Quantifier {};
+class Quantifier : public Formula {
+	public:
+		Quantifier(const std::string& var, const std::shared_ptr<Formula>& sub)
+			:_variable_name(var), _subformula(sub)
+		{}
+		
+		std::string to_string() const override;
+	protected:
+		virtual std::string symbol() const = 0;
+	private:
+		std::string _variable_name;
+		std::shared_ptr<Formula> _subformula;
+};
+
+class ForAll : public Quantifier {
+	public:
+		ForAll(const std::string& var, const std::shared_ptr<Formula>& sub)
+			:Quantifier(var, sub)
+		{}
+	private:
+		std::string symbol() const override;
+};
+
+class Exists : public Quantifier {
+	public:
+		Exists(const std::string& var, const std::shared_ptr<Formula>& sub)
+			:Quantifier(var, sub)
+		{}
+	private:
+		std::string symbol() const override;
+};
 

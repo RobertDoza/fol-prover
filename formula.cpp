@@ -86,3 +86,15 @@ std::string Equivalence::symbol() const {
 	return "↔";
 }
 
+std::string Quantifier::to_string() const {
+	return symbol() + _variable_name + ". " + _subformula->to_string();
+}
+
+std::string ForAll::symbol() const {
+	return "∀ ";
+}
+
+std::string Exists::symbol() const {
+	return "∃ ";
+}
+
