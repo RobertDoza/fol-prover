@@ -95,14 +95,69 @@ class ComplexAtom : public Atom {
 // Logical Connective
 class LogicalConnective : public Formula {};
 
-class UnaryConnective : public LogicalConnective {};
-class Negation : public UnaryConnective {};
+class UnaryConnective : public LogicalConnective {
+	public:
+		UnaryConnective(const std::shared_ptr<Formula>& sub)
+			:_subformula(sub)
+		{}
+	protected:
+		std::shared_ptr<Formula> _subformula;
+};
 
-class BinaryConnective : public LogicalConnective {};
-class Conjunction : public BinaryConnective {};
-class Disjunction : public BinaryConnective {};
-class Implication : public BinaryConnective {};
-class Equivalence : public BinaryConnective {};
+class Negation : public UnaryConnective {
+	public:
+		Negation(const std::shared_ptr<Formula>& sub)
+			:UnaryConnective(sub)
+		{}
+		
+		std::string to_string() const override;
+};
+
+class BinaryConnective : public LogicalConnective {
+	public:
+		BinaryConnective(const std::shared_ptr<Formula>& l, const std::shared_ptr<Formula>& r)
+			:_left_subformula(l), _right_subformula(r)
+		{}
+	protected:
+		std::shared_ptr<Formula> _left_subformula;
+		std::shared_ptr<Formula> _right_subformula;
+};
+
+class Conjunction : public BinaryConnective {
+	public:
+		Conjunction(const std::shared_ptr<Formula>& l, const std::shared_ptr<Formula>& r)
+			:BinaryConnective(l, r)
+		{}
+		
+		std::string to_string() const override;
+};
+
+class Disjunction : public BinaryConnective {
+	public:
+		Disjunction(const std::shared_ptr<Formula>& l, const std::shared_ptr<Formula>& r)
+			:BinaryConnective(l, r)
+		{}
+		
+		std::string to_string() const override;
+};
+
+class Implication : public BinaryConnective {
+	public:
+		Implication(const std::shared_ptr<Formula>& l, const std::shared_ptr<Formula>& r)
+			:BinaryConnective(l, r)
+		{}
+		
+		std::string to_string() const override;
+};
+
+class Equivalence : public BinaryConnective {
+	public:
+		Equivalence(const std::shared_ptr<Formula>& l, const std::shared_ptr<Formula>& r)
+			:BinaryConnective(l, r)
+		{}
+		
+		std::string to_string() const override;
+};
 
 // Quantifier
 class Quantifier : public Formula {};
