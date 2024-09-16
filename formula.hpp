@@ -50,6 +50,12 @@ class ComplexTerm : public Term {
 
 // Atomic Formula
 class AtomicFormula : public Formula {};
+class LogicalConstant : public AtomicFormula {};
+class True : public LogicalConstant {};
+class False : public LogicalConstant {};
+class Atom : public AtomicFormula {};
+class SimpleAtom : public Atom {};
+class ComplexAtom : public Atom {};
 
 // Logical Connective
 class LogicalConnective : public Formula {};
