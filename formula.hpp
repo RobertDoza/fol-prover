@@ -3,18 +3,26 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <sstream>
 
 // Base formula class
 class Formula {};
 
 // Term
-class Term {};
+class Term {
+	public:
+		virtual std::string to_string() const = 0;
+};
 
 class Variable : public Term {
 	public:
 		Variable(const std::string& name)
 			:_name(name)
 		{}
+		
+		std::string to_string() const override {
+			return _name;
+		}
 	private:
 		std::string _name;
 };
@@ -24,6 +32,10 @@ class Constant : public Term {
 		Constant(const std::string& name)
 			:_name(name)
 		{}
+		
+		std::string to_string() const override {
+			return _name;
+		}
 	private:
 		std::string _name;
 };
@@ -33,6 +45,22 @@ class ComplexTerm : public Term {
 		ComplexTerm(const std::string& f, const std::vector<std::shared_ptr<Term>>& terms)
 			:_function_symbol(f), _subterms(terms)
 		{}
+		
+		std::string to_string() const override {
+			std::stringstream s;
+			
+			s << _function_symbol;
+			
+			s << "(";
+			
+			for (const auto& term : _subterms) {
+				s << term->to_string();
+			}
+			
+			s << ")";
+			
+			return s.str();
+		}
 	private:
 		std::string _function_symbol;
 		std::vector<std::shared_ptr<Term>> _subterms;
