@@ -6,7 +6,9 @@
 #include <sstream>
 
 // Base formula class
-class Formula {};
+class Formula {
+	virtual std::string to_string() const = 0;
+};
 
 // Term
 class Term {
