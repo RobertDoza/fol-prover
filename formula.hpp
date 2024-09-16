@@ -53,9 +53,26 @@ class AtomicFormula : public Formula {};
 class LogicalConstant : public AtomicFormula {};
 class True : public LogicalConstant {};
 class False : public LogicalConstant {};
-class Atom : public AtomicFormula {};
+
+class Atom : public AtomicFormula {
+	public:
+		Atom(const std::string& p)
+			:_predicate_symbol(p)
+		{}
+	protected:
+		std::string _predicate_symbol;
+};
+
 class SimpleAtom : public Atom {};
-class ComplexAtom : public Atom {};
+
+class ComplexAtom : public Atom {
+	public:
+		ComplexAtom(const std::string& p, const std::vector<std::shared_ptr<Term>>& terms)
+			:Atom(p), _terms(terms)
+		{}
+	private:
+		std::vector<std::shared_ptr<Term>> _terms;
+};
 
 // Logical Connective
 class LogicalConnective : public Formula {};
