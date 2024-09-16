@@ -53,8 +53,11 @@ class ComplexTerm : public Term {
 			
 			s << "(";
 			
-			for (const auto& term : _subterms) {
-				s << term->to_string();
+			for (size_t i = 0; i < _subterms.size(); ++i) {
+				s << _subterms[i]->to_string();
+				if (i < _subterms.size() - 1) {
+					s << ", ";
+				}
 			}
 			
 			s << ")";
