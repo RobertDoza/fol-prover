@@ -14,7 +14,7 @@ std::string Goal::to_string() const {
 	
 	s << "]";
 	
-	s << " ⊢ ";
+	s << " ⊢  ";
 	
 	s << *_goal;
 	

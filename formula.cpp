@@ -37,12 +37,16 @@ std::string ComplexTerm::to_string() const {
 	return s.str();
 }
 
+bool AtomicFormula::requires_parentheses() const {
+	return false;
+}
+
 std::string True::to_string() const {
-	return "⊤";
+	return "⊤ ";
 }
 
 std::string False::to_string() const {
-	return "⊥";
+	return "⊥ ";
 }
 
 std::string SimpleAtom::to_string() const {
@@ -68,12 +72,35 @@ std::string ComplexAtom::to_string() const {
 	return s.str();
 }
 
+bool LogicalConnective::requires_parentheses() const {
+	return true;
+}
+
 std::string UnaryConnective::to_string() const {
-	return symbol() + " (" + _subformula->to_string() + ")";
+	if (_subformula->requires_parentheses()) {
+		return symbol() + " (" + _subformula->to_string() + ")";
+	} else {
+		return symbol() + " " + _subformula->to_string();
+	}
 }
 
 std::string BinaryConnective::to_string() const {
-	return "(" + _left_subformula->to_string() + ") " + symbol() + " (" + _right_subformula->to_string() + ")";
+	std::string left;
+	std::string right;
+	
+	if (_left_subformula->requires_parentheses()) {
+		left = "(" + _left_subformula->to_string() + ")";
+	} else {
+		left = _left_subformula->to_string();
+	}
+	
+	if (_right_subformula->requires_parentheses()) {
+		right = "(" + _right_subformula->to_string() + ")";
+	} else {
+		right = _right_subformula->to_string();
+	}
+
+	return left + " " + symbol() + " " + right;
 }
 
 std::string Negation::symbol() const {
@@ -97,7 +124,19 @@ std::string Equivalence::symbol() const {
 }
 
 std::string Quantifier::to_string() const {
-	return symbol() + _variable_name + ". " + _subformula->to_string();
+	std::string sub;
+
+	if (_subformula->requires_parentheses()) {
+		sub = "(" + _subformula->to_string() + ")";
+	} else {
+		sub = _subformula->to_string();
+	}
+	
+	return symbol() + _variable_name + ". " + sub;
+}
+
+bool Quantifier::requires_parentheses() const {
+	return true;
 }
 
 std::string ForAll::symbol() const {

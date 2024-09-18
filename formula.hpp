@@ -9,6 +9,7 @@
 class Formula {
 	public:
 		virtual std::string to_string() const = 0;
+		virtual bool requires_parentheses() const = 0;
 };
 
 std::ostream& operator<<(std::ostream& out, const Formula& formula);
@@ -56,12 +57,18 @@ class ComplexTerm : public Term {
 };
 
 // Atomic Formula
-class AtomicFormula : public Formula {};
+class AtomicFormula : public Formula {
+	protected:
+		bool requires_parentheses() const override;
+};
+
 class LogicalConstant : public AtomicFormula {};
+
 class True : public LogicalConstant {
 	public:
 		std::string to_string() const override;
 };
+
 class False : public LogicalConstant {
 	public:
 		std::string to_string() const override;
@@ -100,6 +107,7 @@ class ComplexAtom : public Atom {
 class LogicalConnective : public Formula {
 	protected:
 		virtual std::string symbol() const = 0;
+		bool requires_parentheses() const override;
 };
 
 class UnaryConnective : public LogicalConnective {
@@ -180,6 +188,7 @@ class Quantifier : public Formula {
 		std::string to_string() const override;
 	protected:
 		virtual std::string symbol() const = 0;
+		bool requires_parentheses() const override;
 	private:
 		std::string _variable_name;
 		std::shared_ptr<Formula> _subformula;
