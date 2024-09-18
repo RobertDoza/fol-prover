@@ -41,5 +41,24 @@ void Goal::applyAssumption() {
 			_solved = true;
 		}
 	}
+	
+	// TODO: handle failure
+}
+
+#include <iostream> // TODO: remove me
+
+void Goal::applyRuleImpI() {
+	if (_target_formula->type() != FormulaType::Implication) {
+		std::cerr << "!!!\n"; // TODO: handle failure
+	}
+	
+	auto target_implication = std::dynamic_pointer_cast<Implication>(_target_formula);
+	
+	auto left = target_implication->get_left_subformula();
+	auto right = target_implication->get_right_subformula();
+	
+	_target_formula = right;
+	
+	addAssumption(left);
 }
 

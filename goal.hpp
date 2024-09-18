@@ -10,6 +10,7 @@ class Goal {
 		
 		std::string to_string() const;
 		void applyAssumption();
+		void applyRuleImpI();
 	private:
 		void addAssumption(const std::shared_ptr<Formula>& formula);
 	private:
