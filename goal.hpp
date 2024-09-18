@@ -11,6 +11,8 @@ class Goal {
 		std::string to_string() const;
 		void applyAssumption();
 	private:
+		void addAssumption(const std::shared_ptr<Formula>& formula);
+	private:
 		std::vector<std::shared_ptr<Formula>> _assumptions;
 		std::shared_ptr<Formula> _target_formula;
 		bool _solved;

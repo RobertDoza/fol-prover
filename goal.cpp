@@ -25,6 +25,16 @@ std::string Goal::to_string() const {
 	return s.str();
 }
 
+void Goal::addAssumption(const std::shared_ptr<Formula>& formula) {
+	for (const auto& assumption : _assumptions) {
+		if (are_equal(assumption, formula)) {
+			return;
+		}
+	}
+
+	_assumptions.push_back(formula);
+}
+
 void Goal::applyAssumption() {
 	for (const auto& assumption : _assumptions) {
 		if (are_equal(assumption, _target_formula)) {
