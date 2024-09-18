@@ -231,11 +231,20 @@ std::string ComplexAtom::to_string() const {
 }
 
 bool ComplexAtom::operator==(const ComplexAtom& other) const {
-	if (this->_predicate_symbol == other._predicate_symbol) {
+	if (this->_predicate_symbol != other._predicate_symbol) {
 		return false;
 	}
 	
-	// TODO
+	if (this->_terms.size() != other._terms.size()) {
+		return false;
+	}
+	
+	for (size_t i = 0; i < this->_terms.size(); ++i) {
+		if (!are_equal(this->_terms[i], other._terms[i])) {
+			return false;
+		}
+	}
+	
 	return true;
 }
 
