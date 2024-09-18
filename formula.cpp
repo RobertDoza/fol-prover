@@ -65,8 +65,28 @@ bool are_equal(const std::shared_ptr<Formula>& f1, const std::shared_ptr<Formula
 		}
 	}
 
-	return true;
+	return false;
 }
+
+/*
+bool are_equal(const std::shared_ptr<Term>& t1, const std::shared_ptr<Term>& t2) {
+	TermType type = t1->type();
+
+	if (type != t2->type()) {
+		return false;
+	}
+	
+	switch (type) {
+		case TermType::Variable: {
+			auto v1 = std::dynamic_pointer_cast<Variable>(t1);
+			auto v2 = std::dynamic_pointer_cast<Variable>(t2);
+			return *v1 == *v2;
+		}
+	}
+
+	return false;
+}
+*/
 
 std::ostream& operator<<(std::ostream& out, const Formula& formula) {
 	out << formula.to_string();
@@ -82,8 +102,16 @@ std::string Variable::to_string() const {
 	return _name;
 }
 
+TermType Variable::type() const {
+	return TermType::Variable;
+}
+
 std::string Constant::to_string() const {
 	return _name;
+}
+
+TermType Constant::type() const {
+	return TermType::Constant;
 }
 
 std::string ComplexTerm::to_string() const {
@@ -103,6 +131,10 @@ std::string ComplexTerm::to_string() const {
 	s << ")";
 	
 	return s.str();
+}
+
+TermType ComplexTerm::type() const {
+	return TermType::ComplexTerm;
 }
 
 bool AtomicFormula::requires_parentheses() const {

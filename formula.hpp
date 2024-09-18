@@ -19,6 +19,12 @@ enum class FormulaType {
 	Exists
 };
 
+enum class TermType {
+	Variable,
+	Constant,
+	ComplexTerm
+};
+
 // Base formula class
 class Formula {
 	public:
@@ -35,7 +41,10 @@ std::ostream& operator<<(std::ostream& out, const Formula& formula);
 class Term {
 	public:
 		virtual std::string to_string() const = 0;
+		virtual TermType type() const = 0;
 };
+
+bool are_equal(const std::shared_ptr<Term>& t1, const std::shared_ptr<Term>& t2);
 
 std::ostream& operator<<(std::ostream& out, const Term& term);
 
@@ -46,6 +55,7 @@ class Variable : public Term {
 		{}
 		
 		std::string to_string() const override;
+		TermType type() const override;
 	private:
 		std::string _name;
 };
@@ -57,6 +67,7 @@ class Constant : public Term {
 		{}
 		
 		std::string to_string() const override;
+		TermType type() const override;
 	private:
 		std::string _name;
 };
@@ -68,6 +79,7 @@ class ComplexTerm : public Term {
 		{}
 		
 		std::string to_string() const override;
+		TermType type() const override;
 	private:
 		std::string _function_symbol;
 		std::vector<std::shared_ptr<Term>> _subterms;
