@@ -180,6 +180,8 @@ class BinaryConnective : public LogicalConnective {
 		{}
 		
 		std::string to_string() const override;
+		std::shared_ptr<Formula> get_left_subformula() const;
+		std::shared_ptr<Formula> get_right_subformula() const;
 	protected:
 		std::shared_ptr<Formula> _left_subformula;
 		std::shared_ptr<Formula> _right_subformula;

@@ -283,6 +283,14 @@ std::string BinaryConnective::to_string() const {
 	return left + " " + symbol() + " " + right;
 }
 
+std::shared_ptr<Formula> BinaryConnective::get_left_subformula() const {
+	return _left_subformula;
+}
+
+std::shared_ptr<Formula> BinaryConnective::get_right_subformula() const {
+	return _right_subformula;
+}
+
 std::string Negation::symbol() const {
 	return "¬";
 }
