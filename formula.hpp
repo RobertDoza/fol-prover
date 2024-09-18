@@ -27,6 +27,8 @@ class Formula {
 		virtual FormulaType type() const = 0;
 };
 
+bool are_equal(const std::shared_ptr<Formula>& f1, const std::shared_ptr<Formula>& f2);
+
 std::ostream& operator<<(std::ostream& out, const Formula& formula);
 
 // Term
@@ -83,12 +85,14 @@ class True : public LogicalConstant {
 	public:
 		std::string to_string() const override;
 		FormulaType type() const override;
+		bool operator==(const True& other) const;
 };
 
 class False : public LogicalConstant {
 	public:
 		std::string to_string() const override;
 		FormulaType type() const override;
+		bool operator==(const False& other) const;
 };
 
 class Atom : public AtomicFormula {
@@ -108,6 +112,7 @@ class SimpleAtom : public Atom {
 		
 		std::string to_string() const override;
 		FormulaType type() const override;
+		bool operator==(const SimpleAtom& other) const;
 };
 
 class ComplexAtom : public Atom {
@@ -118,6 +123,7 @@ class ComplexAtom : public Atom {
 		
 		std::string to_string() const override;
 		FormulaType type() const override;
+		bool operator==(const ComplexAtom& other) const;
 	private:
 		std::vector<std::shared_ptr<Term>> _terms;
 };
@@ -147,6 +153,7 @@ class Negation : public UnaryConnective {
 		{}
 		
 		FormulaType type() const override;
+		bool operator==(const Negation& other) const;
 	private:
 		std::string symbol() const override;
 };
@@ -170,6 +177,7 @@ class Conjunction : public BinaryConnective {
 		{}
 		
 		FormulaType type() const override;
+		bool operator==(const Conjunction& other) const;
 	private:
 		std::string symbol() const override;
 };
@@ -181,6 +189,7 @@ class Disjunction : public BinaryConnective {
 		{}
 		
 		FormulaType type() const override;
+		bool operator==(const Disjunction& other) const;
 	private:
 		std::string symbol() const override;
 };
@@ -192,6 +201,7 @@ class Implication : public BinaryConnective {
 		{}
 		
 		FormulaType type() const override;
+		bool operator==(const Implication& other) const;
 	private:
 		std::string symbol() const override;
 };
@@ -203,6 +213,7 @@ class Equivalence : public BinaryConnective {
 		{}
 		
 		FormulaType type() const override;
+		bool operator==(const Equivalence& other) const;
 	private:
 		std::string symbol() const override;
 };
@@ -218,7 +229,7 @@ class Quantifier : public Formula {
 	protected:
 		virtual std::string symbol() const = 0;
 		bool requires_parentheses() const override;
-	private:
+	protected:
 		std::string _variable_name;
 		std::shared_ptr<Formula> _subformula;
 };
@@ -230,6 +241,7 @@ class ForAll : public Quantifier {
 		{}
 		
 		FormulaType type() const override;
+		bool operator==(const ForAll& other) const;
 	private:
 		std::string symbol() const override;
 };
@@ -241,6 +253,7 @@ class Exists : public Quantifier {
 		{}
 		
 		FormulaType type() const override;
+		bool operator==(const Exists& other) const;
 	private:
 		std::string symbol() const override;
 };
