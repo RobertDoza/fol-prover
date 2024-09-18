@@ -16,7 +16,7 @@ std::string Goal::to_string() const {
 	
 	s << " ⊢  ";
 	
-	s << *_goal;
+	s << *_target_formula;
 	
 	return s.str();
 }
