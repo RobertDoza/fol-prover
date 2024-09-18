@@ -21,6 +21,7 @@ class Formula {
 	public:
 		virtual std::string to_string() const = 0;
 		virtual bool requires_parentheses() const = 0;
+		virtual FormulaType type() const = 0;
 };
 
 std::ostream& operator<<(std::ostream& out, const Formula& formula);
@@ -69,6 +70,8 @@ class ComplexTerm : public Term {
 
 // Atomic Formula
 class AtomicFormula : public Formula {
+	public:
+		FormulaType type() const override;
 	protected:
 		bool requires_parentheses() const override;
 };
@@ -137,6 +140,8 @@ class Negation : public UnaryConnective {
 		Negation(const std::shared_ptr<Formula>& sub)
 			:UnaryConnective(sub)
 		{}
+		
+		FormulaType type() const override;
 	private:
 		std::string symbol() const override;
 };
@@ -158,6 +163,8 @@ class Conjunction : public BinaryConnective {
 		Conjunction(const std::shared_ptr<Formula>& l, const std::shared_ptr<Formula>& r)
 			:BinaryConnective(l, r)
 		{}
+		
+		FormulaType type() const override;
 	private:
 		std::string symbol() const override;
 };
@@ -167,6 +174,8 @@ class Disjunction : public BinaryConnective {
 		Disjunction(const std::shared_ptr<Formula>& l, const std::shared_ptr<Formula>& r)
 			:BinaryConnective(l, r)
 		{}
+		
+		FormulaType type() const override;
 	private:
 		std::string symbol() const override;
 };
@@ -176,6 +185,8 @@ class Implication : public BinaryConnective {
 		Implication(const std::shared_ptr<Formula>& l, const std::shared_ptr<Formula>& r)
 			:BinaryConnective(l, r)
 		{}
+		
+		FormulaType type() const override;
 	private:
 		std::string symbol() const override;
 };
@@ -185,6 +196,8 @@ class Equivalence : public BinaryConnective {
 		Equivalence(const std::shared_ptr<Formula>& l, const std::shared_ptr<Formula>& r)
 			:BinaryConnective(l, r)
 		{}
+		
+		FormulaType type() const override;
 	private:
 		std::string symbol() const override;
 };
@@ -210,6 +223,8 @@ class ForAll : public Quantifier {
 		ForAll(const std::string& var, const std::shared_ptr<Formula>& sub)
 			:Quantifier(var, sub)
 		{}
+		
+		FormulaType type() const override;
 	private:
 		std::string symbol() const override;
 };
@@ -219,6 +234,8 @@ class Exists : public Quantifier {
 		Exists(const std::string& var, const std::shared_ptr<Formula>& sub)
 			:Quantifier(var, sub)
 		{}
+		
+		FormulaType type() const override;
 	private:
 		std::string symbol() const override;
 };

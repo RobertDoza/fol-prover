@@ -41,6 +41,10 @@ bool AtomicFormula::requires_parentheses() const {
 	return false;
 }
 
+FormulaType AtomicFormula::type() const {
+	return FormulaType::AtomicFormula;
+}
+
 std::string True::to_string() const {
 	return "⊤ ";
 }
@@ -107,20 +111,40 @@ std::string Negation::symbol() const {
 	return "¬";
 }
 
+FormulaType Negation::type() const {
+	return FormulaType::Negation;
+}
+
 std::string Conjunction::symbol() const {
 	return "∧";
+}
+
+FormulaType Conjunction::type() const {
+	return FormulaType::Conjunction;
 }
 
 std::string Disjunction::symbol() const {
 	return "∨";
 }
 
+FormulaType Disjunction::type() const {
+	return FormulaType::Disjunction;
+}
+
 std::string Implication::symbol() const {
 	return "→";
 }
 
+FormulaType Implication::type() const {
+	return FormulaType::Implication;
+}
+
 std::string Equivalence::symbol() const {
 	return "↔";
+}
+
+FormulaType Equivalence::type() const {
+	return FormulaType::Equivalence;
 }
 
 std::string Quantifier::to_string() const {
@@ -143,7 +167,15 @@ std::string ForAll::symbol() const {
 	return "∀ ";
 }
 
+FormulaType ForAll::type() const {
+	return FormulaType::ForAll;
+}
+
 std::string Exists::symbol() const {
 	return "∃ ";
+}
+
+FormulaType Exists::type() const {
+	return FormulaType::Exists;
 }
 
