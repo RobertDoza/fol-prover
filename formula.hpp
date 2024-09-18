@@ -56,6 +56,7 @@ class Variable : public Term {
 		
 		std::string to_string() const override;
 		TermType type() const override;
+		bool operator==(const Variable& other) const;
 	private:
 		std::string _name;
 };
@@ -68,6 +69,7 @@ class Constant : public Term {
 		
 		std::string to_string() const override;
 		TermType type() const override;
+		bool operator==(const Constant& other) const;
 	private:
 		std::string _name;
 };
@@ -80,6 +82,7 @@ class ComplexTerm : public Term {
 		
 		std::string to_string() const override;
 		TermType type() const override;
+		bool operator==(const ComplexTerm& other) const;
 	private:
 		std::string _function_symbol;
 		std::vector<std::shared_ptr<Term>> _subterms;
