@@ -25,7 +25,7 @@ std::string Goal::to_string() const {
 	return s.str();
 }
 
-void Goal::addAssumption(const std::shared_ptr<Formula>& formula) {
+void Goal::add_assumption(const std::shared_ptr<Formula>& formula) {
 	for (const auto& assumption : _assumptions) {
 		if (are_equal(assumption, formula)) {
 			return;
@@ -35,7 +35,7 @@ void Goal::addAssumption(const std::shared_ptr<Formula>& formula) {
 	_assumptions.push_back(formula);
 }
 
-void Goal::applyAssumption() {
+void Goal::apply_assumption() {
 	for (const auto& assumption : _assumptions) {
 		if (are_equal(assumption, _target_formula)) {
 			_solved = true;
@@ -47,7 +47,7 @@ void Goal::applyAssumption() {
 
 #include <iostream> // TODO: remove me
 
-void Goal::applyRuleImpI() {
+void Goal::apply_rule_imp_i() {
 	if (_target_formula->type() != FormulaType::Implication) {
 		std::cerr << "!!!\n"; // TODO: handle failure
 	}
@@ -59,6 +59,6 @@ void Goal::applyRuleImpI() {
 	
 	_target_formula = right;
 	
-	addAssumption(left);
+	add_assumption(left);
 }
 

@@ -9,10 +9,10 @@ class Goal {
 		{}		
 		
 		std::string to_string() const;
-		void applyAssumption();
-		void applyRuleImpI();
+		void apply_assumption();
+		void apply_rule_imp_i();
 	private:
-		void addAssumption(const std::shared_ptr<Formula>& formula);
+		void add_assumption(const std::shared_ptr<Formula>& formula);
 	private:
 		std::vector<std::shared_ptr<Formula>> _assumptions;
 		std::shared_ptr<Formula> _target_formula;
