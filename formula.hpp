@@ -5,6 +5,17 @@
 #include <memory>
 #include <sstream>
 
+enum class FormulaType {
+	AtomicFormula,
+	Negation,
+	Conjunction,
+	Disjunction,
+	Implication,
+	Equivalence,
+	ForAll,
+	Exists
+};
+
 // Base formula class
 class Formula {
 	public:
