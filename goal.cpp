@@ -1,6 +1,10 @@
 #include "goal.hpp"
 
 std::string Goal::to_string() const {
+	if (_solved) {
+		return "<solved goal>";
+	}
+
 	std::stringstream s;
 	
 	s << "[";
@@ -19,5 +23,13 @@ std::string Goal::to_string() const {
 	s << *_target_formula;
 	
 	return s.str();
+}
+
+void Goal::applyAssumption() {
+	for (const auto& assumption : _assumptions) {
+		if (are_equal(assumption, _target_formula)) {
+			_solved = true;
+		}
+	}
 }
 
