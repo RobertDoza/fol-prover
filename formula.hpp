@@ -6,7 +6,10 @@
 #include <sstream>
 
 enum class FormulaType {
-	AtomicFormula,
+	True,
+	False,
+	SimpleAtom,
+	ComplexAtom,
 	Negation,
 	Conjunction,
 	Disjunction,
@@ -70,8 +73,6 @@ class ComplexTerm : public Term {
 
 // Atomic Formula
 class AtomicFormula : public Formula {
-	public:
-		FormulaType type() const override;
 	protected:
 		bool requires_parentheses() const override;
 };
@@ -81,11 +82,13 @@ class LogicalConstant : public AtomicFormula {};
 class True : public LogicalConstant {
 	public:
 		std::string to_string() const override;
+		FormulaType type() const override;
 };
 
 class False : public LogicalConstant {
 	public:
 		std::string to_string() const override;
+		FormulaType type() const override;
 };
 
 class Atom : public AtomicFormula {
@@ -104,6 +107,7 @@ class SimpleAtom : public Atom {
 		{}
 		
 		std::string to_string() const override;
+		FormulaType type() const override;
 };
 
 class ComplexAtom : public Atom {
@@ -113,6 +117,7 @@ class ComplexAtom : public Atom {
 		{}
 		
 		std::string to_string() const override;
+		FormulaType type() const override;
 	private:
 		std::vector<std::shared_ptr<Term>> _terms;
 };

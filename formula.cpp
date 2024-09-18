@@ -41,20 +41,28 @@ bool AtomicFormula::requires_parentheses() const {
 	return false;
 }
 
-FormulaType AtomicFormula::type() const {
-	return FormulaType::AtomicFormula;
-}
-
 std::string True::to_string() const {
 	return "⊤ ";
+}
+
+FormulaType True::type() const {
+	return FormulaType::True;
 }
 
 std::string False::to_string() const {
 	return "⊥ ";
 }
 
+FormulaType False::type() const {
+	return FormulaType::False;
+}
+
 std::string SimpleAtom::to_string() const {
 	return _predicate_symbol;
+}
+
+FormulaType SimpleAtom::type() const {
+	return FormulaType::SimpleAtom;
 }
 
 std::string ComplexAtom::to_string() const {
@@ -74,6 +82,10 @@ std::string ComplexAtom::to_string() const {
 	s << ")";
 	
 	return s.str();
+}
+
+FormulaType ComplexAtom::type() const {
+	return FormulaType::ComplexAtom;
 }
 
 bool LogicalConnective::requires_parentheses() const {
