@@ -1,5 +1,7 @@
 #pragma once
 
+#include <deque>
+
 #include "formula.hpp"
 
 enum class RuleStatus {
@@ -54,6 +56,6 @@ class GoalKeeper {
 		void apply_rule_iff_i();
 		void apply_erule_iff_e();
 	private:
-		std::vector<Goal> _goals;
+		std::deque<Goal> _goals;
 };
 

@@ -130,10 +130,9 @@ void GoalKeeper::apply_rule_conj_i() {
 	new_goal_1.set_target(target_1);
 	new_goal_2.set_target(target_2);
 	
-	// TODO: add to front instead
-	_goals.push_back(new_goal_1);
-	_goals.push_back(new_goal_2);
+	_goals.pop_front();
 	
-	// TODO: remove starting goal from front
+	_goals.push_front(new_goal_2);
+	_goals.push_front(new_goal_1);
 }
 
