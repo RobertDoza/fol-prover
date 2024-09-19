@@ -33,6 +33,9 @@ class Goal {
 };
 
 class GoalKeeper {
-	// TODO: implement
+	public:
+		std::string to_string() const;
+	private:
+		std::vector<Goal> _goals;
 };
 

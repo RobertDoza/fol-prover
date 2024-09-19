@@ -80,3 +80,21 @@ ConjIResult Goal::apply_rule_conj_i() {
 	return {RuleStatus::Success, left, right};
 }
 
+std::string GoalKeeper::to_string() const {
+	if (_goals.empty()) {
+		return "No goals!";
+	}
+
+	std::stringstream s;
+	
+	auto size = _goals.size();
+	
+	s << "Goals to prove:" << size << "\n";
+	
+	for (size_t i = 0; i < size; i++) {
+		s << (i + 1) << ". " << _goals[i].to_string() << "\n";
+	}
+	
+	return s.str();
+}
+
