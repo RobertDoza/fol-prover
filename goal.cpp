@@ -88,6 +88,26 @@ ConjIResult Goal::apply_rule_conj_i() {
 	return {RuleStatus::Success, left, right};
 }
 
+RuleStatus Goal::apply_erule_conj_e() {
+	for (size_t i = 0; i < _assumptions.size(); i++) {
+		if (_assumptions[i]->type() == FormulaType::Conjunction) {
+			auto conjunction = std::dynamic_pointer_cast<Conjunction>(_assumptions[i]);
+			
+			auto left = conjunction->get_left_subformula();
+			auto right = conjunction->get_right_subformula();
+			
+			remove_assumption(i);
+			
+			add_assumption(left);
+			add_assumption(right);
+			
+			return RuleStatus::Success;
+		}
+	}
+	
+	return RuleStatus::Failure;
+}
+
 DisjEResult Goal::apply_erule_disj_e() {
 	for (size_t i = 0; i < _assumptions.size(); i++) {
 		if (_assumptions[i]->type() == FormulaType::Disjunction) {

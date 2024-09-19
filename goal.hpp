@@ -34,6 +34,7 @@ class Goal {
 		RuleStatus apply_assumption();
 		RuleStatus apply_rule_imp_i();
 		ConjIResult apply_rule_conj_i();
+		RuleStatus apply_erule_conj_e();
 		DisjEResult apply_erule_disj_e();
 	private:
 		std::deque<std::shared_ptr<Formula>> _assumptions;
