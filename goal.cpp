@@ -98,7 +98,7 @@ DisjEResult Goal::apply_erule_disj_e() {
 			
 			remove_assumption(i);
 			
-			return {RuleStatus::Success, NULL, NULL};
+			return {RuleStatus::Success, left, right};
 		}
 	}
 	
