@@ -67,7 +67,7 @@ RuleStatus Goal::apply_rule_not_i() {
 	
 	auto subformula = target_negation->get_subformula();
 	
-	_target_formula = subformula;
+	_target_formula = std::make_shared<False>();
 	
 	add_assumption(subformula);
 	
