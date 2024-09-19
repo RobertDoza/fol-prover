@@ -302,6 +302,26 @@ void GoalKeeper::apply_erule_conj_e() {
 	}
 }
 
+void GoalKeeper::apply_rule_disj_i_1() {
+	// TODO: handle empty goal list
+	
+	RuleStatus status = _goals[0].apply_rule_disj_i_1();
+	
+	if (status == RuleStatus::Failure) {
+		// TODO: handle failure
+	}
+}
+
+void GoalKeeper::apply_rule_disj_i_2() {
+	// TODO: handle empty goal list
+	
+	RuleStatus status = _goals[0].apply_rule_disj_i_2();
+	
+	if (status == RuleStatus::Failure) {
+		// TODO: handle failure
+	}
+}
+
 void GoalKeeper::apply_erule_disj_e() {
 	DisjEResult result = _goals[0].apply_erule_disj_e();
 	
