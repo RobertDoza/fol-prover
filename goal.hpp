@@ -27,6 +27,12 @@ struct IffIResult {
 	std::shared_ptr<Formula> right_subformula;
 };
 
+struct ImpEResult {
+	RuleStatus status;
+	std::shared_ptr<Formula> left_subformula;
+	std::shared_ptr<Formula> right_subformula;
+};
+
 class Goal {
 	public:
 		Goal(const std::deque<std::shared_ptr<Formula>>& a, const std::shared_ptr<Formula>& f)
@@ -46,6 +52,7 @@ class Goal {
 		RuleStatus apply_rule_disj_i_2();
 		DisjEResult apply_erule_disj_e();
 		RuleStatus apply_rule_imp_i();
+		ImpEResult apply_erule_imp_e();
 		IffIResult apply_rule_iff_i();
 		RuleStatus apply_erule_iff_e();
 	private:
