@@ -3,7 +3,7 @@ EXECUTABLE = test
 FORMULA = formula
 GOAL = goal
 
-CPPFLAGS = -g
+CPPFLAGS = -g -Wall -Wextra -Werror -pedantic
 
 $(EXECUTABLE): $(MAIN).o $(FORMULA).o $(GOAL).o
 	g++ $(CPPFLAGS) $^ -o $@
