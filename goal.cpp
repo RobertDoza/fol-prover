@@ -166,6 +166,11 @@ RuleStatus Goal::apply_rule_imp_i() {
 	return RuleStatus::Success;
 }
 
+IffEResult Goal::apply_erule_iff_e() {
+	// TODO
+	return {RuleStatus::Failure, NULL, NULL};
+}
+
 std::string GoalKeeper::to_string() const {
 	if (_goals.empty()) {
 		return "No goals!";
