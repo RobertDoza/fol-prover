@@ -190,6 +190,23 @@ RuleStatus Goal::apply_rule_imp_i() {
 	return RuleStatus::Success;
 }
 
+IffIResult Goal::apply_rule_iff_i() {
+	for (size_t i = 0; i < _assumptions.size(); i++) {
+		if (_assumptions[i]->type() == FormulaType::Equivalence) {
+			auto equivalence = std::dynamic_pointer_cast<Equivalence>(_assumptions[i]);
+			
+			auto left = equivalence->get_left_subformula();
+			auto right = equivalence->get_right_subformula();
+			
+			remove_assumption(i);
+			
+			return {RuleStatus::Success, left, right};
+		}
+	}
+	
+	return {RuleStatus::Failure, NULL, NULL};
+}
+
 RuleStatus Goal::apply_erule_iff_e() {
 	for (size_t i = 0; i < _assumptions.size(); i++) {
 		if (_assumptions[i]->type() == FormulaType::Equivalence) {
