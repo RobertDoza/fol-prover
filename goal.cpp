@@ -184,6 +184,23 @@ RuleStatus Goal::apply_rule_imp_i() {
 	return RuleStatus::Success;
 }
 
+ImpEResult Goal::apply_erule_imp_e() {
+	for (size_t i = 0; i < _assumptions.size(); i++) {
+		if (_assumptions[i]->type() == FormulaType::Implication) {
+			auto implication = std::dynamic_pointer_cast<Implication>(_assumptions[i]);
+			
+			auto left = implication->get_left_subformula();
+			auto right = implication->get_right_subformula();
+			
+			remove_assumption(i);
+			
+			return {RuleStatus::Success, left, right};
+		}
+	}
+	
+	return {RuleStatus::Failure, NULL, NULL};
+}
+
 IffIResult Goal::apply_rule_iff_i() {
 	if (_target_formula->type() != FormulaType::Equivalence) {
 		return {RuleStatus::Failure, NULL, NULL};
