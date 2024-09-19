@@ -65,13 +65,11 @@ RuleStatus Goal::apply_rule_not_i() {
 	
 	auto target_negation = std::dynamic_pointer_cast<Negation>(_target_formula);
 	
-	/* TODO
 	auto subformula = target_negation->get_subformula();
 	
 	_target_formula = subformula;
 	
 	add_assumption(subformula);
-	*/
 	
 	return RuleStatus::Success;
 }
@@ -177,10 +175,10 @@ void GoalKeeper::apply_assumption() {
 	_goals.pop_front();
 }
 
-void GoalKeeper::apply_rule_imp_i() {
+void GoalKeeper::apply_rule_not_i() {
 	// TODO: handle empty goal list
 
-	RuleStatus status = _goals[0].apply_rule_imp_i();
+	RuleStatus status = _goals[0].apply_rule_not_i();
 	
 	if (status == RuleStatus::Failure) {
 		// TODO: handle failure
@@ -245,5 +243,15 @@ void GoalKeeper::apply_erule_disj_e() {
 	
 	_goals.push_front(new_goal_2);
 	_goals.push_front(new_goal_1);
+}
+
+void GoalKeeper::apply_rule_imp_i() {
+	// TODO: handle empty goal list
+
+	RuleStatus status = _goals[0].apply_rule_imp_i();
+	
+	if (status == RuleStatus::Failure) {
+		// TODO: handle failure
+	}
 }
 
