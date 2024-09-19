@@ -39,6 +39,20 @@ class GoalKeeper {
 		{}
 		
 		std::string to_string() const;
+		
+		// TODO: implement
+		void apply_assumption();
+		void apply_rule_not_i();
+		void apply_erule_not_e();
+		void apply_rule_conj_i();
+		void apply_erule_conj_e();
+		void apply_rule_disj_i_1();
+		void apply_rule_disj_i_2();
+		void apply_erule_disj_e();
+		void apply_rule_imp_i();
+		void apply_erule_imp_e();
+		void apply_rule_iff_i();
+		void apply_erule_iff_e();
 	private:
 		std::vector<Goal> _goals;
 };
