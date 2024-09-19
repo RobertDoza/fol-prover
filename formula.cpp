@@ -266,6 +266,10 @@ std::string UnaryConnective::to_string() const {
 	}
 }
 
+std::shared_ptr<Formula> UnaryConnective::get_subformula() const {
+	return _subformula;
+}
+
 std::string BinaryConnective::to_string() const {
 	std::string left;
 	std::string right;

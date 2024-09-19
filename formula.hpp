@@ -157,6 +157,7 @@ class UnaryConnective : public LogicalConnective {
 		{}
 		
 		std::string to_string() const override;
+		std::shared_ptr<Formula> get_subformula() const;
 	protected:
 		std::shared_ptr<Formula> _subformula;
 };
