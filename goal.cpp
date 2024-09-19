@@ -62,9 +62,10 @@ void Goal::apply_rule_imp_i() {
 	add_assumption(left);
 }
 
-void Goal::apply_rule_conj_i() {
+ConjIResult Goal::apply_rule_conj_i() {
 	if (_target_formula->type() != FormulaType::Conjunction) {
 		std::cerr << "!!!\n"; // TODO: handle failure
+		return {RuleStatus::Failure, NULL, NULL};
 	}
 	
 	auto target_conjunction = std::dynamic_pointer_cast<Conjunction>(_target_formula);
@@ -80,5 +81,7 @@ void Goal::apply_rule_conj_i() {
 	
 	std::cout << new_goal_1.to_string() << std::endl;
 	std::cout << new_goal_2.to_string() << std::endl;
+	
+	return {RuleStatus::Success, left, right};
 }
 

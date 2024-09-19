@@ -22,7 +22,7 @@ class Goal {
 		std::string to_string() const;
 		void apply_assumption();
 		void apply_rule_imp_i();
-		void apply_rule_conj_i();
+		ConjIResult apply_rule_conj_i();
 	private:
 		void add_assumption(const std::shared_ptr<Formula>& formula);
 	private:
