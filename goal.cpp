@@ -49,11 +49,9 @@ void Goal::apply_assumption() {
 	// TODO: handle failure
 }
 
-#include <iostream> // TODO: remove me
-
-void Goal::apply_rule_imp_i() {
+RuleStatus Goal::apply_rule_imp_i() {
 	if (_target_formula->type() != FormulaType::Implication) {
-		std::cerr << "!!!\n"; // TODO: handle failure
+		return RuleStatus::Failure;
 	}
 	
 	auto target_implication = std::dynamic_pointer_cast<Implication>(_target_formula);
@@ -64,6 +62,8 @@ void Goal::apply_rule_imp_i() {
 	_target_formula = right;
 	
 	add_assumption(left);
+	
+	return RuleStatus::Success;
 }
 
 ConjIResult Goal::apply_rule_conj_i() {
