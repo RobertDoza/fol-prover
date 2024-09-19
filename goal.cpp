@@ -167,7 +167,19 @@ RuleStatus Goal::apply_rule_imp_i() {
 }
 
 IffEResult Goal::apply_erule_iff_e() {
-	// TODO
+	for (size_t i = 0; i < _assumptions.size(); i++) {
+		if (_assumptions[i]->type() == FormulaType::Equivalence) {
+			auto equivalence = std::dynamic_pointer_cast<Equivalence>(_assumptions[i]);
+			
+			auto left = equivalence->get_left_subformula();
+			auto right = equivalence->get_right_subformula();
+			
+			remove_assumption(i);
+			
+			return {RuleStatus::Success, left, right};
+		}
+	}
+	
 	return {RuleStatus::Failure, NULL, NULL};
 }
 
