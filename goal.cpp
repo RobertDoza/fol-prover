@@ -161,3 +161,28 @@ void GoalKeeper::apply_rule_conj_i() {
 	_goals.push_front(new_goal_1);
 }
 
+void GoalKeeper::apply_erule_disj_e() {
+	DisjEResult result = _goals[0].apply_erule_disj_e();
+	
+	RuleStatus status = result.status;
+	
+	if (status == RuleStatus::Failure) {
+		// TODO: handle failure
+		return;
+	}
+	
+	auto disj_left = result.new_assumption_1;
+	auto disj_right = result.new_assumption_2;
+	
+	Goal new_goal_1 = _goals[0];
+	Goal new_goal_2 = _goals[0];
+	
+	new_goal_1.add_assumption(disj_left);
+	new_goal_2.add_assumption(disj_right);
+	
+	_goals.pop_front();
+	
+	_goals.push_front(new_goal_2);
+	_goals.push_front(new_goal_1);
+}
+
