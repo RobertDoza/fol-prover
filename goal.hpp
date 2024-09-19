@@ -2,6 +2,11 @@
 
 #include "formula.hpp"
 
+enum class RuleStatus {
+	Success,
+	Failure
+};
+
 class Goal {
 	public:
 		Goal(const std::vector<std::shared_ptr<Formula>>& a, const std::shared_ptr<Formula>& f)
