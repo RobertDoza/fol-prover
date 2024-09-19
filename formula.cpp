@@ -184,6 +184,7 @@ FormulaType True::type() const {
 }
 
 bool True::operator==(const True& other) const {
+	(void) other;
 	return true;
 }
 
@@ -196,6 +197,7 @@ FormulaType False::type() const {
 }
 
 bool False::operator==(const False& other) const {
+	(void) other;
 	return true;
 }
 
