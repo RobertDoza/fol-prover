@@ -34,6 +34,10 @@ class Goal {
 
 class GoalKeeper {
 	public:
+		GoalKeeper(const Goal& initial_goal)
+			:_goals({initial_goal})
+		{}
+		
 		std::string to_string() const;
 	private:
 		std::vector<Goal> _goals;

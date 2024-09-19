@@ -89,10 +89,13 @@ std::string GoalKeeper::to_string() const {
 	
 	auto size = _goals.size();
 	
-	s << "Goals to prove:" << size << "\n";
+	s << "Goals to prove: " << size << "\n";
 	
 	for (size_t i = 0; i < size; i++) {
-		s << (i + 1) << ". " << _goals[i].to_string() << "\n";
+		s << (i + 1) << ". " << _goals[i].to_string();
+		if (i < size - 1) {
+			s << "\n";
+		}
 	}
 	
 	return s.str();
