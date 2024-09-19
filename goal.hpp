@@ -32,3 +32,7 @@ class Goal {
 		bool _solved;
 };
 
+class GoalKeeper {
+	// TODO: implement
+};
+
