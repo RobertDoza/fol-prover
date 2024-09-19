@@ -33,6 +33,7 @@ class Goal {
 		void remove_assumption(unsigned index);
 		RuleStatus apply_assumption();
 		RuleStatus apply_rule_not_i();
+		RuleStatus apply_erule_not_e();
 		ConjIResult apply_rule_conj_i();
 		RuleStatus apply_erule_conj_e();
 		DisjEResult apply_erule_disj_e();

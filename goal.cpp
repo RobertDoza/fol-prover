@@ -74,6 +74,24 @@ RuleStatus Goal::apply_rule_not_i() {
 	return RuleStatus::Success;
 }
 
+RuleStatus Goal::apply_erule_not_e() {
+	for (size_t i = 0; i < _assumptions.size(); i++) {
+		if (_assumptions[i]->type() == FormulaType::Negation) {
+			auto negation = std::dynamic_pointer_cast<Negation>(_assumptions[i]);
+			
+			auto subformula = negation->get_subformula();
+			
+			remove_assumption(i);
+			
+			set_target(subformula);
+			
+			return RuleStatus::Success;
+		}
+	}
+	
+	return RuleStatus::Failure;
+}
+
 ConjIResult Goal::apply_rule_conj_i() {
 	if (_target_formula->type() != FormulaType::Conjunction) {
 		return {RuleStatus::Failure, NULL, NULL};
