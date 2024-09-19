@@ -166,7 +166,7 @@ RuleStatus Goal::apply_rule_imp_i() {
 	return RuleStatus::Success;
 }
 
-IffEResult Goal::apply_erule_iff_e() {
+RuleStatus Goal::apply_erule_iff_e() {
 	for (size_t i = 0; i < _assumptions.size(); i++) {
 		if (_assumptions[i]->type() == FormulaType::Equivalence) {
 			auto equivalence = std::dynamic_pointer_cast<Equivalence>(_assumptions[i]);
@@ -176,11 +176,17 @@ IffEResult Goal::apply_erule_iff_e() {
 			
 			remove_assumption(i);
 			
-			return {RuleStatus::Success, left, right};
+			auto left_to_right = std::make_shared<Implication>(left, right);
+			auto right_to_left = std::make_shared<Implication>(right, left);
+			
+			add_assumption(left_to_right);
+			add_assumption(right_to_left);
+			
+			return RuleStatus::Success;
 		}
 	}
 	
-	return {RuleStatus::Failure, NULL, NULL};
+	return RuleStatus::Failure;
 }
 
 std::string GoalKeeper::to_string() const {
@@ -301,6 +307,16 @@ void GoalKeeper::apply_rule_imp_i() {
 	// TODO: handle empty goal list
 
 	RuleStatus status = _goals[0].apply_rule_imp_i();
+	
+	if (status == RuleStatus::Failure) {
+		// TODO: handle failure
+	}
+}
+
+void GoalKeeper::apply_erule_iff_e() {
+	// TODO: handle empty goal list
+	
+	RuleStatus status = _goals[0].apply_erule_iff_e();
 	
 	if (status == RuleStatus::Failure) {
 		// TODO: handle failure
