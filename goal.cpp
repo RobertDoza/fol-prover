@@ -153,7 +153,10 @@ void GoalKeeper::apply_assumption() {
 	
 	if (status == RuleStatus::Failure) {
 		// TODO: handle failure
+		return;
 	}
+	
+	_goals.pop_front();
 }
 
 void GoalKeeper::apply_rule_imp_i() {
