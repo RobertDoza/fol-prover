@@ -132,6 +132,30 @@ RuleStatus Goal::apply_erule_conj_e() {
 	return RuleStatus::Failure;
 }
 
+RuleStatus Goal::apply_rule_disj_i_1() {
+	if (_target_formula->type() != FormulaType::Disjunction) {
+		return RuleStatus::Failure;
+	}
+	
+	auto target_disjunction = std::dynamic_pointer_cast<Disjunction>(_target_formula);
+	
+	_target_formula = target_disjunction->get_left_subformula();
+	
+	return RuleStatus::Success;
+}
+
+RuleStatus Goal::apply_rule_disj_i_2() {
+	if (_target_formula->type() != FormulaType::Disjunction) {
+		return RuleStatus::Failure;
+	}
+	
+	auto target_disjunction = std::dynamic_pointer_cast<Disjunction>(_target_formula);
+	
+	_target_formula = target_disjunction->get_right_subformula();
+	
+	return RuleStatus::Success;
+}
+
 DisjEResult Goal::apply_erule_disj_e() {
 	for (size_t i = 0; i < _assumptions.size(); i++) {
 		if (_assumptions[i]->type() == FormulaType::Disjunction) {

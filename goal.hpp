@@ -36,6 +36,8 @@ class Goal {
 		RuleStatus apply_erule_not_e();
 		ConjIResult apply_rule_conj_i();
 		RuleStatus apply_erule_conj_e();
+		RuleStatus apply_rule_disj_i_1();
+		RuleStatus apply_rule_disj_i_2();
 		DisjEResult apply_erule_disj_e();
 		RuleStatus apply_rule_imp_i();
 		RuleStatus apply_erule_iff_e();
