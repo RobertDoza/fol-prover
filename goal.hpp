@@ -20,6 +20,7 @@ class Goal {
 		{}		
 		
 		std::string to_string() const;
+		void set_target(const std::shared_ptr<Formula>& formula);
 		void apply_assumption();
 		void apply_rule_imp_i();
 		ConjIResult apply_rule_conj_i();

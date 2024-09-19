@@ -25,6 +25,10 @@ std::string Goal::to_string() const {
 	return s.str();
 }
 
+void Goal::set_target(const std::shared_ptr<Formula>& formula) {
+	_target_formula = formula;
+}
+
 void Goal::add_assumption(const std::shared_ptr<Formula>& formula) {
 	for (const auto& assumption : _assumptions) {
 		if (are_equal(assumption, formula)) {
@@ -64,7 +68,6 @@ void Goal::apply_rule_imp_i() {
 
 ConjIResult Goal::apply_rule_conj_i() {
 	if (_target_formula->type() != FormulaType::Conjunction) {
-		std::cerr << "!!!\n"; // TODO: handle failure
 		return {RuleStatus::Failure, NULL, NULL};
 	}
 	
@@ -72,15 +75,6 @@ ConjIResult Goal::apply_rule_conj_i() {
 	
 	auto left = target_conjunction->get_left_subformula();
 	auto right = target_conjunction->get_right_subformula();
-	
-	Goal new_goal_1 = *this;
-	Goal new_goal_2 = *this;
-	
-	new_goal_1._target_formula = left;
-	new_goal_2._target_formula = right;
-	
-	std::cout << new_goal_1.to_string() << std::endl;
-	std::cout << new_goal_2.to_string() << std::endl;
 	
 	return {RuleStatus::Success, left, right};
 }
