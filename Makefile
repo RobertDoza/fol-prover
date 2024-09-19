@@ -3,17 +3,19 @@ EXECUTABLE = test
 FORMULA = formula
 GOAL = goal
 
+CPPFLAGS = -g
+
 $(EXECUTABLE): $(MAIN).o $(FORMULA).o $(GOAL).o
-	g++ $^ -o $@
+	g++ $(CPPFLAGS) $^ -o $@
 
 $(MAIN).o: $(MAIN).cpp
-	g++ -c $< -o $@
+	g++ $(CPPFLAGS) -c $< -o $@
 
 $(FORMULA).o: $(FORMULA).cpp $(FORMULA).hpp
-	g++ -c $< -o $@
+	g++ $(CPPFLAGS) -c $< -o $@
 
 $(GOAL).o: $(GOAL).cpp $(GOAL).hpp
-	g++ -c $< -o $@
+	g++ $(CPPFLAGS) -c $< -o $@
 
 .PHONY: clean
 
