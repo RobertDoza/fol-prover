@@ -33,7 +33,7 @@ class Goal {
 		RuleStatus apply_assumption();
 		RuleStatus apply_rule_imp_i();
 		ConjIResult apply_rule_conj_i();
-		ConjIResult apply_erule_disj_e();
+		DisjEResult apply_erule_disj_e();
 	private:
 		std::vector<std::shared_ptr<Formula>> _assumptions;
 		std::shared_ptr<Formula> _target_formula;

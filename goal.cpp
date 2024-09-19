@@ -80,6 +80,27 @@ ConjIResult Goal::apply_rule_conj_i() {
 	return {RuleStatus::Success, left, right};
 }
 
+DisjEResult Goal::apply_erule_disj_e() {
+	bool found_disjunction = false;
+	
+	for (size_t i = 0; i < _assumptions.size(); i++) {
+		if (_assumptions[i]->type() == FormulaType::Disjunction) {
+			found_disjunction = true;
+			
+			// TODO
+			
+			break;
+		}
+	}
+	
+	if (not found_disjunction) {
+		return {RuleStatus::Failure, NULL, NULL};
+	}
+	
+	// TODO: return value
+	return {RuleStatus::Success, NULL, NULL};
+}
+
 std::string GoalKeeper::to_string() const {
 	if (_goals.empty()) {
 		return "No goals!";
