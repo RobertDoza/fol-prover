@@ -383,6 +383,34 @@ void GoalKeeper::apply_rule_imp_i() {
 	}
 }
 
+void GoalKeeper::apply_erule_imp_e() {
+	// TODO: handle empty goal list
+	
+	ImpEResult result = _goals[0].apply_erule_imp_e();
+	
+	RuleStatus status = result.status;
+	
+	if (status == RuleStatus::Failure) {
+		// TODO: handle failure
+		return;
+	}
+	
+	auto left_subformula = result.left_subformula;
+	auto right_subformula = result.right_subformula;
+	
+	Goal new_goal_1 = _goals[0];
+	Goal new_goal_2 = _goals[0];
+	
+	new_goal_1.set_target(left_subformula);
+	
+	new_goal_2.add_assumption(right_subformula);
+	
+	_goals.pop_front();
+	
+	_goals.push_front(new_goal_2);
+	_goals.push_front(new_goal_1);
+}
+
 #include <iostream> // TODO: remove me
 
 void GoalKeeper::apply_rule_iff_i() {
