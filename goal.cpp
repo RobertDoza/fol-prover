@@ -7,19 +7,26 @@ std::string Goal::to_string() const {
 
 	std::stringstream s;
 	
-	s << "[";
+	size_t num_assumptions = _assumptions.size();
 	
-	for (size_t i = 0; i < _assumptions.size(); i++) {
-		s << *_assumptions[i];
-		if (i < _assumptions.size() - 1) {
-			s << ", ";
-		}
+	if (num_assumptions == 0) {
+		return _target_formula->to_string();
 	}
 	
-	s << "]";
+	if (num_assumptions == 1) {
+		s << *_assumptions[0];
+	} else {
+		s << "[";
+		for (size_t i = 0; i < num_assumptions; i++) {
+			s << *_assumptions[i];
+			if (i < num_assumptions - 1) {
+				s << ", ";
+			}
+		}
+		s << "]";
+	}
 	
 	s << " ⊢  ";
-	
 	s << *_target_formula;
 	
 	return s.str();
