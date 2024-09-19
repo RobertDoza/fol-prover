@@ -146,6 +146,16 @@ std::string GoalKeeper::to_string() const {
 	return s.str();
 }
 
+void GoalKeeper::apply_assumption() {
+	// TODO: handle empty goal list
+
+	RuleStatus status = _goals[0].apply_assumption();
+	
+	if (status == RuleStatus::Failure) {
+		// TODO: handle failure
+	}
+}
+
 void GoalKeeper::apply_rule_imp_i() {
 	// TODO: handle empty goal list
 
