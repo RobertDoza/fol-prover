@@ -89,24 +89,20 @@ ConjIResult Goal::apply_rule_conj_i() {
 }
 
 DisjEResult Goal::apply_erule_disj_e() {
-	bool found_disjunction = false;
-	
 	for (size_t i = 0; i < _assumptions.size(); i++) {
 		if (_assumptions[i]->type() == FormulaType::Disjunction) {
-			found_disjunction = true;
+			auto disjunction = std::dynamic_pointer_cast<Disjunction>(_assumptions[i]);
 			
-			// TODO
+			auto left = disjunction->get_left_subformula();
+			auto right = disjunction->get_right_subformula();
 			
-			break;
+			remove_assumption(i);
+			
+			return {RuleStatus::Success, NULL, NULL};
 		}
 	}
 	
-	if (not found_disjunction) {
-		return {RuleStatus::Failure, NULL, NULL};
-	}
-	
-	// TODO: return value
-	return {RuleStatus::Success, NULL, NULL};
+	return {RuleStatus::Failure, NULL, NULL};
 }
 
 std::string GoalKeeper::to_string() const {
