@@ -32,10 +32,11 @@ class Goal {
 		void add_assumption(const std::shared_ptr<Formula>& formula);
 		void remove_assumption(unsigned index);
 		RuleStatus apply_assumption();
-		RuleStatus apply_rule_imp_i();
+		RuleStatus apply_rule_not_i();
 		ConjIResult apply_rule_conj_i();
 		RuleStatus apply_erule_conj_e();
 		DisjEResult apply_erule_disj_e();
+		RuleStatus apply_rule_imp_i();
 	private:
 		std::deque<std::shared_ptr<Formula>> _assumptions;
 		std::shared_ptr<Formula> _target_formula;

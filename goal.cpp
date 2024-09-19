@@ -58,19 +58,20 @@ RuleStatus Goal::apply_assumption() {
 	return RuleStatus::Failure;
 }
 
-RuleStatus Goal::apply_rule_imp_i() {
-	if (_target_formula->type() != FormulaType::Implication) {
+RuleStatus Goal::apply_rule_not_i() {
+	if (_target_formula->type() != FormulaType::Negation) {
 		return RuleStatus::Failure;
 	}
 	
-	auto target_implication = std::dynamic_pointer_cast<Implication>(_target_formula);
+	auto target_negation = std::dynamic_pointer_cast<Negation>(_target_formula);
 	
-	auto left = target_implication->get_left_subformula();
-	auto right = target_implication->get_right_subformula();
+	/* TODO
+	auto subformula = target_negation->get_subformula();
 	
-	_target_formula = right;
+	_target_formula = subformula;
 	
-	add_assumption(left);
+	add_assumption(subformula);
+	*/
 	
 	return RuleStatus::Success;
 }
@@ -123,6 +124,23 @@ DisjEResult Goal::apply_erule_disj_e() {
 	}
 	
 	return {RuleStatus::Failure, NULL, NULL};
+}
+
+RuleStatus Goal::apply_rule_imp_i() {
+	if (_target_formula->type() != FormulaType::Implication) {
+		return RuleStatus::Failure;
+	}
+	
+	auto target_implication = std::dynamic_pointer_cast<Implication>(_target_formula);
+	
+	auto left = target_implication->get_left_subformula();
+	auto right = target_implication->get_right_subformula();
+	
+	_target_formula = right;
+	
+	add_assumption(left);
+	
+	return RuleStatus::Success;
 }
 
 std::string GoalKeeper::to_string() const {
