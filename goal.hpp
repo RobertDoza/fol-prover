@@ -23,7 +23,7 @@ struct DisjEResult {
 
 class Goal {
 	public:
-		Goal(const std::vector<std::shared_ptr<Formula>>& a, const std::shared_ptr<Formula>& f)
+		Goal(const std::deque<std::shared_ptr<Formula>>& a, const std::shared_ptr<Formula>& f)
 			:_assumptions(a), _target_formula(f), _solved(false)
 		{}		
 		
@@ -35,7 +35,7 @@ class Goal {
 		ConjIResult apply_rule_conj_i();
 		DisjEResult apply_erule_disj_e();
 	private:
-		std::vector<std::shared_ptr<Formula>> _assumptions;
+		std::deque<std::shared_ptr<Formula>> _assumptions;
 		std::shared_ptr<Formula> _target_formula;
 		bool _solved;
 };
