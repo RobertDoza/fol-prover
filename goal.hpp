@@ -21,6 +21,12 @@ struct DisjEResult {
 	std::shared_ptr<Formula> new_assumption_2;
 };
 
+struct IffIResult {
+	RuleStatus status;
+	std::shared_ptr<Formula> left_subformula;
+	std::shared_ptr<Formula> right_subformula;
+};
+
 class Goal {
 	public:
 		Goal(const std::deque<std::shared_ptr<Formula>>& a, const std::shared_ptr<Formula>& f)
@@ -40,6 +46,7 @@ class Goal {
 		RuleStatus apply_rule_disj_i_2();
 		DisjEResult apply_erule_disj_e();
 		RuleStatus apply_rule_imp_i();
+		IffIResult apply_rule_iff_i();
 		RuleStatus apply_erule_iff_e();
 	private:
 		std::deque<std::shared_ptr<Formula>> _assumptions;
