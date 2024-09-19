@@ -7,6 +7,12 @@ enum class RuleStatus {
 	Failure
 };
 
+struct ConjIResult {
+	RuleStatus status;
+	std::shared_ptr<Formula> new_target_1;
+	std::shared_ptr<Formula> new_target_2;
+};
+
 class Goal {
 	public:
 		Goal(const std::vector<std::shared_ptr<Formula>>& a, const std::shared_ptr<Formula>& f)
