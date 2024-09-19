@@ -37,12 +37,6 @@ void Goal::set_target(const std::shared_ptr<Formula>& formula) {
 }
 
 void Goal::add_assumption(const std::shared_ptr<Formula>& formula) {
-	for (const auto& assumption : _assumptions) {
-		if (are_equal(assumption, formula)) {
-			return;
-		}
-	}
-
 	_assumptions.push_back(formula);
 }
 
