@@ -15,6 +15,12 @@ struct ConjIResult {
 	std::shared_ptr<Formula> new_target_2;
 };
 
+struct DisjEResult {
+	RuleStatus status;
+	std::shared_ptr<Formula> new_assumption_1;
+	std::shared_ptr<Formula> new_assumption_2;
+};
+
 class Goal {
 	public:
 		Goal(const std::vector<std::shared_ptr<Formula>>& a, const std::shared_ptr<Formula>& f)
@@ -26,6 +32,7 @@ class Goal {
 		RuleStatus apply_assumption();
 		RuleStatus apply_rule_imp_i();
 		ConjIResult apply_rule_conj_i();
+		ConjIResult apply_erule_disj_e();
 	private:
 		void add_assumption(const std::shared_ptr<Formula>& formula);
 	private:
