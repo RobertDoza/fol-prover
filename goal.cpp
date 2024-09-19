@@ -411,8 +411,6 @@ void GoalKeeper::apply_erule_imp_e() {
 	_goals.push_front(new_goal_1);
 }
 
-#include <iostream> // TODO: remove me
-
 void GoalKeeper::apply_rule_iff_i() {
 	// TODO: handle empty goal list
 	
@@ -422,7 +420,6 @@ void GoalKeeper::apply_rule_iff_i() {
 	
 	if (status == RuleStatus::Failure) {
 		// TODO: handle failure
-		std::cerr << "!!\n"; // TODO: remove me
 		return;
 	}
 	
