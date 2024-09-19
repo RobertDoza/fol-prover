@@ -203,6 +203,16 @@ void GoalKeeper::apply_rule_not_i() {
 	}
 }
 
+void GoalKeeper::apply_erule_not_e() {
+	// TODO: handle empty goal list
+
+	RuleStatus status = _goals[0].apply_erule_not_e();
+	
+	if (status == RuleStatus::Failure) {
+		// TODO: handle failure
+	}
+}
+
 void GoalKeeper::apply_rule_conj_i() {
 	ConjIResult result = _goals[0].apply_rule_conj_i();
 	
