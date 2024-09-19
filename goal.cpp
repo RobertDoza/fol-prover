@@ -39,6 +39,14 @@ void Goal::add_assumption(const std::shared_ptr<Formula>& formula) {
 	_assumptions.push_back(formula);
 }
 
+void Goal::remove_assumption(unsigned index) {
+	if (index < _assumptions.size()) {
+		_assumptions.erase(_assumptions.begin() + index);
+	} else {
+		throw std::runtime_error("Index out of bounds!");
+	}
+}
+
 RuleStatus Goal::apply_assumption() {
 	for (const auto& assumption : _assumptions) {
 		if (are_equal(assumption, _target_formula)) {

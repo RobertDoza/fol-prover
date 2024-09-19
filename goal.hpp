@@ -30,6 +30,7 @@ class Goal {
 		std::string to_string() const;
 		void set_target(const std::shared_ptr<Formula>& formula);
 		void add_assumption(const std::shared_ptr<Formula>& formula);
+		void remove_assumption(unsigned index);
 		RuleStatus apply_assumption();
 		RuleStatus apply_rule_imp_i();
 		ConjIResult apply_rule_conj_i();
