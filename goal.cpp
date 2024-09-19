@@ -111,3 +111,29 @@ void GoalKeeper::apply_rule_imp_i() {
 	}
 }
 
+void GoalKeeper::apply_rule_conj_i() {
+	ConjIResult result = _goals[0].apply_rule_conj_i();
+	
+	RuleStatus status = result.status;
+	
+	if (status == RuleStatus::Failure) {
+		// TODO: handle failure
+		return;
+	}
+	
+	auto target_1 = result.new_target_1;
+	auto target_2 = result.new_target_2;
+	
+	Goal new_goal_1 = _goals[0];
+	Goal new_goal_2 = _goals[0];
+	
+	new_goal_1.set_target(target_1);
+	new_goal_2.set_target(target_2);
+	
+	// TODO: add to front instead
+	_goals.push_back(new_goal_1);
+	_goals.push_back(new_goal_2);
+	
+	// TODO: remove starting goal from front
+}
+
