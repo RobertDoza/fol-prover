@@ -191,20 +191,16 @@ RuleStatus Goal::apply_rule_imp_i() {
 }
 
 IffIResult Goal::apply_rule_iff_i() {
-	for (size_t i = 0; i < _assumptions.size(); i++) {
-		if (_assumptions[i]->type() == FormulaType::Equivalence) {
-			auto equivalence = std::dynamic_pointer_cast<Equivalence>(_assumptions[i]);
-			
-			auto left = equivalence->get_left_subformula();
-			auto right = equivalence->get_right_subformula();
-			
-			remove_assumption(i);
-			
-			return {RuleStatus::Success, left, right};
-		}
+	if (_target_formula->type() != FormulaType::Equivalence) {
+		return {RuleStatus::Failure, NULL, NULL};
 	}
 	
-	return {RuleStatus::Failure, NULL, NULL};
+	auto target_equivalence = std::dynamic_pointer_cast<Equivalence>(_target_formula);
+	
+	auto left = target_equivalence->get_left_subformula();
+	auto right = target_equivalence->get_right_subformula();
+	
+	return {RuleStatus::Success, left, right};
 }
 
 RuleStatus Goal::apply_erule_iff_e() {
@@ -340,6 +336,8 @@ void GoalKeeper::apply_rule_disj_i_2() {
 }
 
 void GoalKeeper::apply_erule_disj_e() {
+	// TODO: handle empty goal list
+	
 	DisjEResult result = _goals[0].apply_erule_disj_e();
 	
 	RuleStatus status = result.status;
@@ -372,6 +370,39 @@ void GoalKeeper::apply_rule_imp_i() {
 	if (status == RuleStatus::Failure) {
 		// TODO: handle failure
 	}
+}
+
+#include <iostream> // TODO: remove me
+
+void GoalKeeper::apply_rule_iff_i() {
+	// TODO: handle empty goal list
+	
+	IffIResult result = _goals[0].apply_rule_iff_i();
+	
+	RuleStatus status = result.status;
+	
+	if (status == RuleStatus::Failure) {
+		// TODO: handle failure
+		std::cerr << "!!\n"; // TODO: remove me
+		return;
+	}
+	
+	auto left_subformula = result.left_subformula;
+	auto right_subformula = result.right_subformula;
+	
+	Goal new_goal_1 = _goals[0];
+	Goal new_goal_2 = _goals[0];
+	
+	new_goal_1.add_assumption(left_subformula);
+	new_goal_1.set_target(right_subformula);
+	
+	new_goal_2.add_assumption(right_subformula);
+	new_goal_2.set_target(left_subformula);
+	
+	_goals.pop_front();
+	
+	_goals.push_front(new_goal_2);
+	_goals.push_front(new_goal_1);
 }
 
 void GoalKeeper::apply_erule_iff_e() {
