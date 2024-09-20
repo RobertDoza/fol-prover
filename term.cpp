@@ -55,8 +55,7 @@ std::shared_ptr<Term> Variable::replace(const std::string& var_name, const std::
 	if (_name == var_name) {
 		return term;
 	} else {
-		Variable v = *this;
-		return std::make_shared<Variable>(v);
+		return std::make_shared<Variable>(*this);
 	}
 }
 
@@ -77,9 +76,9 @@ std::set<std::string> Constant::get_variable_names() const {
 }
 
 std::shared_ptr<Term> Constant::replace(const std::string& var_name, const std::shared_ptr<Term>& term) const {
-	// TODO: implement
 	(void) var_name;
-	return term;
+	(void) term;
+	return std::make_shared<Constant>(*this);
 }
 
 std::string ComplexTerm::to_string() const {
@@ -135,8 +134,12 @@ std::set<std::string> ComplexTerm::get_variable_names() const {
 }
 
 std::shared_ptr<Term> ComplexTerm::replace(const std::string& var_name, const std::shared_ptr<Term>& term) const {
-	// TODO: implement
-	(void) var_name;
-	return term;
+	std::vector<std::shared_ptr<Term>> new_subterms = {};
+	
+	for (const auto& t : _subterms) {
+		new_subterms.push_back(t->replace(var_name, term));
+	}
+	
+	return std::make_shared<ComplexTerm>(_function_symbol, new_subterms);
 }
 
