@@ -27,6 +27,8 @@ class Formula {
 		virtual std::string to_string() const = 0;
 		virtual bool requires_parentheses() const = 0;
 		virtual FormulaType type() const = 0;
+		// TODO: implement
+		// virtual std::set<std::string> get_free_variable_names const = 0;
 };
 
 bool are_equal(const std::shared_ptr<Formula>& f1, const std::shared_ptr<Formula>& f2);
@@ -35,11 +37,16 @@ std::ostream& operator<<(std::ostream& out, const Formula& formula);
 
 // Atomic Formula
 class AtomicFormula : public Formula {
+	public:
+		virtual std::set<std::string> get_variable_names() const = 0;
 	protected:
 		bool requires_parentheses() const override;
 };
 
-class LogicalConstant : public AtomicFormula {};
+class LogicalConstant : public AtomicFormula {
+	public:
+		std::set<std::string> get_variable_names() const override;
+};
 
 class True : public LogicalConstant {
 	public:
@@ -73,6 +80,7 @@ class SimpleAtom : public Atom {
 		std::string to_string() const override;
 		FormulaType type() const override;
 		bool operator==(const SimpleAtom& other) const;
+		std::set<std::string> get_variable_names() const override;
 };
 
 class ComplexAtom : public Atom {
@@ -84,6 +92,7 @@ class ComplexAtom : public Atom {
 		std::string to_string() const override;
 		FormulaType type() const override;
 		bool operator==(const ComplexAtom& other) const;
+		std::set<std::string> get_variable_names() const override;
 	private:
 		std::vector<std::shared_ptr<Term>> _terms;
 };
