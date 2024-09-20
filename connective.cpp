@@ -16,6 +16,10 @@ std::shared_ptr<Formula> UnaryConnective::get_subformula() const {
 	return _subformula;
 }
 
+std::set<std::string> UnaryConnective::get_variable_names() const {
+	return _subformula->get_variable_names();
+}
+
 std::set<std::string> UnaryConnective::get_free_variable_names() const {
 	return _subformula->get_free_variable_names();
 }
@@ -45,6 +49,15 @@ std::shared_ptr<Formula> BinaryConnective::get_left_subformula() const {
 
 std::shared_ptr<Formula> BinaryConnective::get_right_subformula() const {
 	return _right_subformula;
+}
+
+std::set<std::string> BinaryConnective::get_variable_names() const {
+	auto vars_left = _left_subformula->get_variable_names();
+	auto vars_right = _right_subformula->get_variable_names();
+	
+	vars_left.insert(vars_right.begin(), vars_right.end());
+	
+	return vars_left;
 }
 
 std::set<std::string> BinaryConnective::get_free_variable_names() const {

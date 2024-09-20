@@ -87,6 +87,14 @@ std::string Quantifier::to_string() const {
 	return symbol() + _variable_name + ". " + sub;
 }
 
+std::set<std::string> Quantifier::get_variable_names() const {
+	auto sub_vars = _subformula->get_variable_names();
+	
+	sub_vars.insert(_variable_name);
+	
+	return sub_vars;
+}
+
 std::set<std::string> Quantifier::get_free_variable_names() const {
 	auto sub_vars = _subformula->get_free_variable_names();
 	
