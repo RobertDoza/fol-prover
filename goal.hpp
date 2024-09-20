@@ -55,6 +55,10 @@ class Goal {
 		ImpEResult apply_erule_imp_e();
 		IffIResult apply_rule_iff_i();
 		RuleStatus apply_erule_iff_e();
+		RuleStatus apply_rule_all_i();
+		RuleStatus apply_erule_all_e();
+		RuleStatus apply_rule_ex_i();
+		RuleStatus apply_erule_ex_e();
 	private:
 		std::deque<std::shared_ptr<Formula>> _assumptions;
 		std::shared_ptr<Formula> _target_formula;
