@@ -1,3 +1,7 @@
+#include <sstream>
+
+#include "term.hpp"
+
 bool are_equal(const std::shared_ptr<Term>& t1, const std::shared_ptr<Term>& t2) {
 	TermType type = t1->type();
 

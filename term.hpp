@@ -1,5 +1,9 @@
 #pragma once
 
+#include <string>
+#include <memory>
+#include <vector>
+
 enum class TermType {
 	Variable,
 	Constant,
