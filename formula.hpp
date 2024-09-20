@@ -27,6 +27,7 @@ class Formula {
 		virtual std::string to_string() const = 0;
 		virtual bool requires_parentheses() const = 0;
 		virtual FormulaType type() const = 0;
+		virtual std::set<std::string> get_variable_names() const = 0;
 		virtual std::set<std::string> get_free_variable_names() const = 0;
 		virtual std::shared_ptr<Formula> rename_var(const std::string& old_name, const std::string& new_name) const = 0;
 };
@@ -43,6 +44,7 @@ class Quantifier : public Formula {
 		{}
 		
 		std::string to_string() const override;
+		std::set<std::string> get_variable_names() const override;
 		std::set<std::string> get_free_variable_names() const override;
 		virtual std::shared_ptr<Quantifier> alpha_convert(const std::string& new_var_name) = 0;
 	protected:

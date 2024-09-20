@@ -16,6 +16,7 @@ class UnaryConnective : public LogicalConnective {
 		
 		std::string to_string() const override;
 		std::shared_ptr<Formula> get_subformula() const;
+		std::set<std::string> get_variable_names() const override;
 		std::set<std::string> get_free_variable_names() const override;
 	protected:
 		std::shared_ptr<Formula> _subformula;
@@ -43,6 +44,7 @@ class BinaryConnective : public LogicalConnective {
 		std::string to_string() const override;
 		std::shared_ptr<Formula> get_left_subformula() const;
 		std::shared_ptr<Formula> get_right_subformula() const;
+		std::set<std::string> get_variable_names() const override;
 		std::set<std::string> get_free_variable_names() const override;
 	protected:
 		std::shared_ptr<Formula> _left_subformula;
