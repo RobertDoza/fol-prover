@@ -17,6 +17,7 @@ class Term {
 		virtual TermType type() const = 0;
 		virtual std::set<std::string> get_variable_names() const = 0;
 		virtual std::shared_ptr<Term> replace(const std::string& var_name, const std::shared_ptr<Term>& term) const = 0;
+		virtual std::shared_ptr<Term> rename_var(const std::string& old_name, const std::string& new_name) = 0;
 };
 
 bool are_equal(const std::shared_ptr<Term>& t1, const std::shared_ptr<Term>& t2);
@@ -34,6 +35,7 @@ class Variable : public Term {
 		bool operator==(const Variable& other) const;
 		std::set<std::string> get_variable_names() const override;
 		std::shared_ptr<Term> replace(const std::string& var_name, const std::shared_ptr<Term>& term) const override;
+		std::shared_ptr<Term> rename_var(const std::string& old_name, const std::string& new_name) override;
 	private:
 		std::string _name;
 };
@@ -49,6 +51,7 @@ class Constant : public Term {
 		bool operator==(const Constant& other) const;
 		std::set<std::string> get_variable_names() const override;
 		std::shared_ptr<Term> replace(const std::string& var_name, const std::shared_ptr<Term>& term) const override;
+		std::shared_ptr<Term> rename_var(const std::string& old_name, const std::string& new_name) override;
 	private:
 		std::string _name;
 };
@@ -64,6 +67,7 @@ class ComplexTerm : public Term {
 		bool operator==(const ComplexTerm& other) const;
 		std::set<std::string> get_variable_names() const override;
 		std::shared_ptr<Term> replace(const std::string& var_name, const std::shared_ptr<Term>& term) const override;
+		std::shared_ptr<Term> rename_var(const std::string& old_name, const std::string& new_name) override;
 	private:
 		std::string _function_symbol;
 		std::vector<std::shared_ptr<Term>> _subterms;

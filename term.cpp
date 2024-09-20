@@ -59,6 +59,17 @@ std::shared_ptr<Term> Variable::replace(const std::string& var_name, const std::
 	}
 }
 
+std::shared_ptr<Term> Variable::rename_var(const std::string& old_name, const std::string& new_name) {
+	auto var = std::make_shared<Variable>(*this);
+	
+	if (_name == old_name) {
+		var->_name = new_name;
+		return var;
+	}
+	
+	return var;
+}
+
 std::string Constant::to_string() const {
 	return _name;
 }
@@ -78,6 +89,12 @@ std::set<std::string> Constant::get_variable_names() const {
 std::shared_ptr<Term> Constant::replace(const std::string& var_name, const std::shared_ptr<Term>& term) const {
 	(void) var_name;
 	(void) term;
+	return std::make_shared<Constant>(*this);
+}
+
+std::shared_ptr<Term> Constant::rename_var(const std::string& old_name, const std::string& new_name) {
+	(void) old_name;
+	(void) new_name;
 	return std::make_shared<Constant>(*this);
 }
 
@@ -138,6 +155,16 @@ std::shared_ptr<Term> ComplexTerm::replace(const std::string& var_name, const st
 	
 	for (const auto& t : _subterms) {
 		new_subterms.push_back(t->replace(var_name, term));
+	}
+	
+	return std::make_shared<ComplexTerm>(_function_symbol, new_subterms);
+}
+
+std::shared_ptr<Term> ComplexTerm::rename_var(const std::string& old_name, const std::string& new_name) {
+	std::vector<std::shared_ptr<Term>> new_subterms = {};
+	
+	for (const auto& t : _subterms) {
+		new_subterms.push_back(t->rename_var(old_name, new_name));
 	}
 	
 	return std::make_shared<ComplexTerm>(_function_symbol, new_subterms);
