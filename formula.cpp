@@ -77,6 +77,10 @@ bool AtomicFormula::requires_parentheses() const {
 	return false;
 }
 
+std::set<std::string> LogicalConstant::get_variable_names() const {
+	return {};
+}
+
 std::string True::to_string() const {
 	return "⊤ ";
 }
@@ -113,6 +117,10 @@ FormulaType SimpleAtom::type() const {
 
 bool SimpleAtom::operator==(const SimpleAtom& other) const {
 	return this->_predicate_symbol == other._predicate_symbol;
+}
+
+std::set<std::string> SimpleAtom::get_variable_names() const {
+	return {};
 }
 
 std::string ComplexAtom::to_string() const {
@@ -154,6 +162,17 @@ bool ComplexAtom::operator==(const ComplexAtom& other) const {
 
 FormulaType ComplexAtom::type() const {
 	return FormulaType::ComplexAtom;
+}
+
+std::set<std::string> ComplexAtom::get_variable_names() const {
+	std::set<std::string> variable_names = {};
+
+	for (const auto& t : _terms) {
+		auto sub_vars = t->get_variable_names();
+		variable_names.insert(sub_vars.begin(), sub_vars.end());
+	}
+	
+	return variable_names;
 }
 
 bool LogicalConnective::requires_parentheses() const {
