@@ -385,6 +385,11 @@ bool ForAll::operator==(const ForAll& other) const {
 	return this->_variable_name == other._variable_name and are_equal(this->_subformula, other._subformula);
 }
 
+void ForAll::alpha_convert(const std::string& new_var_name) {
+	// TODO: implement properly
+	_variable_name = new_var_name;
+}
+
 std::string Exists::symbol() const {
 	return "∃ ";
 }
@@ -395,5 +400,10 @@ FormulaType Exists::type() const {
 
 bool Exists::operator==(const Exists& other) const {
 	return this->_variable_name == other._variable_name and are_equal(this->_subformula, other._subformula);
+}
+
+void Exists::alpha_convert(const std::string& new_var_name) {
+	// TODO: implement properly
+	_variable_name = new_var_name;
 }
 

@@ -244,6 +244,8 @@ class Quantifier : public Formula {
 		{}
 		
 		std::string to_string() const override;
+		
+		virtual void alpha_convert(const std::string& new_var_name) = 0;
 	protected:
 		virtual std::string symbol() const = 0;
 		bool requires_parentheses() const override;
@@ -260,6 +262,7 @@ class ForAll : public Quantifier {
 		
 		FormulaType type() const override;
 		bool operator==(const ForAll& other) const;
+		void alpha_convert(const std::string& new_var_name) override;
 	private:
 		std::string symbol() const override;
 };
@@ -272,6 +275,7 @@ class Exists : public Quantifier {
 		
 		FormulaType type() const override;
 		bool operator==(const Exists& other) const;
+		void alpha_convert(const std::string& new_var_name) override;
 	private:
 		std::string symbol() const override;
 };
