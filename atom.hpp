@@ -20,6 +20,7 @@ class True : public LogicalConstant {
 		std::string to_string() const override;
 		FormulaType type() const override;
 		bool operator==(const True& other) const;
+		std::shared_ptr<Formula> rename_var(const std::string& old_name, const std::string& new_name) const override;
 };
 
 class False : public LogicalConstant {
@@ -27,6 +28,7 @@ class False : public LogicalConstant {
 		std::string to_string() const override;
 		FormulaType type() const override;
 		bool operator==(const False& other) const;
+		std::shared_ptr<Formula> rename_var(const std::string& old_name, const std::string& new_name) const override;
 };
 
 class Atom : public AtomicFormula {
@@ -48,6 +50,7 @@ class SimpleAtom : public Atom {
 		FormulaType type() const override;
 		bool operator==(const SimpleAtom& other) const;
 		std::set<std::string> get_variable_names() const override;
+		std::shared_ptr<Formula> rename_var(const std::string& old_name, const std::string& new_name) const override;
 };
 
 class ComplexAtom : public Atom {
@@ -60,6 +63,7 @@ class ComplexAtom : public Atom {
 		FormulaType type() const override;
 		bool operator==(const ComplexAtom& other) const;
 		std::set<std::string> get_variable_names() const override;
+		std::shared_ptr<Formula> rename_var(const std::string& old_name, const std::string& new_name) const override;
 	private:
 		std::vector<std::shared_ptr<Term>> _terms;
 };

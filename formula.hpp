@@ -28,6 +28,7 @@ class Formula {
 		virtual bool requires_parentheses() const = 0;
 		virtual FormulaType type() const = 0;
 		virtual std::set<std::string> get_free_variable_names() const = 0;
+		virtual std::shared_ptr<Formula> rename_var(const std::string& old_name, const std::string& new_name) const = 0;
 };
 
 bool are_equal(const std::shared_ptr<Formula>& f1, const std::shared_ptr<Formula>& f2);
@@ -62,6 +63,7 @@ class Negation : public UnaryConnective {
 		
 		FormulaType type() const override;
 		bool operator==(const Negation& other) const;
+		std::shared_ptr<Formula> rename_var(const std::string& old_name, const std::string& new_name) const override;
 	private:
 		std::string symbol() const override;
 };
@@ -89,6 +91,7 @@ class Conjunction : public BinaryConnective {
 		
 		FormulaType type() const override;
 		bool operator==(const Conjunction& other) const;
+		std::shared_ptr<Formula> rename_var(const std::string& old_name, const std::string& new_name) const override;
 	private:
 		std::string symbol() const override;
 };
@@ -101,6 +104,7 @@ class Disjunction : public BinaryConnective {
 		
 		FormulaType type() const override;
 		bool operator==(const Disjunction& other) const;
+		std::shared_ptr<Formula> rename_var(const std::string& old_name, const std::string& new_name) const override;
 	private:
 		std::string symbol() const override;
 };
@@ -113,6 +117,7 @@ class Implication : public BinaryConnective {
 		
 		FormulaType type() const override;
 		bool operator==(const Implication& other) const;
+		std::shared_ptr<Formula> rename_var(const std::string& old_name, const std::string& new_name) const override;
 	private:
 		std::string symbol() const override;
 };
@@ -125,6 +130,7 @@ class Equivalence : public BinaryConnective {
 		
 		FormulaType type() const override;
 		bool operator==(const Equivalence& other) const;
+		std::shared_ptr<Formula> rename_var(const std::string& old_name, const std::string& new_name) const override;
 	private:
 		std::string symbol() const override;
 };
@@ -155,6 +161,7 @@ class ForAll : public Quantifier {
 		
 		FormulaType type() const override;
 		bool operator==(const ForAll& other) const;
+		std::shared_ptr<Formula> rename_var(const std::string& old_name, const std::string& new_name) const override;
 		void alpha_convert(const std::string& new_var_name) override;
 	private:
 		std::string symbol() const override;
@@ -168,6 +175,7 @@ class Exists : public Quantifier {
 		
 		FormulaType type() const override;
 		bool operator==(const Exists& other) const;
+		std::shared_ptr<Formula> rename_var(const std::string& old_name, const std::string& new_name) const override;
 		void alpha_convert(const std::string& new_var_name) override;
 	private:
 		std::string symbol() const override;
