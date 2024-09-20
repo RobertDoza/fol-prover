@@ -73,6 +73,10 @@ std::ostream& operator<<(std::ostream& out, const Formula& formula) {
 	return out;
 }
 
+std::set<std::string> AtomicFormula::get_free_variable_names() const {
+	return get_variable_names();
+}
+
 bool AtomicFormula::requires_parentheses() const {
 	return false;
 }
@@ -191,6 +195,10 @@ std::shared_ptr<Formula> UnaryConnective::get_subformula() const {
 	return _subformula;
 }
 
+std::set<std::string> UnaryConnective::get_free_variable_names() const {
+	return _subformula->get_free_variable_names();
+}
+
 std::string BinaryConnective::to_string() const {
 	std::string left;
 	std::string right;
@@ -216,6 +224,15 @@ std::shared_ptr<Formula> BinaryConnective::get_left_subformula() const {
 
 std::shared_ptr<Formula> BinaryConnective::get_right_subformula() const {
 	return _right_subformula;
+}
+
+std::set<std::string> BinaryConnective::get_free_variable_names() const {
+	auto free_vars_left = _left_subformula->get_free_variable_names();
+	auto free_vars_right = _right_subformula->get_free_variable_names();
+	
+	free_vars_left.insert(free_vars_right.begin(), free_vars_right.end());
+	
+	return free_vars_left;
 }
 
 std::string Negation::symbol() const {
@@ -288,6 +305,14 @@ std::string Quantifier::to_string() const {
 	}
 	
 	return symbol() + _variable_name + ". " + sub;
+}
+
+std::set<std::string> Quantifier::get_free_variable_names() const {
+	auto sub_vars = _subformula->get_free_variable_names();
+	
+	sub_vars.erase(_variable_name);
+	
+	return sub_vars;
 }
 
 bool Quantifier::requires_parentheses() const {
