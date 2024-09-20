@@ -3,16 +3,20 @@ EXECUTABLE = test
 FORMULA = formula
 TERM = term
 GOAL = goal
+ATOM = atom
 
 CPPFLAGS = -g -Wall -Wextra -Werror -pedantic
 
-$(EXECUTABLE): $(MAIN).o $(FORMULA).o $(GOAL).o $(TERM).o
+$(EXECUTABLE): $(MAIN).o $(FORMULA).o $(ATOM).o $(GOAL).o $(TERM).o
 	g++ $(CPPFLAGS) $^ -o $@
 
 $(MAIN).o: $(MAIN).cpp
 	g++ $(CPPFLAGS) -c $< -o $@
 
 $(FORMULA).o: $(FORMULA).cpp $(FORMULA).hpp
+	g++ $(CPPFLAGS) -c $< -o $@
+
+$(ATOM).o: $(ATOM).cpp $(ATOM).hpp
 	g++ $(CPPFLAGS) -c $< -o $@
 
 $(TERM).o: $(TERM).cpp $(TERM).hpp
