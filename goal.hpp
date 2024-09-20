@@ -74,7 +74,6 @@ class GoalKeeper {
 		
 		std::string to_string() const;
 		
-		// TODO: implement
 		void apply_assumption();
 		void apply_rule_not_i();
 		void apply_erule_not_e();
