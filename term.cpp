@@ -51,6 +51,15 @@ std::set<std::string> Variable::get_variable_names() const {
 	return {_name};
 }
 
+std::shared_ptr<Term> Variable::replace(const std::string& var_name, const std::shared_ptr<Term>& term) const {
+	if (_name == var_name) {
+		return term;
+	} else {
+		Variable v = *this;
+		return std::make_shared<Variable>(v);
+	}
+}
+
 std::string Constant::to_string() const {
 	return _name;
 }
@@ -65,6 +74,12 @@ bool Constant::operator==(const Constant& other) const {
 
 std::set<std::string> Constant::get_variable_names() const {
 	return {};
+}
+
+std::shared_ptr<Term> Constant::replace(const std::string& var_name, const std::shared_ptr<Term>& term) const {
+	// TODO: implement
+	(void) var_name;
+	return term;
 }
 
 std::string ComplexTerm::to_string() const {
@@ -117,5 +132,11 @@ std::set<std::string> ComplexTerm::get_variable_names() const {
 	}
 	
 	return variable_names;
+}
+
+std::shared_ptr<Term> ComplexTerm::replace(const std::string& var_name, const std::shared_ptr<Term>& term) const {
+	// TODO: implement
+	(void) var_name;
+	return term;
 }
 
