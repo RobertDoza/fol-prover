@@ -27,8 +27,7 @@ class Formula {
 		virtual std::string to_string() const = 0;
 		virtual bool requires_parentheses() const = 0;
 		virtual FormulaType type() const = 0;
-		// TODO: implement
-		// virtual std::set<std::string> get_free_variable_names const = 0;
+		virtual std::set<std::string> get_free_variable_names() const = 0;
 };
 
 bool are_equal(const std::shared_ptr<Formula>& f1, const std::shared_ptr<Formula>& f2);
@@ -39,6 +38,7 @@ std::ostream& operator<<(std::ostream& out, const Formula& formula);
 class AtomicFormula : public Formula {
 	public:
 		virtual std::set<std::string> get_variable_names() const = 0;
+		std::set<std::string> get_free_variable_names() const override;
 	protected:
 		bool requires_parentheses() const override;
 };
@@ -112,6 +112,7 @@ class UnaryConnective : public LogicalConnective {
 		
 		std::string to_string() const override;
 		std::shared_ptr<Formula> get_subformula() const;
+		std::set<std::string> get_free_variable_names() const override;
 	protected:
 		std::shared_ptr<Formula> _subformula;
 };
@@ -137,6 +138,7 @@ class BinaryConnective : public LogicalConnective {
 		std::string to_string() const override;
 		std::shared_ptr<Formula> get_left_subformula() const;
 		std::shared_ptr<Formula> get_right_subformula() const;
+		std::set<std::string> get_free_variable_names() const override;
 	protected:
 		std::shared_ptr<Formula> _left_subformula;
 		std::shared_ptr<Formula> _right_subformula;
@@ -198,7 +200,7 @@ class Quantifier : public Formula {
 		{}
 		
 		std::string to_string() const override;
-		
+		std::set<std::string> get_free_variable_names() const override;
 		virtual void alpha_convert(const std::string& new_var_name) = 0;
 	protected:
 		virtual std::string symbol() const = 0;
