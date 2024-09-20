@@ -47,6 +47,10 @@ bool Variable::operator==(const Variable& other) const {
 	return this->_name == other._name;
 }
 
+std::set<std::string> Variable::get_variable_names() const {
+	return {_name};
+}
+
 std::string Constant::to_string() const {
 	return _name;
 }
@@ -57,6 +61,10 @@ TermType Constant::type() const {
 
 bool Constant::operator==(const Constant& other) const {
 	return this->_name == other._name;
+}
+
+std::set<std::string> Constant::get_variable_names() const {
+	return {};
 }
 
 std::string ComplexTerm::to_string() const {
@@ -98,5 +106,16 @@ bool ComplexTerm::operator==(const ComplexTerm& other) const {
 	}
 	
 	return true;
+}
+
+std::set<std::string> ComplexTerm::get_variable_names() const {
+	std::set<std::string> variable_names = {};
+
+	for (const auto& t : _subterms) {
+		auto sub_vars = t->get_variable_names();
+		variable_names.insert(sub_vars.begin(), sub_vars.end());
+	}
+	
+	return variable_names;
 }
 
