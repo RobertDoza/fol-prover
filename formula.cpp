@@ -142,6 +142,10 @@ bool Negation::operator==(const Negation& other) const {
 	return are_equal(this->_subformula, other._subformula);
 }
 
+std::shared_ptr<Formula> Negation::rename_var(const std::string& old_name, const std::string& new_name) const {
+	return std::make_shared<Negation>(_subformula->rename_var(old_name, new_name));
+}
+
 std::string Conjunction::symbol() const {
 	return "∧";
 }
@@ -152,6 +156,10 @@ FormulaType Conjunction::type() const {
 
 bool Conjunction::operator==(const Conjunction& other) const {
 	return are_equal(this->_left_subformula, other._left_subformula) and are_equal(this->_right_subformula, other._right_subformula);
+}
+
+std::shared_ptr<Formula> Conjunction::rename_var(const std::string& old_name, const std::string& new_name) const {
+	return std::make_shared<Conjunction>(_left_subformula->rename_var(old_name, new_name), _right_subformula->rename_var(old_name, new_name));
 }
 
 std::string Disjunction::symbol() const {
@@ -166,6 +174,10 @@ bool Disjunction::operator==(const Disjunction& other) const {
 	return are_equal(this->_left_subformula, other._left_subformula) and are_equal(this->_right_subformula, other._right_subformula);
 }
 
+std::shared_ptr<Formula> Disjunction::rename_var(const std::string& old_name, const std::string& new_name) const {
+	return std::make_shared<Disjunction>(_left_subformula->rename_var(old_name, new_name), _right_subformula->rename_var(old_name, new_name));
+}
+
 std::string Implication::symbol() const {
 	return "→";
 }
@@ -178,6 +190,10 @@ bool Implication::operator==(const Implication& other) const {
 	return are_equal(this->_left_subformula, other._left_subformula) and are_equal(this->_right_subformula, other._right_subformula);
 }
 
+std::shared_ptr<Formula> Implication::rename_var(const std::string& old_name, const std::string& new_name) const {
+	return std::make_shared<Implication>(_left_subformula->rename_var(old_name, new_name), _right_subformula->rename_var(old_name, new_name));
+}
+
 std::string Equivalence::symbol() const {
 	return "↔";
 }
@@ -188,6 +204,10 @@ FormulaType Equivalence::type() const {
 
 bool Equivalence::operator==(const Equivalence& other) const {
 	return are_equal(this->_left_subformula, other._left_subformula) and are_equal(this->_right_subformula, other._right_subformula);
+}
+
+std::shared_ptr<Formula> Equivalence::rename_var(const std::string& old_name, const std::string& new_name) const {
+	return std::make_shared<Equivalence>(_left_subformula->rename_var(old_name, new_name), _right_subformula->rename_var(old_name, new_name));
 }
 
 std::string Quantifier::to_string() const {
@@ -226,6 +246,14 @@ bool ForAll::operator==(const ForAll& other) const {
 	return this->_variable_name == other._variable_name and are_equal(this->_subformula, other._subformula);
 }
 
+std::shared_ptr<Formula> ForAll::rename_var(const std::string& old_name, const std::string& new_name) const {
+	if (_variable_name == old_name or _variable_name == new_name) {
+		return std::make_shared<ForAll>(*this);
+	}
+	
+	return std::make_shared<ForAll>(_variable_name, _subformula->rename_var(old_name, new_name));
+}
+
 void ForAll::alpha_convert(const std::string& new_var_name) {
 	// TODO: implement properly
 	_variable_name = new_var_name;
@@ -241,6 +269,14 @@ FormulaType Exists::type() const {
 
 bool Exists::operator==(const Exists& other) const {
 	return this->_variable_name == other._variable_name and are_equal(this->_subformula, other._subformula);
+}
+
+std::shared_ptr<Formula> Exists::rename_var(const std::string& old_name, const std::string& new_name) const {
+	if (_variable_name == old_name or _variable_name == new_name) {
+		return std::make_shared<Exists>(*this);
+	}
+	
+	return std::make_shared<Exists>(_variable_name, _subformula->rename_var(old_name, new_name));
 }
 
 void Exists::alpha_convert(const std::string& new_var_name) {

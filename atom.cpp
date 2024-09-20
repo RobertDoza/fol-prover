@@ -25,6 +25,12 @@ bool True::operator==(const True& other) const {
 	return true;
 }
 
+std::shared_ptr<Formula> True::rename_var(const std::string& old_name, const std::string& new_name) const {
+	(void) old_name;
+	(void) new_name;
+	return std::make_shared<True>(*this);
+}
+
 std::string False::to_string() const {
 	return "⊥ ";
 }
@@ -36,6 +42,12 @@ FormulaType False::type() const {
 bool False::operator==(const False& other) const {
 	(void) other;
 	return true;
+}
+
+std::shared_ptr<Formula> False::rename_var(const std::string& old_name, const std::string& new_name) const {
+	(void) old_name;
+	(void) new_name;
+	return std::make_shared<False>(*this);
 }
 
 std::string SimpleAtom::to_string() const {
@@ -52,6 +64,12 @@ bool SimpleAtom::operator==(const SimpleAtom& other) const {
 
 std::set<std::string> SimpleAtom::get_variable_names() const {
 	return {};
+}
+
+std::shared_ptr<Formula> SimpleAtom::rename_var(const std::string& old_name, const std::string& new_name) const {
+	(void) old_name;
+	(void) new_name;
+	return std::make_shared<SimpleAtom>(*this);
 }
 
 std::string ComplexAtom::to_string() const {
@@ -104,5 +122,15 @@ std::set<std::string> ComplexAtom::get_variable_names() const {
 	}
 	
 	return variable_names;
+}
+
+std::shared_ptr<Formula> ComplexAtom::rename_var(const std::string& old_name, const std::string& new_name) const {
+	std::vector<std::shared_ptr<Term>> new_terms = {};
+	
+	for (const auto& t : _terms) {
+		new_terms.push_back(t->rename_var(old_name, new_name));
+	}
+	
+	return std::make_shared<ComplexAtom>(_predicate_symbol, new_terms);
 }
 
