@@ -136,6 +136,13 @@ bool ForAll::operator==(const ForAll& other) const {
 	return this->_variable_name == other._variable_name and are_equal(this->_subformula, other._subformula);
 }
 
+std::shared_ptr<Formula> ForAll::replace(const std::string& var_name, const std::shared_ptr<Term>& term) const {
+	// TODO: implement
+	(void) var_name;
+	(void) term;
+	return nullptr;
+}
+
 std::shared_ptr<Formula> ForAll::rename_var(const std::string& old_name, const std::string& new_name) const {
 	if (_variable_name == old_name or _variable_name == new_name) {
 		return std::make_shared<ForAll>(*this);
@@ -176,6 +183,13 @@ FormulaType Exists::type() const {
 
 bool Exists::operator==(const Exists& other) const {
 	return this->_variable_name == other._variable_name and are_equal(this->_subformula, other._subformula);
+}
+
+std::shared_ptr<Formula> Exists::replace(const std::string& var_name, const std::shared_ptr<Term>& term) const {
+	// TODO: implement
+	(void) var_name;
+	(void) term;
+	return nullptr;
 }
 
 std::shared_ptr<Formula> Exists::rename_var(const std::string& old_name, const std::string& new_name) const {

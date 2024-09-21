@@ -30,6 +30,7 @@ class Negation : public UnaryConnective {
 		
 		FormulaType type() const override;
 		bool operator==(const Negation& other) const;
+		std::shared_ptr<Formula> replace(const std::string& var_name, const std::shared_ptr<Term>& term) const override;
 		std::shared_ptr<Formula> rename_var(const std::string& old_name, const std::string& new_name) const override;
 	private:
 		std::string symbol() const override;
@@ -59,6 +60,7 @@ class Conjunction : public BinaryConnective {
 		
 		FormulaType type() const override;
 		bool operator==(const Conjunction& other) const;
+		std::shared_ptr<Formula> replace(const std::string& var_name, const std::shared_ptr<Term>& term) const override;
 		std::shared_ptr<Formula> rename_var(const std::string& old_name, const std::string& new_name) const override;
 	private:
 		std::string symbol() const override;
@@ -72,6 +74,7 @@ class Disjunction : public BinaryConnective {
 		
 		FormulaType type() const override;
 		bool operator==(const Disjunction& other) const;
+		std::shared_ptr<Formula> replace(const std::string& var_name, const std::shared_ptr<Term>& term) const override;
 		std::shared_ptr<Formula> rename_var(const std::string& old_name, const std::string& new_name) const override;
 	private:
 		std::string symbol() const override;
@@ -85,6 +88,7 @@ class Implication : public BinaryConnective {
 		
 		FormulaType type() const override;
 		bool operator==(const Implication& other) const;
+		std::shared_ptr<Formula> replace(const std::string& var_name, const std::shared_ptr<Term>& term) const override;
 		std::shared_ptr<Formula> rename_var(const std::string& old_name, const std::string& new_name) const override;
 	private:
 		std::string symbol() const override;
@@ -98,6 +102,7 @@ class Equivalence : public BinaryConnective {
 		
 		FormulaType type() const override;
 		bool operator==(const Equivalence& other) const;
+		std::shared_ptr<Formula> replace(const std::string& var_name, const std::shared_ptr<Term>& term) const override;
 		std::shared_ptr<Formula> rename_var(const std::string& old_name, const std::string& new_name) const override;
 	private:
 		std::string symbol() const override;
