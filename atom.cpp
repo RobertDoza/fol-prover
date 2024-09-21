@@ -26,10 +26,9 @@ bool True::operator==(const True& other) const {
 }
 
 std::shared_ptr<Formula> True::replace(const std::string& var_name, const std::shared_ptr<Term>& term) const {
-	// TODO: implement
 	(void) var_name;
 	(void) term;
-	return nullptr;
+	return std::make_shared<True>(*this);
 }
 
 std::shared_ptr<Formula> True::rename_var(const std::string& old_name, const std::string& new_name) const {
@@ -52,10 +51,9 @@ bool False::operator==(const False& other) const {
 }
 
 std::shared_ptr<Formula> False::replace(const std::string& var_name, const std::shared_ptr<Term>& term) const {
-	// TODO: implement
 	(void) var_name;
 	(void) term;
-	return nullptr;
+	return std::make_shared<False>(*this);
 }
 
 std::shared_ptr<Formula> False::rename_var(const std::string& old_name, const std::string& new_name) const {
@@ -81,10 +79,9 @@ std::set<std::string> SimpleAtom::get_variable_names() const {
 }
 
 std::shared_ptr<Formula> SimpleAtom::replace(const std::string& var_name, const std::shared_ptr<Term>& term) const {
-	// TODO: implement
 	(void) var_name;
 	(void) term;
-	return nullptr;
+	return std::make_shared<SimpleAtom>(*this);
 }
 
 std::shared_ptr<Formula> SimpleAtom::rename_var(const std::string& old_name, const std::string& new_name) const {
@@ -146,10 +143,13 @@ std::set<std::string> ComplexAtom::get_variable_names() const {
 }
 
 std::shared_ptr<Formula> ComplexAtom::replace(const std::string& var_name, const std::shared_ptr<Term>& term) const {
-	// TODO: implement
-	(void) var_name;
-	(void) term;
-	return nullptr;
+	std::vector<std::shared_ptr<Term>> new_terms = {};
+	
+	for (const auto& t : _terms) {
+		new_terms.push_back(t->replace(var_name, term));
+	}
+	
+	return std::make_shared<ComplexAtom>(_predicate_symbol, new_terms);
 }
 
 std::shared_ptr<Formula> ComplexAtom::rename_var(const std::string& old_name, const std::string& new_name) const {

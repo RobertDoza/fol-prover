@@ -82,10 +82,7 @@ bool Negation::operator==(const Negation& other) const {
 }
 
 std::shared_ptr<Formula> Negation::replace(const std::string& var_name, const std::shared_ptr<Term>& term) const {
-	// TODO: implement
-	(void) var_name;
-	(void) term;
-	return nullptr;
+	return std::make_shared<Negation>(_subformula->replace(var_name, term));
 }
 
 std::shared_ptr<Formula> Negation::rename_var(const std::string& old_name, const std::string& new_name) const {
@@ -105,10 +102,7 @@ bool Conjunction::operator==(const Conjunction& other) const {
 }
 
 std::shared_ptr<Formula> Conjunction::replace(const std::string& var_name, const std::shared_ptr<Term>& term) const {
-	// TODO: implement
-	(void) var_name;
-	(void) term;
-	return nullptr;
+	return std::make_shared<Conjunction>(_left_subformula->replace(var_name, term), _right_subformula->replace(var_name, term));
 }
 
 std::shared_ptr<Formula> Conjunction::rename_var(const std::string& old_name, const std::string& new_name) const {
@@ -128,10 +122,7 @@ bool Disjunction::operator==(const Disjunction& other) const {
 }
 
 std::shared_ptr<Formula> Disjunction::replace(const std::string& var_name, const std::shared_ptr<Term>& term) const {
-	// TODO: implement
-	(void) var_name;
-	(void) term;
-	return nullptr;
+	return std::make_shared<Disjunction>(_left_subformula->replace(var_name, term), _right_subformula->replace(var_name, term));
 }
 
 std::shared_ptr<Formula> Disjunction::rename_var(const std::string& old_name, const std::string& new_name) const {
@@ -151,10 +142,7 @@ bool Implication::operator==(const Implication& other) const {
 }
 
 std::shared_ptr<Formula> Implication::replace(const std::string& var_name, const std::shared_ptr<Term>& term) const {
-	// TODO: implement
-	(void) var_name;
-	(void) term;
-	return nullptr;
+	return std::make_shared<Implication>(_left_subformula->replace(var_name, term), _right_subformula->replace(var_name, term));
 }
 
 std::shared_ptr<Formula> Implication::rename_var(const std::string& old_name, const std::string& new_name) const {
@@ -174,10 +162,7 @@ bool Equivalence::operator==(const Equivalence& other) const {
 }
 
 std::shared_ptr<Formula> Equivalence::replace(const std::string& var_name, const std::shared_ptr<Term>& term) const {
-	// TODO: implement
-	(void) var_name;
-	(void) term;
-	return nullptr;
+	return std::make_shared<Equivalence>(_left_subformula->replace(var_name, term), _right_subformula->replace(var_name, term));
 }
 
 std::shared_ptr<Formula> Equivalence::rename_var(const std::string& old_name, const std::string& new_name) const {

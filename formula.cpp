@@ -137,10 +137,22 @@ bool ForAll::operator==(const ForAll& other) const {
 }
 
 std::shared_ptr<Formula> ForAll::replace(const std::string& var_name, const std::shared_ptr<Term>& term) const {
-	// TODO: implement
-	(void) var_name;
-	(void) term;
-	return nullptr;
+	if (_variable_name == var_name) {
+		return std::make_shared<ForAll>(*this);
+	}
+	
+	auto term_variables = term->get_variable_names();
+	
+	if (term_variables.find(_variable_name) == term_variables.end()) {
+		return std::make_shared<ForAll>(_variable_name, _subformula->replace(var_name, term));
+	}
+	
+	// TODO
+	auto subformula_variables = _subformula->get_variable_names();
+	
+	auto alpha_converted = this->alpha_convert();
+	
+	return alpha_converted->replace(var_name, term);
 }
 
 std::shared_ptr<Formula> ForAll::rename_var(const std::string& old_name, const std::string& new_name) const {
@@ -151,7 +163,7 @@ std::shared_ptr<Formula> ForAll::rename_var(const std::string& old_name, const s
 	return std::make_shared<ForAll>(_variable_name, _subformula->rename_var(old_name, new_name));
 }
 
-std::shared_ptr<Quantifier> ForAll::alpha_convert() {
+std::shared_ptr<Quantifier> ForAll::alpha_convert() const {
 	std::string old_var_name = _variable_name;
 	std::string new_var_name;
 	
@@ -200,7 +212,7 @@ std::shared_ptr<Formula> Exists::rename_var(const std::string& old_name, const s
 	return std::make_shared<Exists>(_variable_name, _subformula->rename_var(old_name, new_name));
 }
 
-std::shared_ptr<Quantifier> Exists::alpha_convert() {
+std::shared_ptr<Quantifier> Exists::alpha_convert() const {
 	std::string old_var_name = _variable_name;
 	std::string new_var_name;
 	
