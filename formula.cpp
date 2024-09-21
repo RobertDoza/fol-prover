@@ -127,10 +127,26 @@ std::shared_ptr<Formula> ForAll::rename_var(const std::string& old_name, const s
 	return std::make_shared<ForAll>(_variable_name, _subformula->rename_var(old_name, new_name));
 }
 
-std::shared_ptr<Quantifier> ForAll::alpha_convert(const std::string& new_var_name) {
-	// TODO: implement properly
-	(void) new_var_name;
-	return nullptr;
+std::shared_ptr<Quantifier> ForAll::alpha_convert() {
+	std::string old_var_name = _variable_name;
+	std::string new_var_name;
+	
+	auto subformula_var_names = _subformula->get_variable_names();
+	
+	unsigned i = 1;
+	while (true) {
+		new_var_name = old_var_name + std::to_string(i);
+		
+		if (subformula_var_names.find(new_var_name) == subformula_var_names.end()) {
+			break;
+		}
+		
+		i++;
+	}
+	
+	auto new_subformula = _subformula->rename_var(old_var_name, new_var_name);
+	
+	return std::make_shared<ForAll>(new_var_name, new_subformula);
 }
 
 std::string Exists::symbol() const {
@@ -153,9 +169,25 @@ std::shared_ptr<Formula> Exists::rename_var(const std::string& old_name, const s
 	return std::make_shared<Exists>(_variable_name, _subformula->rename_var(old_name, new_name));
 }
 
-std::shared_ptr<Quantifier> Exists::alpha_convert(const std::string& new_var_name) {
-	// TODO: implement properly
-	(void) new_var_name;
-	return nullptr;
+std::shared_ptr<Quantifier> Exists::alpha_convert() {
+	std::string old_var_name = _variable_name;
+	std::string new_var_name;
+	
+	auto subformula_var_names = _subformula->get_variable_names();
+	
+	unsigned i = 1;
+	while (true) {
+		new_var_name = old_var_name + std::to_string(i);
+		
+		if (subformula_var_names.find(new_var_name) == subformula_var_names.end()) {
+			break;
+		}
+		
+		i++;
+	}
+	
+	auto new_subformula = _subformula->rename_var(old_var_name, new_var_name);
+	
+	return std::make_shared<Exists>(new_var_name, new_subformula);
 }
 

@@ -46,7 +46,7 @@ class Quantifier : public Formula {
 		std::string to_string() const override;
 		std::set<std::string> get_variable_names() const override;
 		std::set<std::string> get_free_variable_names() const override;
-		virtual std::shared_ptr<Quantifier> alpha_convert(const std::string& new_var_name) = 0;
+		virtual std::shared_ptr<Quantifier> alpha_convert() = 0;
 	protected:
 		virtual std::string symbol() const = 0;
 		bool requires_parentheses() const override;
@@ -64,7 +64,7 @@ class ForAll : public Quantifier {
 		FormulaType type() const override;
 		bool operator==(const ForAll& other) const;
 		std::shared_ptr<Formula> rename_var(const std::string& old_name, const std::string& new_name) const override;
-		std::shared_ptr<Quantifier> alpha_convert(const std::string& new_var_name) override;
+		std::shared_ptr<Quantifier> alpha_convert() override;
 	private:
 		std::string symbol() const override;
 };
@@ -78,7 +78,7 @@ class Exists : public Quantifier {
 		FormulaType type() const override;
 		bool operator==(const Exists& other) const;
 		std::shared_ptr<Formula> rename_var(const std::string& old_name, const std::string& new_name) const override;
-		std::shared_ptr<Quantifier> alpha_convert(const std::string& new_var_name) override;
+		std::shared_ptr<Quantifier> alpha_convert() override;
 	private:
 		std::string symbol() const override;
 };
