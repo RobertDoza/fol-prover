@@ -148,7 +148,11 @@ std::shared_ptr<Formula> ForAll::replace(const std::string& var_name, const std:
 	}
 	
 	// TODO
-	auto subformula_variables = _subformula->get_variable_names();
+	auto used_variables = _subformula->get_variable_names();
+	
+	used_variables.insert(term_variables.begin(), term_variables.end());
+	
+	std::string new_variable_name = Formula::generate_new_variable_name(_variable_name, used_variables);
 	
 	auto alpha_converted = this->alpha_convert();
 	
@@ -178,6 +182,20 @@ std::shared_ptr<Quantifier> ForAll::alpha_convert() const {
 		}
 		
 		i++;
+	}
+	
+	auto new_subformula = _subformula->rename_var(old_var_name, new_var_name);
+	
+	return std::make_shared<ForAll>(new_var_name, new_subformula);
+}
+
+std::shared_ptr<Quantifier> ForAll::alpha_convert(const std::string& new_var_name) const {
+	std::string old_var_name = _variable_name;
+	
+	auto subformula_var_names = _subformula->get_variable_names();
+	
+	if (subformula_var_names.find(new_var_name) == subformula_var_names.end()) {
+		throw std::runtime_error("Can't preform alpha conversion - variable in use!");
 	}
 	
 	auto new_subformula = _subformula->rename_var(old_var_name, new_var_name);
@@ -227,6 +245,20 @@ std::shared_ptr<Quantifier> Exists::alpha_convert() const {
 		}
 		
 		i++;
+	}
+	
+	auto new_subformula = _subformula->rename_var(old_var_name, new_var_name);
+	
+	return std::make_shared<Exists>(new_var_name, new_subformula);
+}
+
+std::shared_ptr<Quantifier> Exists::alpha_convert(const std::string& new_var_name) const {
+	std::string old_var_name = _variable_name;
+	
+	auto subformula_var_names = _subformula->get_variable_names();
+	
+	if (subformula_var_names.find(new_var_name) == subformula_var_names.end()) {
+		throw std::runtime_error("Can't preform alpha conversion - variable in use!");
 	}
 	
 	auto new_subformula = _subformula->rename_var(old_var_name, new_var_name);
