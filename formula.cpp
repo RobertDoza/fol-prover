@@ -75,6 +75,23 @@ std::ostream& operator<<(std::ostream& out, const Formula& formula) {
 	return out;
 }
 
+std::string Formula::generate_new_variable_name(const std::string& old_name, const std::set<std::string>& used_names) {
+	std::string new_name;
+	
+	unsigned i = 1;
+	while (true) {
+		new_name = old_name + std::to_string(i);
+		
+		if (used_names.find(new_name) == used_names.end()) {
+			break;
+		}
+		
+		i++;
+	}
+	
+	return new_name;
+}
+
 std::string Quantifier::to_string() const {
 	std::string sub;
 

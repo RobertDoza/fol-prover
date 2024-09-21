@@ -30,6 +30,8 @@ class Formula {
 		virtual std::set<std::string> get_variable_names() const = 0;
 		virtual std::set<std::string> get_free_variable_names() const = 0;
 		virtual std::shared_ptr<Formula> rename_var(const std::string& old_name, const std::string& new_name) const = 0;
+		
+		static std::string generate_new_variable_name(const std::string& old_name, const std::set<std::string>& used_names);
 };
 
 bool are_equal(const std::shared_ptr<Formula>& f1, const std::shared_ptr<Formula>& f2);
