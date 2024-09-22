@@ -47,6 +47,7 @@ class Quantifier : public Formula {
 		{}
 		
 		std::string to_string() const override;
+		std::string get_variable_name() const;
 		std::set<std::string> get_variable_names() const override;
 		std::set<std::string> get_free_variable_names() const override;
 		virtual std::shared_ptr<Quantifier> alpha_convert() const = 0;
