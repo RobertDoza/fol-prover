@@ -311,6 +311,8 @@ RuleStatus Goal::apply_rule_all_i() {
 	
 	set_target(new_target);
 	
+	_meta_variables.insert(new_variable_name);
+	
 	return RuleStatus::Success;
 }
 
