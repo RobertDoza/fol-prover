@@ -60,7 +60,7 @@ class Goal {
 		RuleStatus apply_rule_ex_i();
 		RuleStatus apply_erule_ex_e();
 	private:
-		std::vector<std::shared_ptr<Variable>> _meta_variables;
+		std::set<std::string> _meta_variables;
 		std::deque<std::shared_ptr<Formula>> _assumptions;
 		std::shared_ptr<Formula> _target_formula;
 		bool _solved;
