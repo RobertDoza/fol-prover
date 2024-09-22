@@ -239,6 +239,26 @@ RuleStatus Goal::apply_erule_iff_e() {
 	return RuleStatus::Failure;
 }
 
+RuleStatus Goal::apply_rule_all_i() {
+	// TODO: implement
+	return RuleStatus::Success;
+}
+
+RuleStatus Goal::apply_erule_all_e() {
+	// TODO: implement
+	return RuleStatus::Success;
+}
+
+RuleStatus Goal::apply_rule_ex_i() {
+	// TODO: implement
+	return RuleStatus::Success;
+}
+
+RuleStatus Goal::apply_erule_ex_e() {
+	// TODO: implement
+	return RuleStatus::Success;
+}
+
 std::string GoalKeeper::to_string() const {
 	if (_goals.empty()) {
 		return "No goals!";
