@@ -65,6 +65,15 @@ std::set<std::string> Goal::get_free_vars_in_target_formula() const {
 	return _target_formula->get_free_variable_names();
 }
 
+std::set<std::string> Goal::get_free_variables() const {
+	auto free_vars = get_free_vars_in_assumptions();
+	auto free_vars_target = get_free_vars_in_target_formula();
+	
+	free_vars.insert(free_vars_target.begin(), free_vars_target.end());
+	
+	return free_vars;
+}
+
 RuleStatus Goal::apply_assumption() {
 	for (const auto& assumption : _assumptions) {
 		if (are_equal(assumption, _target_formula)) {

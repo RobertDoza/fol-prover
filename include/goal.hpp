@@ -45,6 +45,7 @@ class Goal {
 		void remove_assumption(unsigned index);
 		std::set<std::string> get_free_vars_in_assumptions() const;
 		std::set<std::string> get_free_vars_in_target_formula() const;
+		std::set<std::string> get_free_variables() const;
 		RuleStatus apply_assumption();
 		RuleStatus apply_rule_not_i();
 		RuleStatus apply_erule_not_e();
