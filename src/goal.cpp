@@ -6,30 +6,26 @@ std::string Goal::to_string() const {
 	if (_solved) {
 		return "<solved goal>";
 	}
+	
+	std::string body = body_to_string();
+	
+	if (_meta_variables.empty()) {
+		return body;
+	}
 
 	std::stringstream s;
 	
-	size_t num_assumptions = _assumptions.size();
+	s << "∧ ";
 	
-	if (num_assumptions == 0) {
-		return _target_formula->to_string();
-	}
-	
-	if (num_assumptions == 1) {
-		s << *_assumptions[0];
-	} else {
-		s << "[";
-		for (size_t i = 0; i < num_assumptions; i++) {
-			s << *_assumptions[i];
-			if (i < num_assumptions - 1) {
-				s << ", ";
-			}
+	for (auto it = _meta_variables.begin(); it != _meta_variables.end(); it++) {
+		s << *it;
+		if (std::next(it) != _meta_variables.end()) {
+			s << " ";
 		}
-		s << "]";
 	}
 	
-	s << " ⊢  ";
-	s << *_target_formula;
+	s << ". ";
+	s << body;
 	
 	return s.str();
 }
