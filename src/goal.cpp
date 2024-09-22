@@ -323,8 +323,31 @@ RuleStatus Goal::apply_rule_ex_i() {
 }
 
 RuleStatus Goal::apply_erule_ex_e() {
-	// TODO: implement
-	return RuleStatus::Success;
+	for (size_t i = 0; i < _assumptions.size(); i++) {
+		if (_assumptions[i]->type() == FormulaType::Exists) {
+			auto exists_formula = std::dynamic_pointer_cast<Exists>(_assumptions[i]);
+			
+			std::set<std::string> used_variables = _meta_variables;
+			std::set<std::string> free_variables = get_free_variables();
+			used_variables.insert(free_variables.begin(), free_variables.end());
+			
+			std::string old_variable_name = exists_formula->get_variable_name();
+			std::string new_variable_name = Formula::generate_new_variable_name(old_variable_name, used_variables);
+			
+			auto subformula = exists_formula->get_subformula();
+			
+			auto new_assumption = subformula->rename_var(old_variable_name, new_variable_name);
+			
+			remove_assumption(i);
+			add_assumption(new_assumption);
+			
+			_meta_variables.insert(new_variable_name);
+			
+			return RuleStatus::Success;
+		}
+	}
+	
+	return RuleStatus::Failure;
 }
 
 std::string GoalKeeper::to_string() const {
