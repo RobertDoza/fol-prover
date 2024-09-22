@@ -59,8 +59,8 @@ class Goal {
 		IffIResult apply_rule_iff_i();
 		RuleStatus apply_erule_iff_e();
 		RuleStatus apply_rule_all_i();
-		RuleStatus apply_erule_all_e();
-		RuleStatus apply_rule_ex_i();
+		RuleStatus apply_erule_all_e(const std::shared_ptr<Term>& replacement_term);
+		RuleStatus apply_rule_ex_i(const std::shared_ptr<Term>& replacement_term);
 		RuleStatus apply_erule_ex_e();
 	private:
 		std::string body_to_string() const;

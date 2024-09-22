@@ -312,12 +312,12 @@ RuleStatus Goal::apply_rule_all_i() {
 	return RuleStatus::Success;
 }
 
-RuleStatus Goal::apply_erule_all_e() {
+RuleStatus Goal::apply_erule_all_e(const std::shared_ptr<Term>& replacement_term) {
 	// TODO: implement
 	return RuleStatus::Success;
 }
 
-RuleStatus Goal::apply_rule_ex_i() {
+RuleStatus Goal::apply_rule_ex_i(const std::shared_ptr<Term>& replacement_term) {
 	// TODO: implement
 	return RuleStatus::Success;
 }
