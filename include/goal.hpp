@@ -43,6 +43,8 @@ class Goal {
 		void set_target(const std::shared_ptr<Formula>& formula);
 		void add_assumption(const std::shared_ptr<Formula>& formula);
 		void remove_assumption(unsigned index);
+		std::set<std::string> get_free_vars_in_assumptions() const;
+		std::set<std::string> get_free_vars_in_target_formula() const;
 		RuleStatus apply_assumption();
 		RuleStatus apply_rule_not_i();
 		RuleStatus apply_erule_not_e();

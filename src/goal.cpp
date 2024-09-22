@@ -50,6 +50,21 @@ void Goal::remove_assumption(unsigned index) {
 	}
 }
 
+std::set<std::string> Goal::get_free_vars_in_assumptions() const {
+	std::set<std::string> free_vars = {};
+	
+	for (const auto& assumption : _assumptions) {
+		auto free_vars_assumption = assumption->get_free_variable_names();
+		free_vars.insert(free_vars_assumption.begin(), free_vars_assumption.end());
+	}
+	
+	return free_vars;
+}
+
+std::set<std::string> Goal::get_free_vars_in_target_formula() const {
+	return _target_formula->get_free_variable_names();
+}
+
 RuleStatus Goal::apply_assumption() {
 	for (const auto& assumption : _assumptions) {
 		if (are_equal(assumption, _target_formula)) {
@@ -241,6 +256,17 @@ RuleStatus Goal::apply_erule_iff_e() {
 
 RuleStatus Goal::apply_rule_all_i() {
 	// TODO: implement
+	
+	if (_target_formula->type() != FormulaType::ForAll) {
+		return RuleStatus::Failure;
+	}
+	
+	auto target_forall_formula = std::dynamic_pointer_cast<ForAll>(_target_formula);
+	
+	std::set<std::string> used_variables = _meta_variables;
+	
+	Formula::generate_new_variable_name(target_forall_formula->get_variable_name(), used_variables);
+	
 	return RuleStatus::Success;
 }
 
