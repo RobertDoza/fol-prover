@@ -108,6 +108,10 @@ std::string Quantifier::get_variable_name() const {
 	return _variable_name;
 }
 
+std::shared_ptr<Formula> Quantifier::get_subformula() const {
+	return _subformula;
+}
+
 std::set<std::string> Quantifier::get_variable_names() const {
 	auto sub_vars = _subformula->get_variable_names();
 	
