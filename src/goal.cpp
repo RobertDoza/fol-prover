@@ -313,12 +313,28 @@ RuleStatus Goal::apply_rule_all_i() {
 }
 
 RuleStatus Goal::apply_erule_all_e(const std::shared_ptr<Term>& replacement_term) {
-	// TODO: implement
-	return RuleStatus::Success;
+	for (size_t i = 0; i < _assumptions.size(); i++) {
+		if (_assumptions[i]->type() == FormulaType::ForAll) {
+			auto forall_formula = std::dynamic_pointer_cast<ForAll>(_assumptions[i]);
+			
+			auto quantified_variable = forall_formula->get_variable_name();
+			auto subformula = forall_formula->get_subformula();
+			
+			auto new_assumption = subformula->replace(quantified_variable, replacement_term);
+			
+			remove_assumption(i);
+			add_assumption(new_assumption);
+			
+			return RuleStatus::Success;
+		}
+	}
+	
+	return RuleStatus::Failure;
 }
 
 RuleStatus Goal::apply_rule_ex_i(const std::shared_ptr<Term>& replacement_term) {
 	// TODO: implement
+	(void) replacement_term;
 	return RuleStatus::Success;
 }
 
