@@ -63,6 +63,8 @@ class Goal {
 		RuleStatus apply_rule_ex_i();
 		RuleStatus apply_erule_ex_e();
 	private:
+		std::string body_to_string() const;
+	private:
 		std::set<std::string> _meta_variables;
 		std::deque<std::shared_ptr<Formula>> _assumptions;
 		std::shared_ptr<Formula> _target_formula;
