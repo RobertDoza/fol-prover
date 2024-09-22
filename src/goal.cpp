@@ -333,8 +333,19 @@ RuleStatus Goal::apply_erule_all_e(const std::shared_ptr<Term>& replacement_term
 }
 
 RuleStatus Goal::apply_rule_ex_i(const std::shared_ptr<Term>& replacement_term) {
-	// TODO: implement
-	(void) replacement_term;
+	if (_target_formula->type() != FormulaType::Exists) {
+		return RuleStatus::Failure;
+	}
+	
+	auto target_exists_formula = std::dynamic_pointer_cast<Exists>(_target_formula);
+	
+	auto quantified_variable = target_exists_formula->get_variable_name();
+	auto subformula = target_exists_formula->get_subformula();
+	
+	auto new_target = subformula->replace(quantified_variable, replacement_term);
+	
+	set_target(new_target);
+	
 	return RuleStatus::Success;
 }
 
