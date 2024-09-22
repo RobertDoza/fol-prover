@@ -1,36 +1,40 @@
+SRC_DIR = src
+INC_DIR = include
+BIN_DIR = bin
+
 MAIN = main
-EXECUTABLE = test
+TERM = term
 FORMULA_BASE = formula
 FORMULA_ATOM = atom
 FORMULA_CONN = connective
-TERM = term
 GOAL = goal
+EXECUTABLE = test
 
 CPPFLAGS = -g -Wall -Wextra -Werror -pedantic
 
-$(EXECUTABLE): $(MAIN).o $(FORMULA_BASE).o $(FORMULA_ATOM).o $(FORMULA_CONN).o $(GOAL).o $(TERM).o
+$(EXECUTABLE): $(BIN_DIR)/$(MAIN).o $(BIN_DIR)/$(FORMULA_BASE).o $(BIN_DIR)/$(FORMULA_ATOM).o $(BIN_DIR)/$(FORMULA_CONN).o $(BIN_DIR)/$(GOAL).o $(BIN_DIR)/$(TERM).o
 	g++ $(CPPFLAGS) $^ -o $@
 
-$(MAIN).o: $(MAIN).cpp
-	g++ $(CPPFLAGS) -c $< -o $@
+$(BIN_DIR)/$(MAIN).o: $(SRC_DIR)/$(MAIN).cpp
+	g++ $(CPPFLAGS) -c $< -o $@ -I$(INC_DIR)
 
-$(FORMULA_BASE).o: $(FORMULA_BASE).cpp $(FORMULA_BASE).hpp $(FORMULA_ATOM).hpp $(FORMULA_CONN).hpp
-	g++ $(CPPFLAGS) -c $< -o $@
+$(BIN_DIR)/$(FORMULA_BASE).o: $(SRC_DIR)/$(FORMULA_BASE).cpp $(INC_DIR)/$(FORMULA_BASE).hpp $(INC_DIR)/$(FORMULA_ATOM).hpp $(INC_DIR)/$(FORMULA_CONN).hpp
+	g++ $(CPPFLAGS) -c $< -o $@ -I$(INC_DIR)
 
-$(FORMULA_ATOM).o: $(FORMULA_ATOM).cpp $(FORMULA_ATOM).hpp
-	g++ $(CPPFLAGS) -c $< -o $@
+$(BIN_DIR)/$(FORMULA_ATOM).o: $(SRC_DIR)/$(FORMULA_ATOM).cpp $(INC_DIR)/$(FORMULA_ATOM).hpp
+	g++ $(CPPFLAGS) -c $< -o $@ -I$(INC_DIR)
 
-$(FORMULA_CONN).o: $(FORMULA_CONN).cpp $(FORMULA_CONN).hpp
-	g++ $(CPPFLAGS) -c $< -o $@
+$(BIN_DIR)/$(FORMULA_CONN).o: $(SRC_DIR)/$(FORMULA_CONN).cpp $(INC_DIR)/$(FORMULA_CONN).hpp
+	g++ $(CPPFLAGS) -c $< -o $@ -I$(INC_DIR)
 
-$(TERM).o: $(TERM).cpp $(TERM).hpp
-	g++ $(CPPFLAGS) -c $< -o $@
+$(BIN_DIR)/$(TERM).o: $(SRC_DIR)/$(TERM).cpp $(INC_DIR)/$(TERM).hpp
+	g++ $(CPPFLAGS) -c $< -o $@ -I$(INC_DIR)
 
-$(GOAL).o: $(GOAL).cpp $(GOAL).hpp $(FORMULA_ATOM).hpp $(FORMULA_CONN).hpp
-	g++ $(CPPFLAGS) -c $< -o $@
+$(BIN_DIR)/$(GOAL).o: $(SRC_DIR)/$(GOAL).cpp $(INC_DIR)/$(GOAL).hpp $(INC_DIR)/$(FORMULA_ATOM).hpp $(INC_DIR)/$(FORMULA_CONN).hpp
+	g++ $(CPPFLAGS) -c $< -o $@ -I$(INC_DIR)
 
 .PHONY: clean
 
 clean:
-	rm -f *.o $(EXECUTABLE)
+	rm -f $(BIN_DIR)/*.o $(BIN_DIR)/$(EXECUTABLE)
 
