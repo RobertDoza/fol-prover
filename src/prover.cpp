@@ -1,4 +1,12 @@
 #include "prover.hpp"
 
-// TODO
+#include <iostream>
+
+void Prover::start() {
+	// TODO
+}
+
+void Prover::interact_with_user() {
+	// TODO
+}
 
