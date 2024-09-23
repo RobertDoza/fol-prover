@@ -13,24 +13,25 @@ constexpr const char* commands =
 	"exit - stop the program";
 
 constexpr const char* list_of_rules =
-	"assumption\n"
-	"Introduction rules:\n"
-	"rule notI\n"
-	"rule conjI\n"
-	"rule disjI1\n"
-	"rule disjI2\n"
-	"rule impI\n"
-	"rule iffI\n"
-	"rule allI\n"
-	"rule exI\n"
-	"Elimination rules:\n"
-	"rule notE\n"
-	"rule conjE\n"
-	"rule disjE\n"
-	"rule impE\n"
-	"rule iffE\n"
-	"rule allE\n"
-	"rule exE";
+	"1) Assumption:\n"
+	"apply assumption\n"
+	"2) Introduction rules:\n"
+	"apply rule notI\n"
+	"apply rule conjI\n"
+	"apply rule disjI1\n"
+	"apply rule disjI2\n"
+	"apply rule impI\n"
+	"apply rule iffI\n"
+	"apply rule allI\n"
+	"apply rule exI\n"
+	"3) Elimination rules:\n"
+	"apply rule notE\n"
+	"apply rule conjE\n"
+	"apply rule disjE\n"
+	"apply rule impE\n"
+	"apply rule iffE\n"
+	"apply rule allE\n"
+	"apply rule exE";
 
 enum class Rule {
 	Assumption,
