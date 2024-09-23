@@ -77,6 +77,7 @@ class Prover {
 		void interact_with_user();
 		void print_intro_message();
 		Command parse_user_input(const std::string& user_input);
+		void execute(const Command& command);
 	private:
 		std::shared_ptr<Formula> _formula_to_prove;
 		GoalKeeper _goal_keeper;

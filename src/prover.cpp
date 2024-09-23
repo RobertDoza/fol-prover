@@ -127,6 +127,11 @@ Command Prover::parse_user_input(const std::string& user_input) {
 	return {CommandType::UnknownCommand, {}};
 }
 
+void Prover::execute(const Command& command) {
+	// TODO
+	(void) command;
+}
+
 void Prover::interact_with_user() {
 	std::string user_input;
 
@@ -138,9 +143,9 @@ void Prover::interact_with_user() {
 		std::getline(std::cin, user_input);
 		
 		Command command = parse_user_input(user_input);
-		(void) command;
 		
 		// TODO
+		execute(command);
 	}
 }
 
