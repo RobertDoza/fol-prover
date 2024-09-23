@@ -77,6 +77,10 @@ class Goal {
 
 class GoalKeeper {
 	public:
+		GoalKeeper(const std::shared_ptr<Formula>& formula_to_prove)
+			:_goals({Goal(formula_to_prove)})
+		{}
+		
 		GoalKeeper(const Goal& initial_goal)
 			:_goals({initial_goal})
 		{}
