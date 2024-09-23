@@ -24,6 +24,8 @@ void Prover::start() {
 
 void Prover::print_intro_message() {
 	std::cout << "Welcome!" << std::endl;
+	std::cout << "Formula to prove:" << std::endl;
+	std::cout << *_formula_to_prove << std::endl;
 	std::cout << commands << std::endl;
 }
 
@@ -129,6 +131,10 @@ void Prover::interact_with_user() {
 	std::string user_input;
 
 	while (true) {
+		std::cout << std::endl;
+		std::cout << _goal_keeper.to_string() << std::endl;
+		std::cout << "> ";
+		
 		std::getline(std::cin, user_input);
 		
 		Command command = parse_user_input(user_input);
