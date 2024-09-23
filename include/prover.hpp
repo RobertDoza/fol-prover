@@ -1,5 +1,7 @@
 #pragma once
 
+#include <optional>
+
 #include "formula.hpp"
 #include "goal.hpp"
 
@@ -29,6 +31,39 @@ constexpr const char* list_of_rules =
 	"rule iffE\n"
 	"rule allE\n"
 	"rule exE";
+
+enum class RuleType {
+	Assumption,
+	NotI,
+	NotE,
+	ConjI,
+	ConjE,
+	DisjI1,
+	DisjI2,
+	DisjE,
+	ImpI,
+	ImpE,
+	IffI,
+	IffE,
+	AllI,
+	AllE,
+	ExI,
+	ExE,
+	Done
+};
+
+enum class CommandType {
+	Empty,
+	ListRequest,
+	HelpRequest,
+	ExitRequest,
+	RuleApplication
+};
+
+struct Command {
+	CommandType type;
+	std::optional<RuleType> rule_to_apply;
+};
 
 class Prover {
 	public:
