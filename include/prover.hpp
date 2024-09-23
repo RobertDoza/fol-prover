@@ -32,7 +32,7 @@ constexpr const char* list_of_rules =
 	"rule allE\n"
 	"rule exE";
 
-enum class RuleType {
+enum class Rule {
 	Assumption,
 	NotI,
 	NotE,
@@ -57,12 +57,13 @@ enum class CommandType {
 	ListRequest,
 	HelpRequest,
 	ExitRequest,
-	RuleApplication
+	RuleApplication,
+	UnknownCommand
 };
 
 struct Command {
 	CommandType type;
-	std::optional<RuleType> rule_to_apply;
+	std::optional<Rule> rule_to_apply;
 };
 
 class Prover {
@@ -75,6 +76,7 @@ class Prover {
 	private:
 		void interact_with_user();
 		void print_intro_message();
+		Command parse_user_input(const std::string& user_input);
 	private:
 		std::shared_ptr<Formula> _formula_to_prove;
 		GoalKeeper _goal_keeper;
