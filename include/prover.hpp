@@ -8,7 +8,7 @@ constexpr const char* commands =
 	"apply - apply a rule of natural deduction on current goal\n"
 	"help - receive this help message\n"
 	"list - list available natural deduction rules\n"
-	"exit - stop the program\n";
+	"exit - stop the program";
 
 constexpr const char* list_of_rules =
 	"assumption\n"
@@ -28,7 +28,7 @@ constexpr const char* list_of_rules =
 	"rule impE\n"
 	"rule iffE\n"
 	"rule allE\n"
-	"rule exE\n";
+	"rule exE";
 
 class Prover {
 	public:
@@ -39,6 +39,7 @@ class Prover {
 		void start();
 	private:
 		void interact_with_user();
+		void print_intro_message();
 	private:
 		std::shared_ptr<Formula> _formula_to_prove;
 		GoalKeeper _goal_keeper;
