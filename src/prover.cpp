@@ -128,8 +128,27 @@ Command Prover::parse_user_input(const std::string& user_input) {
 }
 
 void Prover::execute(const Command& command) {
-	// TODO
-	(void) command;
+	CommandType command_type = command.type;
+	
+	switch (command_type) {
+		case CommandType::Empty:
+			return;
+		case CommandType::UnknownCommand:
+			std::cout << "Unknown command!" << std::endl;
+			return;
+		case CommandType::ListRequest:
+			std::cout << list_of_rules << std::endl;
+			return;
+		case CommandType::HelpRequest:
+			std::cout << commands << std::endl;
+			return;
+		case CommandType::ExitRequest:
+			// TODO
+			break;
+		case CommandType::RuleApplication:
+			// TODO
+			break;
+	}
 }
 
 void Prover::interact_with_user() {
