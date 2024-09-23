@@ -35,6 +35,10 @@ struct ImpEResult {
 
 class Goal {
 	public:
+		Goal(const std::shared_ptr<Formula>& f)
+			:_meta_variables({}), _assumptions({}), _target_formula(f), _solved(false)
+		{}
+		
 		Goal(const std::deque<std::shared_ptr<Formula>>& a, const std::shared_ptr<Formula>& f)
 			:_meta_variables({}), _assumptions(a), _target_formula(f), _solved(false)
 		{}
