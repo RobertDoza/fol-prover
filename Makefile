@@ -19,7 +19,7 @@ $(EXECUTABLE): $(BIN_DIR)/$(MAIN).o $(BIN_DIR)/$(FORMULA_BASE).o $(BIN_DIR)/$(FO
 $(BIN_DIR)/$(MAIN).o: $(SRC_DIR)/$(MAIN).cpp
 	g++ $(CPPFLAGS) -c $< -o $@ -I$(INC_DIR)
 
-$(BIN_DIR)/$(FORMULA_BASE).o: $(SRC_DIR)/$(FORMULA_BASE).cpp $(INC_DIR)/$(FORMULA_BASE).hpp $(INC_DIR)/$(FORMULA_ATOM).hpp $(INC_DIR)/$(FORMULA_CONN).hpp
+$(BIN_DIR)/$(FORMULA_BASE).o: $(SRC_DIR)/$(FORMULA_BASE).cpp $(INC_DIR)/$(FORMULA_BASE).hpp $(INC_DIR)/$(FORMULA_ATOM).hpp $(INC_DIR)/$(FORMULA_CONN).hpp $(INC_DIR)/$(FORMULA_QUAN).hpp
 	g++ $(CPPFLAGS) -c $< -o $@ -I$(INC_DIR)
 
 $(BIN_DIR)/$(FORMULA_ATOM).o: $(SRC_DIR)/$(FORMULA_ATOM).cpp $(INC_DIR)/$(FORMULA_ATOM).hpp
@@ -34,7 +34,7 @@ $(BIN_DIR)/$(FORMULA_QUAN).o: $(SRC_DIR)/$(FORMULA_QUAN).cpp $(INC_DIR)/$(FORMUL
 $(BIN_DIR)/$(TERM).o: $(SRC_DIR)/$(TERM).cpp $(INC_DIR)/$(TERM).hpp
 	g++ $(CPPFLAGS) -c $< -o $@ -I$(INC_DIR)
 
-$(BIN_DIR)/$(GOAL).o: $(SRC_DIR)/$(GOAL).cpp $(INC_DIR)/$(GOAL).hpp $(INC_DIR)/$(FORMULA_ATOM).hpp $(INC_DIR)/$(FORMULA_CONN).hpp
+$(BIN_DIR)/$(GOAL).o: $(SRC_DIR)/$(GOAL).cpp $(INC_DIR)/$(GOAL).hpp $(INC_DIR)/$(FORMULA_ATOM).hpp $(INC_DIR)/$(FORMULA_CONN).hpp $(INC_DIR)/$(FORMULA_QUAN).hpp
 	g++ $(CPPFLAGS) -c $< -o $@ -I$(INC_DIR)
 
 .PHONY: clean

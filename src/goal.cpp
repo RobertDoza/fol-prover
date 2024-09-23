@@ -1,6 +1,7 @@
 #include "goal.hpp"
 #include "atom.hpp"
 #include "connective.hpp"
+#include "quantifier.hpp"
 
 std::string Goal::to_string() const {
 	if (_solved) {
