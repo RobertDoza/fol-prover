@@ -7,12 +7,13 @@ TERM = term
 FORMULA_BASE = formula
 FORMULA_ATOM = atom
 FORMULA_CONN = connective
+FORMULA_QUAN = quantifier
 GOAL = goal
 EXECUTABLE = test
 
 CPPFLAGS = -g -Wall -Wextra -Werror -pedantic
 
-$(EXECUTABLE): $(BIN_DIR)/$(MAIN).o $(BIN_DIR)/$(FORMULA_BASE).o $(BIN_DIR)/$(FORMULA_ATOM).o $(BIN_DIR)/$(FORMULA_CONN).o $(BIN_DIR)/$(GOAL).o $(BIN_DIR)/$(TERM).o
+$(EXECUTABLE): $(BIN_DIR)/$(MAIN).o $(BIN_DIR)/$(FORMULA_BASE).o $(BIN_DIR)/$(FORMULA_QUAN).o $(BIN_DIR)/$(FORMULA_CONN).o $(BIN_DIR)/$(FORMULA_ATOM).o $(BIN_DIR)/$(GOAL).o $(BIN_DIR)/$(TERM).o
 	g++ $(CPPFLAGS) $^ -o $@
 
 $(BIN_DIR)/$(MAIN).o: $(SRC_DIR)/$(MAIN).cpp
@@ -25,6 +26,9 @@ $(BIN_DIR)/$(FORMULA_ATOM).o: $(SRC_DIR)/$(FORMULA_ATOM).cpp $(INC_DIR)/$(FORMUL
 	g++ $(CPPFLAGS) -c $< -o $@ -I$(INC_DIR)
 
 $(BIN_DIR)/$(FORMULA_CONN).o: $(SRC_DIR)/$(FORMULA_CONN).cpp $(INC_DIR)/$(FORMULA_CONN).hpp
+	g++ $(CPPFLAGS) -c $< -o $@ -I$(INC_DIR)
+
+$(BIN_DIR)/$(FORMULA_QUAN).o: $(SRC_DIR)/$(FORMULA_QUAN).cpp $(INC_DIR)/$(FORMULA_QUAN).hpp
 	g++ $(CPPFLAGS) -c $< -o $@ -I$(INC_DIR)
 
 $(BIN_DIR)/$(TERM).o: $(SRC_DIR)/$(TERM).cpp $(INC_DIR)/$(TERM).hpp
