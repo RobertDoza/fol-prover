@@ -42,7 +42,7 @@ $(BIN_DIR)/$(GOAL).o: $(SRC_DIR)/$(GOAL).cpp $(INC_DIR)/$(GOAL).hpp $(INC_DIR)/$
 $(BIN_DIR)/$(PROOF_MANAGER).o: $(SRC_DIR)/$(PROOF_MANAGER).cpp $(INC_DIR)/$(PROOF_MANAGER).hpp
 	g++ $(CPPFLAGS) -c $< -o $@ -I$(INC_DIR)
 
-$(BIN_DIR)/$(PROVER).o: $(SRC_DIR)/$(PROVER).cpp $(INC_DIR)/$(PROVER).hpp
+$(BIN_DIR)/$(PROVER).o: $(SRC_DIR)/$(PROVER).cpp $(INC_DIR)/$(PROVER).hpp $(INC_DIR)/$(PROOF_MANAGER).hpp
 	g++ $(CPPFLAGS) -c $< -o $@ -I$(INC_DIR)
 
 .PHONY: clean

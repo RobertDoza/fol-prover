@@ -4,6 +4,7 @@
 
 #include "formula.hpp"
 #include "goal.hpp"
+#include "proof_state_manager.hpp"
 
 constexpr const char* commands =
 	"Commands:\n"
