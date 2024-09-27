@@ -9,12 +9,13 @@ FORMULA_ATOM = atom
 FORMULA_CONN = connective
 FORMULA_QUAN = quantifier
 GOAL = goal
+PROOF_MANAGER = proof_state_manager
 PROVER = prover
 EXECUTABLE = test
 
 CPPFLAGS = -g -Wall -Wextra -Werror -pedantic
 
-$(EXECUTABLE): $(BIN_DIR)/$(MAIN).o $(BIN_DIR)/$(FORMULA_BASE).o $(BIN_DIR)/$(FORMULA_QUAN).o $(BIN_DIR)/$(FORMULA_CONN).o $(BIN_DIR)/$(FORMULA_ATOM).o $(BIN_DIR)/$(GOAL).o $(BIN_DIR)/$(TERM).o $(BIN_DIR)/$(PROVER).o
+$(EXECUTABLE): $(BIN_DIR)/$(MAIN).o $(BIN_DIR)/$(FORMULA_BASE).o $(BIN_DIR)/$(FORMULA_QUAN).o $(BIN_DIR)/$(FORMULA_CONN).o $(BIN_DIR)/$(FORMULA_ATOM).o $(BIN_DIR)/$(TERM).o $(BIN_DIR)/$(GOAL).o $(BIN_DIR)/$(PROOF_MANAGER).o $(BIN_DIR)/$(PROVER).o
 	g++ $(CPPFLAGS) $^ -o $@
 
 $(BIN_DIR)/$(MAIN).o: $(SRC_DIR)/$(MAIN).cpp
@@ -36,6 +37,9 @@ $(BIN_DIR)/$(TERM).o: $(SRC_DIR)/$(TERM).cpp $(INC_DIR)/$(TERM).hpp
 	g++ $(CPPFLAGS) -c $< -o $@ -I$(INC_DIR)
 
 $(BIN_DIR)/$(GOAL).o: $(SRC_DIR)/$(GOAL).cpp $(INC_DIR)/$(GOAL).hpp $(INC_DIR)/$(FORMULA_ATOM).hpp $(INC_DIR)/$(FORMULA_CONN).hpp $(INC_DIR)/$(FORMULA_QUAN).hpp
+	g++ $(CPPFLAGS) -c $< -o $@ -I$(INC_DIR)
+
+$(BIN_DIR)/$(PROOF_MANAGER).o: $(SRC_DIR)/$(PROOF_MANAGER).cpp $(INC_DIR)/$(PROOF_MANAGER).hpp
 	g++ $(CPPFLAGS) -c $< -o $@ -I$(INC_DIR)
 
 $(BIN_DIR)/$(PROVER).o: $(SRC_DIR)/$(PROVER).cpp $(INC_DIR)/$(PROVER).hpp
