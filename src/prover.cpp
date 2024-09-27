@@ -146,8 +146,66 @@ void Prover::execute(const Command& command) {
 			// TODO
 			break;
 		case CommandType::RuleApplication:
-			// TODO
+			// TODO: check if command.rule_to_apply has value
+			apply_rule(command.rule_to_apply.value());
 			break;
+	}
+}
+
+void Prover::apply_rule(const Rule& rule) {
+	switch (rule) {
+		case Rule::Assumption:
+			_goal_keeper.apply_assumption();
+			return;
+		case Rule::NotI:
+			// TODO
+			return;
+		case Rule::NotE:
+			// TODO
+			return;
+		case Rule::ConjI:
+			// TODO
+			return;
+		case Rule::ConjE:
+			_goal_keeper.apply_erule_conj_e();
+			return;
+		case Rule::DisjI1:
+			// TODO
+			return;
+		case Rule::DisjI2:
+			// TODO
+			return;
+		case Rule::DisjE:
+			// TODO
+			return;
+		case Rule::ImpI:
+			_goal_keeper.apply_rule_imp_i();
+			return;
+		case Rule::ImpE:
+			// TODO
+			return;
+		case Rule::IffI:
+			// TODO
+			return;
+		case Rule::IffE:
+			// TODO
+			return;
+		case Rule::AllI:
+			// TODO
+			//_goal_keeper.apply_rule_all_i();
+			return;
+		case Rule::AllE:
+			// TODO
+			return;
+		case Rule::ExI:
+			// TODO
+			return;
+		case Rule::ExE:
+			// TODO
+			return;
+		case Rule::Done:
+			// TODO handle or remove Done from Rule
+			return;
 	}
 }
 
