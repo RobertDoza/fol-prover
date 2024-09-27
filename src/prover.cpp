@@ -155,7 +155,7 @@ void Prover::execute(const Command& command) {
 void Prover::apply_rule(const Rule& rule) {
 	switch (rule) {
 		case Rule::Assumption:
-			_goal_keeper.apply_assumption();
+			_proof_state_manager.apply_assumption();
 			return;
 		case Rule::NotI:
 			// TODO
@@ -167,7 +167,7 @@ void Prover::apply_rule(const Rule& rule) {
 			// TODO
 			return;
 		case Rule::ConjE:
-			_goal_keeper.apply_erule_conj_e();
+			_proof_state_manager.apply_erule_conj_e();
 			return;
 		case Rule::DisjI1:
 			// TODO
@@ -179,7 +179,7 @@ void Prover::apply_rule(const Rule& rule) {
 			// TODO
 			return;
 		case Rule::ImpI:
-			_goal_keeper.apply_rule_imp_i();
+			_proof_state_manager.apply_rule_imp_i();
 			return;
 		case Rule::ImpE:
 			// TODO
@@ -192,7 +192,7 @@ void Prover::apply_rule(const Rule& rule) {
 			return;
 		case Rule::AllI:
 			// TODO
-			//_goal_keeper.apply_rule_all_i();
+			//_proof_state_manager.apply_rule_all_i();
 			return;
 		case Rule::AllE:
 			// TODO
@@ -214,7 +214,7 @@ void Prover::interact_with_user() {
 
 	while (true) {
 		std::cout << std::endl;
-		std::cout << _goal_keeper.to_string() << std::endl;
+		std::cout << _proof_state_manager.to_string() << std::endl;
 		std::cout << "> ";
 		
 		std::getline(std::cin, user_input);

@@ -7,13 +7,13 @@
 #include "formula.hpp"
 #include "goal.hpp"
 
-class GoalKeeper {
+class ProofStateManager {
 	public:
-		GoalKeeper(const std::shared_ptr<Formula>& formula_to_prove)
+		ProofStateManager(const std::shared_ptr<Formula>& formula_to_prove)
 			:_goals({Goal(formula_to_prove)})
 		{}
 		
-		GoalKeeper(const Goal& initial_goal)
+		ProofStateManager(const Goal& initial_goal)
 			:_goals({initial_goal})
 		{}
 		

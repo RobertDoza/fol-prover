@@ -1,6 +1,6 @@
 #include "proof_state_manager.hpp"
 
-std::string GoalKeeper::to_string() const {
+std::string ProofStateManager::to_string() const {
 	if (_goals.empty()) {
 		return "No goals!";
 	}
@@ -21,7 +21,7 @@ std::string GoalKeeper::to_string() const {
 	return s.str();
 }
 
-void GoalKeeper::apply_assumption() {
+void ProofStateManager::apply_assumption() {
 	// TODO: handle empty goal list
 
 	RuleStatus status = _goals[0].apply_assumption();
@@ -34,7 +34,7 @@ void GoalKeeper::apply_assumption() {
 	_goals.pop_front();
 }
 
-void GoalKeeper::apply_rule_not_i() {
+void ProofStateManager::apply_rule_not_i() {
 	// TODO: handle empty goal list
 
 	RuleStatus status = _goals[0].apply_rule_not_i();
@@ -44,7 +44,7 @@ void GoalKeeper::apply_rule_not_i() {
 	}
 }
 
-void GoalKeeper::apply_erule_not_e() {
+void ProofStateManager::apply_erule_not_e() {
 	// TODO: handle empty goal list
 
 	RuleStatus status = _goals[0].apply_erule_not_e();
@@ -54,7 +54,7 @@ void GoalKeeper::apply_erule_not_e() {
 	}
 }
 
-void GoalKeeper::apply_rule_conj_i() {
+void ProofStateManager::apply_rule_conj_i() {
 	ConjIResult result = _goals[0].apply_rule_conj_i();
 	
 	RuleStatus status = result.status;
@@ -79,7 +79,7 @@ void GoalKeeper::apply_rule_conj_i() {
 	_goals.push_front(new_goal_1);
 }
 
-void GoalKeeper::apply_erule_conj_e() {
+void ProofStateManager::apply_erule_conj_e() {
 	// TODO: handle empty goal list
 
 	RuleStatus status = _goals[0].apply_erule_conj_e();
@@ -89,7 +89,7 @@ void GoalKeeper::apply_erule_conj_e() {
 	}
 }
 
-void GoalKeeper::apply_rule_disj_i_1() {
+void ProofStateManager::apply_rule_disj_i_1() {
 	// TODO: handle empty goal list
 	
 	RuleStatus status = _goals[0].apply_rule_disj_i_1();
@@ -99,7 +99,7 @@ void GoalKeeper::apply_rule_disj_i_1() {
 	}
 }
 
-void GoalKeeper::apply_rule_disj_i_2() {
+void ProofStateManager::apply_rule_disj_i_2() {
 	// TODO: handle empty goal list
 	
 	RuleStatus status = _goals[0].apply_rule_disj_i_2();
@@ -109,7 +109,7 @@ void GoalKeeper::apply_rule_disj_i_2() {
 	}
 }
 
-void GoalKeeper::apply_erule_disj_e() {
+void ProofStateManager::apply_erule_disj_e() {
 	// TODO: handle empty goal list
 	
 	DisjEResult result = _goals[0].apply_erule_disj_e();
@@ -136,7 +136,7 @@ void GoalKeeper::apply_erule_disj_e() {
 	_goals.push_front(new_goal_1);
 }
 
-void GoalKeeper::apply_rule_imp_i() {
+void ProofStateManager::apply_rule_imp_i() {
 	// TODO: handle empty goal list
 
 	RuleStatus status = _goals[0].apply_rule_imp_i();
@@ -146,7 +146,7 @@ void GoalKeeper::apply_rule_imp_i() {
 	}
 }
 
-void GoalKeeper::apply_erule_imp_e() {
+void ProofStateManager::apply_erule_imp_e() {
 	// TODO: handle empty goal list
 	
 	ImpEResult result = _goals[0].apply_erule_imp_e();
@@ -174,7 +174,7 @@ void GoalKeeper::apply_erule_imp_e() {
 	_goals.push_front(new_goal_1);
 }
 
-void GoalKeeper::apply_rule_iff_i() {
+void ProofStateManager::apply_rule_iff_i() {
 	// TODO: handle empty goal list
 	
 	IffIResult result = _goals[0].apply_rule_iff_i();
@@ -204,7 +204,7 @@ void GoalKeeper::apply_rule_iff_i() {
 	_goals.push_front(new_goal_1);
 }
 
-void GoalKeeper::apply_erule_iff_e() {
+void ProofStateManager::apply_erule_iff_e() {
 	// TODO: handle empty goal list
 	
 	RuleStatus status = _goals[0].apply_erule_iff_e();

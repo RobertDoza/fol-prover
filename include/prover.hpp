@@ -71,7 +71,7 @@ struct Command {
 class Prover {
 	public:
 		Prover(const std::shared_ptr<Formula>& f)
-			:_formula_to_prove(f), _goal_keeper(f)
+			:_formula_to_prove(f), _proof_state_manager(f)
 		{}
 		
 		void start();
@@ -83,6 +83,6 @@ class Prover {
 		void apply_rule(const Rule& rule);
 	private:
 		std::shared_ptr<Formula> _formula_to_prove;
-		GoalKeeper _goal_keeper;
+		ProofStateManager _proof_state_manager;
 };
 
