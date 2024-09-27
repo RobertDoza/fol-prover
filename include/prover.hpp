@@ -7,10 +7,10 @@
 
 constexpr const char* commands =
 	"Commands:\n"
-	"apply - apply a rule of natural deduction on current goal\n"
-	"help - receive this help message\n"
-	"list - list available natural deduction rules\n"
-	"exit - stop the program";
+	"* apply - apply a natural deduction rule on current goal (for the list of available rules, see 'list')\n"
+	"* help - receive this help message\n"
+	"* list - show list of natural deduction rules\n"
+	"* exit - stop the program";
 
 constexpr const char* list_of_rules =
 	"1) Assumption:\n"
