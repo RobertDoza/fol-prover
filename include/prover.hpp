@@ -68,6 +68,12 @@ struct Command {
 	std::optional<Rule> rule_to_apply;
 };
 
+enum class ExecuteStatus {
+	Continue,
+	StopSuccess,
+	StopFailure
+};
+
 class Prover {
 	public:
 		Prover(const std::shared_ptr<Formula>& f)

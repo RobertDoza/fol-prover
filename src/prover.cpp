@@ -127,12 +127,6 @@ Command Prover::parse_user_input(const std::string& user_input) {
 	return {CommandType::UnknownCommand, {}};
 }
 
-enum class ExecuteStatus {
-	Continue,
-	StopSuccess,
-	StopFailure
-};
-
 void Prover::execute(const Command& command) {
 	CommandType command_type = command.type;
 	
