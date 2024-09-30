@@ -157,61 +157,64 @@ ExecuteStatus Prover::execute(const Command& command) {
 	return ExecuteStatus::StopFailure;
 }
 
-void Prover::apply_rule(const Rule& rule) {
+ManagerStatus Prover::apply_rule(const Rule& rule) {
 	switch (rule) {
 		case Rule::Assumption:
-			_proof_state_manager.apply_assumption();
-			return;
+			return _proof_state_manager.apply_assumption();
 		case Rule::NotI:
 			// TODO
-			return;
+			return ManagerStatus(ManagerStatusCode::Failure);
 		case Rule::NotE:
 			// TODO
-			return;
+			return ManagerStatus(ManagerStatusCode::Failure);
 		case Rule::ConjI:
 			// TODO
-			return;
+			return ManagerStatus(ManagerStatusCode::Failure);
 		case Rule::ConjE:
+			// TODO
 			_proof_state_manager.apply_erule_conj_e();
-			return;
+			return ManagerStatus(ManagerStatusCode::Failure);
 		case Rule::DisjI1:
 			// TODO
-			return;
+			return ManagerStatus(ManagerStatusCode::Failure);
 		case Rule::DisjI2:
 			// TODO
-			return;
+			return ManagerStatus(ManagerStatusCode::Failure);
 		case Rule::DisjE:
 			// TODO
-			return;
+			return ManagerStatus(ManagerStatusCode::Failure);
 		case Rule::ImpI:
+			// TODO
 			_proof_state_manager.apply_rule_imp_i();
-			return;
+			return ManagerStatus(ManagerStatusCode::Failure);
 		case Rule::ImpE:
 			// TODO
-			return;
+			return ManagerStatus(ManagerStatusCode::Failure);
 		case Rule::IffI:
 			// TODO
-			return;
+			return ManagerStatus(ManagerStatusCode::Failure);
 		case Rule::IffE:
 			// TODO
-			return;
+			return ManagerStatus(ManagerStatusCode::Failure);
 		case Rule::AllI:
 			// TODO
 			//_proof_state_manager.apply_rule_all_i();
-			return;
+			return ManagerStatus(ManagerStatusCode::Failure);
 		case Rule::AllE:
 			// TODO
-			return;
+			return ManagerStatus(ManagerStatusCode::Failure);
 		case Rule::ExI:
 			// TODO
-			return;
+			return ManagerStatus(ManagerStatusCode::Failure);
 		case Rule::ExE:
 			// TODO
-			return;
+			return ManagerStatus(ManagerStatusCode::Failure);
 		case Rule::Done:
 			// TODO handle or remove Done from Rule
-			return;
+			return ManagerStatus(ManagerStatusCode::Failure);
 	}
+	
+	return ManagerStatus(ManagerStatusCode::Failure);
 }
 
 void Prover::interact_with_user() {
