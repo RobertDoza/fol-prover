@@ -16,7 +16,7 @@ struct ManagerStatus {
 	ManagerStatusCode code;
 	std::string message;
 	
-	ManagerStatus(const ManagerStatusCode& c, const std::string& m)
+	ManagerStatus(const ManagerStatusCode& c, const std::string& m = "")
 		:code(c), message(m)
 	{}
 };
