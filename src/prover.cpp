@@ -145,9 +145,13 @@ ExecuteStatus Prover::execute(const Command& command) {
 		case CommandType::ExitRequest:
 			return ExecuteStatus::StopSuccess;
 		case CommandType::RuleApplication:
-			// TODO: check if command.rule_to_apply has value
+			auto rule = command.rule_to_apply;
 			
-			ManagerStatus manager_status = apply_rule(command.rule_to_apply.value());
+			if (!rule.has_value()) {
+				throw std::logic_error("CommandType::RuleApplication requires a rule, but none was provided.");
+			}
+			
+			ManagerStatus manager_status = apply_rule(rule.value());
 			
 			switch (manager_status.code) {
 				case ManagerStatusCode::Success:
