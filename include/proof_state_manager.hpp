@@ -7,6 +7,20 @@
 #include "formula.hpp"
 #include "goal.hpp"
 
+enum class ManagerStatusCode {
+	Success,
+	Failure
+};
+
+struct ManagerStatus {
+	ManagerStatusCode code;
+	std::string message;
+	
+	ManagerStatus(const ManagerStatusCode& c, const std::string& m)
+		:code(c), message(m)
+	{}
+};
+
 class ProofStateManager {
 	public:
 		ProofStateManager(const std::shared_ptr<Formula>& formula_to_prove)
