@@ -42,7 +42,7 @@ class ProofStateManager {
 		void apply_rule_disj_i_1();
 		void apply_rule_disj_i_2();
 		void apply_erule_disj_e();
-		void apply_rule_imp_i();
+		ManagerStatus apply_rule_imp_i();
 		void apply_erule_imp_e();
 		void apply_rule_iff_i();
 		void apply_erule_iff_e();
