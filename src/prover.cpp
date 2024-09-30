@@ -127,29 +127,30 @@ Command Prover::parse_user_input(const std::string& user_input) {
 	return {CommandType::UnknownCommand, {}};
 }
 
-void Prover::execute(const Command& command) {
+ExecuteStatus Prover::execute(const Command& command) {
 	CommandType command_type = command.type;
 	
 	switch (command_type) {
 		case CommandType::Empty:
-			return;
+			return ExecuteStatus::Continue;
 		case CommandType::UnknownCommand:
 			std::cout << "Unknown command!" << std::endl;
-			return;
+			return ExecuteStatus::Continue;
 		case CommandType::ListRequest:
 			std::cout << list_of_rules << std::endl;
-			return;
+			return ExecuteStatus::Continue;
 		case CommandType::HelpRequest:
 			std::cout << commands << std::endl;
-			return;
+			return ExecuteStatus::Continue;
 		case CommandType::ExitRequest:
-			// TODO
-			break;
+			return ExecuteStatus::StopSuccess;
 		case CommandType::RuleApplication:
 			// TODO: check if command.rule_to_apply has value
 			apply_rule(command.rule_to_apply.value());
-			break;
+			return ExecuteStatus::Continue;
 	}
+	
+	return ExecuteStatus::StopFailure;
 }
 
 void Prover::apply_rule(const Rule& rule) {
@@ -222,7 +223,12 @@ void Prover::interact_with_user() {
 		Command command = parse_user_input(user_input);
 		
 		// TODO
-		execute(command);
+		
+		ExecuteStatus status = execute(command);
+		
+		if (status != ExecuteStatus::Continue) {
+			break;
+		}
 	}
 }
 

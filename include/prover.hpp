@@ -85,7 +85,7 @@ class Prover {
 		void interact_with_user();
 		void print_intro_message();
 		Command parse_user_input(const std::string& user_input);
-		void execute(const Command& command);
+		ExecuteStatus execute(const Command& command);
 		void apply_rule(const Rule& rule);
 	private:
 		std::shared_ptr<Formula> _formula_to_prove;
