@@ -9,7 +9,8 @@
 
 enum class ManagerStatusCode {
 	Success,
-	Failure
+	Failure,
+	EmptyGoalList
 };
 
 struct ManagerStatus {
