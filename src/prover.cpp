@@ -146,7 +146,11 @@ ExecuteStatus Prover::execute(const Command& command) {
 			return ExecuteStatus::StopSuccess;
 		case CommandType::RuleApplication:
 			// TODO: check if command.rule_to_apply has value
+			
 			apply_rule(command.rule_to_apply.value());
+			
+			// TODO: if rule is AllE or ExI, user needs to provide "replacement term"
+			
 			return ExecuteStatus::Continue;
 	}
 	
