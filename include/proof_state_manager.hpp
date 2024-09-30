@@ -34,7 +34,7 @@ class ProofStateManager {
 		
 		std::string to_string() const;
 		
-		void apply_assumption();
+		ManagerStatus apply_assumption();
 		void apply_rule_not_i();
 		void apply_erule_not_e();
 		void apply_rule_conj_i();

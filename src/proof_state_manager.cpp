@@ -21,17 +21,20 @@ std::string ProofStateManager::to_string() const {
 	return s.str();
 }
 
-void ProofStateManager::apply_assumption() {
-	// TODO: handle empty goal list
+ManagerStatus ProofStateManager::apply_assumption() {
+	if (_goals.empty()) {
+		return ManagerStatus(ManagerStatusCode::EmptyGoalList);
+	}
 
 	RuleStatus status = _goals[0].apply_assumption();
 	
 	if (status == RuleStatus::Failure) {
-		// TODO: handle failure
-		return;
+		return ManagerStatus(ManagerStatusCode::Failure);
 	}
 	
 	_goals.pop_front();
+	
+	return ManagerStatus(ManagerStatusCode::Success);
 }
 
 void ProofStateManager::apply_rule_not_i() {
