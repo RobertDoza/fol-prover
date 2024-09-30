@@ -147,7 +147,18 @@ ExecuteStatus Prover::execute(const Command& command) {
 		case CommandType::RuleApplication:
 			// TODO: check if command.rule_to_apply has value
 			
-			apply_rule(command.rule_to_apply.value());
+			ManagerStatus manager_status = apply_rule(command.rule_to_apply.value());
+			
+			switch (manager_status.code) {
+				case ManagerStatusCode::Success:
+					break;
+				case ManagerStatusCode::Failure:
+					std::cout << "Unable to apply rule to goal." << std::endl;
+					break;
+				case ManagerStatusCode::EmptyGoalList:
+					std::cout << "There are no goals to be solved." << std::endl;
+					break;
+			}
 			
 			// TODO: if rule is AllE or ExI, user needs to provide "replacement term"
 			
