@@ -250,7 +250,16 @@ ManagerStatus ProofStateManager::apply_rule_ex_i() {
 }
 
 ManagerStatus ProofStateManager::apply_erule_ex_e() {
-	// TODO: implement
-	return ManagerStatus(ManagerStatusCode::Failure);
+	if (_goals.empty()) {
+		return ManagerStatus(ManagerStatusCode::EmptyGoalList);
+	}
+	
+	RuleStatus status = _goals[0].apply_erule_ex_e();
+	
+	if (status == RuleStatus::Failure) {
+		return ManagerStatus(ManagerStatusCode::Failure);
+	}
+	
+	return ManagerStatus(ManagerStatusCode::Success);
 }
 
