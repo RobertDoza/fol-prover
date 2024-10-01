@@ -239,12 +239,14 @@ ManagerStatus ProofStateManager::apply_rule_all_i() {
 	return ManagerStatus(ManagerStatusCode::Success);
 }
 
-ManagerStatus ProofStateManager::apply_erule_all_e() {
+ManagerStatus ProofStateManager::apply_erule_all_e(const std::shared_ptr<Term>& replacement_term) {
+	(void) replacement_term;
 	// TODO: implement
 	return ManagerStatus(ManagerStatusCode::Failure);
 }
 
-ManagerStatus ProofStateManager::apply_rule_ex_i() {
+ManagerStatus ProofStateManager::apply_rule_ex_i(const std::shared_ptr<Term>& replacement_term) {
+	(void) replacement_term;
 	// TODO: implement
 	return ManagerStatus(ManagerStatusCode::Failure);
 }
