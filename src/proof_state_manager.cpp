@@ -226,8 +226,17 @@ void ProofStateManager::apply_erule_iff_e() {
 }
 
 ManagerStatus ProofStateManager::apply_rule_all_i() {
-	// TODO: implement
-	return ManagerStatus(ManagerStatusCode::Failure);
+	if (_goals.empty()) {
+		return ManagerStatus(ManagerStatusCode::EmptyGoalList);
+	}
+	
+	RuleStatus status = _goals[0].apply_rule_all_i();
+	
+	if (status == RuleStatus::Failure) {
+		return ManagerStatus(ManagerStatusCode::Failure);
+	}
+	
+	return ManagerStatus(ManagerStatusCode::Success);
 }
 
 ManagerStatus ProofStateManager::apply_erule_all_e() {
