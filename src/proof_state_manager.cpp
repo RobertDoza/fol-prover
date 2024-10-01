@@ -224,3 +224,24 @@ void ProofStateManager::apply_erule_iff_e() {
 		// TODO: handle failure
 	}
 }
+
+ManagerStatus ProofStateManager::apply_rule_all_i() {
+	// TODO: implement
+	return ManagerStatus(ManagerStatusCode::Failure);
+}
+
+ManagerStatus ProofStateManager::apply_erule_all_e() {
+	// TODO: implement
+	return ManagerStatus(ManagerStatusCode::Failure);
+}
+
+ManagerStatus ProofStateManager::apply_rule_ex_i() {
+	// TODO: implement
+	return ManagerStatus(ManagerStatusCode::Failure);
+}
+
+ManagerStatus ProofStateManager::apply_erule_ex_e() {
+	// TODO: implement
+	return ManagerStatus(ManagerStatusCode::Failure);
+}
+
