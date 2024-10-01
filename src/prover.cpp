@@ -209,9 +209,23 @@ ManagerStatus Prover::apply_rule(const Rule& rule) {
 			return ManagerStatus(ManagerStatusCode::Failure);
 		case Rule::AllI:
 			return _proof_state_manager.apply_rule_all_i();
-		case Rule::AllE:
-			// TODO
-			return ManagerStatus(ManagerStatusCode::Failure);
+		case Rule::AllE: {
+				std::string user_input;
+				
+				std::cout << "Instantiate variable: ";
+				std::getline(std::cin, user_input);
+				
+				if (user_input.empty()) {
+					std::cout << "Error: Variable name cannot be empty." << std::endl;
+					return ManagerStatus(ManagerStatusCode::Failure);
+				}
+				
+				// TODO: parse term from user input
+				Variable var(user_input);
+				
+				// TODO: use parsed term as argument for apply_erule_all_e
+				return _proof_state_manager.apply_erule_all_e(std::make_shared<Variable>(var));
+			}
 		case Rule::ExI:
 			// TODO
 			return ManagerStatus(ManagerStatusCode::Failure);
