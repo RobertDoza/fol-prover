@@ -46,6 +46,10 @@ class ProofStateManager {
 		void apply_erule_imp_e();
 		void apply_rule_iff_i();
 		void apply_erule_iff_e();
+		ManagerStatus apply_rule_all_i();
+		ManagerStatus apply_erule_all_e();
+		ManagerStatus apply_rule_ex_i();
+		ManagerStatus apply_erule_ex_e();
 	private:
 		std::deque<Goal> _goals;
 };
