@@ -254,9 +254,17 @@ ManagerStatus ProofStateManager::apply_erule_all_e(const std::shared_ptr<Term>& 
 }
 
 ManagerStatus ProofStateManager::apply_rule_ex_i(const std::shared_ptr<Term>& replacement_term) {
-	(void) replacement_term;
-	// TODO: implement
-	return ManagerStatus(ManagerStatusCode::Failure);
+	if (_goals.empty()) {
+		return ManagerStatus(ManagerStatusCode::EmptyGoalList);
+	}
+	
+	RuleStatus status = _goals[0].apply_rule_ex_i(replacement_term);
+	
+	if (status == RuleStatus::Failure) {
+		return ManagerStatus(ManagerStatusCode::Failure);
+	}
+	
+	return ManagerStatus(ManagerStatusCode::Success);
 }
 
 ManagerStatus ProofStateManager::apply_erule_ex_e() {
