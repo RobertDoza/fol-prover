@@ -47,14 +47,18 @@ void ProofStateManager::apply_rule_not_i() {
 	}
 }
 
-void ProofStateManager::apply_erule_not_e() {
-	// TODO: handle empty goal list
+ManagerStatus ProofStateManager::apply_erule_not_e() {
+	if (_goals.empty()) {
+		return ManagerStatus(ManagerStatusCode::EmptyGoalList);
+	}
 
 	RuleStatus status = _goals[0].apply_erule_not_e();
 	
 	if (status == RuleStatus::Failure) {
-		// TODO: handle failure
+		return ManagerStatus(ManagerStatusCode::Failure);
 	}
+	
+	return ManagerStatus(ManagerStatusCode::Success);
 }
 
 void ProofStateManager::apply_rule_conj_i() {
