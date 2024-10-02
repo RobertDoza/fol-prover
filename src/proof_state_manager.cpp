@@ -124,16 +124,17 @@ void ProofStateManager::apply_rule_disj_i_2() {
 	}
 }
 
-void ProofStateManager::apply_erule_disj_e() {
-	// TODO: handle empty goal list
+ManagerStatus ProofStateManager::apply_erule_disj_e() {
+	if (_goals.empty()) {
+		return ManagerStatus(ManagerStatusCode::EmptyGoalList);
+	}
 	
 	DisjEResult result = _goals[0].apply_erule_disj_e();
 	
 	RuleStatus status = result.status;
 	
 	if (status == RuleStatus::Failure) {
-		// TODO: handle failure
-		return;
+		return ManagerStatus(ManagerStatusCode::Failure);
 	}
 	
 	auto disj_left = result.new_assumption_1;
@@ -149,6 +150,8 @@ void ProofStateManager::apply_erule_disj_e() {
 	
 	_goals.push_front(new_goal_2);
 	_goals.push_front(new_goal_1);
+	
+	return ManagerStatus(ManagerStatusCode::Success);
 }
 
 ManagerStatus ProofStateManager::apply_rule_imp_i() {
