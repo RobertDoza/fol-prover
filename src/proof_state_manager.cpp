@@ -215,14 +215,18 @@ void ProofStateManager::apply_rule_iff_i() {
 	_goals.push_front(new_goal_1);
 }
 
-void ProofStateManager::apply_erule_iff_e() {
-	// TODO: handle empty goal list
+ManagerStatus ProofStateManager::apply_erule_iff_e() {
+	if (_goals.empty()) {
+		return ManagerStatus(ManagerStatusCode::EmptyGoalList);
+	}
 	
 	RuleStatus status = _goals[0].apply_erule_iff_e();
 	
 	if (status == RuleStatus::Failure) {
-		// TODO: handle failure
+		return ManagerStatus(ManagerStatusCode::Failure);
 	}
+	
+	return ManagerStatus(ManagerStatusCode::Success);
 }
 
 ManagerStatus ProofStateManager::apply_rule_all_i() {
