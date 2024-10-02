@@ -65,14 +65,17 @@ ManagerStatus ProofStateManager::apply_erule_not_e() {
 	return ManagerStatus(ManagerStatusCode::Success);
 }
 
-void ProofStateManager::apply_rule_conj_i() {
+ManagerStatus ProofStateManager::apply_rule_conj_i() {
+	if (_goals.empty()) {
+		return ManagerStatus(ManagerStatusCode::EmptyGoalList);
+	}
+	
 	ConjIResult result = _goals[0].apply_rule_conj_i();
 	
 	RuleStatus status = result.status;
 	
 	if (status == RuleStatus::Failure) {
-		// TODO: handle failure
-		return;
+		return ManagerStatus(ManagerStatusCode::Failure);
 	}
 	
 	auto target_1 = result.new_target_1;
@@ -88,6 +91,8 @@ void ProofStateManager::apply_rule_conj_i() {
 	
 	_goals.push_front(new_goal_2);
 	_goals.push_front(new_goal_1);
+	
+	return ManagerStatus(ManagerStatusCode::Success);
 }
 
 ManagerStatus ProofStateManager::apply_erule_conj_e() {
