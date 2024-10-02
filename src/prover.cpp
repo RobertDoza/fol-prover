@@ -210,8 +210,7 @@ ManagerStatus Prover::apply_rule(const Rule& rule) {
 		case Rule::ImpI:
 			return _proof_state_manager.apply_rule_imp_i();
 		case Rule::ImpE:
-			// TODO
-			return ManagerStatus(ManagerStatusCode::Failure);
+			return _proof_state_manager.apply_erule_imp_e();
 		case Rule::IffI:
 			return _proof_state_manager.apply_rule_iff_i();
 		case Rule::IffE:
