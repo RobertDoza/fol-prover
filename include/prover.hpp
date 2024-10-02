@@ -60,6 +60,7 @@ enum class CommandType {
 	HelpRequest,
 	ExitRequest,
 	RuleApplication,
+	Done,
 	UnknownCommand
 };
 

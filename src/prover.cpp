@@ -123,8 +123,11 @@ Command Prover::parse_user_input(const std::string& user_input) {
 		
 		return {CommandType::HelpRequest, {}};
 	} else if (command_word == "done") {
-		// TODO
-		return {CommandType::UnknownCommand, {}};
+		if (length > 1) {
+			return {CommandType::UnknownCommand, {}};
+		}
+		
+		return {CommandType::Done, {}};
 	}
 	
 	return {CommandType::UnknownCommand, {}};
@@ -146,6 +149,9 @@ ExecuteStatus Prover::execute(const Command& command) {
 			std::cout << commands << std::endl;
 			return ExecuteStatus::Continue;
 		case CommandType::ExitRequest:
+			return ExecuteStatus::StopSuccess;
+		case CommandType::Done:
+			// TODO
 			return ExecuteStatus::StopSuccess;
 		case CommandType::RuleApplication:
 			auto rule = command.rule_to_apply;
