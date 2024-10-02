@@ -281,3 +281,7 @@ ManagerStatus ProofStateManager::apply_erule_ex_e() {
 	return ManagerStatus(ManagerStatusCode::Success);
 }
 
+bool ProofStateManager::goals_solved() const {
+	return _goals.empty();
+}
+

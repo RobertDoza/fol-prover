@@ -33,7 +33,6 @@ class ProofStateManager {
 		{}
 		
 		std::string to_string() const;
-		
 		ManagerStatus apply_assumption();
 		void apply_rule_not_i();
 		void apply_erule_not_e();
@@ -50,6 +49,7 @@ class ProofStateManager {
 		ManagerStatus apply_erule_all_e(const std::shared_ptr<Term>& replacement_term);
 		ManagerStatus apply_rule_ex_i(const std::shared_ptr<Term>& replacement_term);
 		ManagerStatus apply_erule_ex_e();
+		bool goals_solved() const;
 	private:
 		std::deque<Goal> _goals;
 };
