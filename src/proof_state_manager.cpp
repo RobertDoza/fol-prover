@@ -109,24 +109,32 @@ ManagerStatus ProofStateManager::apply_erule_conj_e() {
 	return ManagerStatus(ManagerStatusCode::Success);
 }
 
-void ProofStateManager::apply_rule_disj_i_1() {
-	// TODO: handle empty goal list
+ManagerStatus ProofStateManager::apply_rule_disj_i_1() {
+	if (_goals.empty()) {
+		return ManagerStatus(ManagerStatusCode::EmptyGoalList);
+	}
 	
 	RuleStatus status = _goals[0].apply_rule_disj_i_1();
 	
 	if (status == RuleStatus::Failure) {
-		// TODO: handle failure
+		return ManagerStatus(ManagerStatusCode::Failure);
 	}
+	
+	return ManagerStatus(ManagerStatusCode::Success);
 }
 
-void ProofStateManager::apply_rule_disj_i_2() {
-	// TODO: handle empty goal list
+ManagerStatus ProofStateManager::apply_rule_disj_i_2() {
+	if (_goals.empty()) {
+		return ManagerStatus(ManagerStatusCode::EmptyGoalList);
+	}
 	
 	RuleStatus status = _goals[0].apply_rule_disj_i_2();
 	
 	if (status == RuleStatus::Failure) {
-		// TODO: handle failure
+		return ManagerStatus(ManagerStatusCode::Failure);
 	}
+	
+	return ManagerStatus(ManagerStatusCode::Success);
 }
 
 ManagerStatus ProofStateManager::apply_erule_disj_e() {

@@ -196,11 +196,9 @@ ManagerStatus Prover::apply_rule(const Rule& rule) {
 		case Rule::ConjE:
 			return _proof_state_manager.apply_erule_conj_e();
 		case Rule::DisjI1:
-			// TODO
-			return ManagerStatus(ManagerStatusCode::Failure);
+			return _proof_state_manager.apply_rule_disj_i_1();
 		case Rule::DisjI2:
-			// TODO
-			return ManagerStatus(ManagerStatusCode::Failure);
+			return _proof_state_manager.apply_rule_disj_i_2();
 		case Rule::DisjE:
 			return _proof_state_manager.apply_erule_disj_e();
 		case Rule::ImpI:

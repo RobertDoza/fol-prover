@@ -38,8 +38,8 @@ class ProofStateManager {
 		ManagerStatus apply_erule_not_e();
 		ManagerStatus apply_rule_conj_i();
 		ManagerStatus apply_erule_conj_e();
-		void apply_rule_disj_i_1();
-		void apply_rule_disj_i_2();
+		ManagerStatus apply_rule_disj_i_1();
+		ManagerStatus apply_rule_disj_i_2();
 		ManagerStatus apply_erule_disj_e();
 		ManagerStatus apply_rule_imp_i();
 		ManagerStatus apply_erule_imp_e();
