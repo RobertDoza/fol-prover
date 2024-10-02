@@ -151,7 +151,11 @@ ExecuteStatus Prover::execute(const Command& command) {
 		case CommandType::ExitRequest:
 			return ExecuteStatus::StopSuccess;
 		case CommandType::Done:
-			// TODO
+			if (!_proof_state_manager.goals_solved()) {
+				std::cout << "There are still goals to solve!" << std::endl;
+				return ExecuteStatus::Continue;
+			}
+			
 			return ExecuteStatus::StopSuccess;
 		case CommandType::RuleApplication:
 			auto rule = command.rule_to_apply;
