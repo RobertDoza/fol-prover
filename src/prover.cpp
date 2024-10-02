@@ -122,6 +122,9 @@ Command Prover::parse_user_input(const std::string& user_input) {
 		}
 		
 		return {CommandType::HelpRequest, {}};
+	} else if (command_word == "done") {
+		// TODO
+		return {CommandType::UnknownCommand, {}};
 	}
 	
 	return {CommandType::UnknownCommand, {}};
