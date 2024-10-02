@@ -188,8 +188,7 @@ ManagerStatus Prover::apply_rule(const Rule& rule) {
 		case Rule::Assumption:
 			return _proof_state_manager.apply_assumption();
 		case Rule::NotI:
-			// TODO
-			return ManagerStatus(ManagerStatusCode::Failure);
+			return _proof_state_manager.apply_rule_not_i();
 		case Rule::NotE:
 			return _proof_state_manager.apply_erule_not_e();
 		case Rule::ConjI:
