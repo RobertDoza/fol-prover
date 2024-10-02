@@ -43,7 +43,7 @@ class ProofStateManager {
 		void apply_erule_disj_e();
 		ManagerStatus apply_rule_imp_i();
 		void apply_erule_imp_e();
-		void apply_rule_iff_i();
+		ManagerStatus apply_rule_iff_i();
 		ManagerStatus apply_erule_iff_e();
 		ManagerStatus apply_rule_all_i();
 		ManagerStatus apply_erule_all_e(const std::shared_ptr<Term>& replacement_term);

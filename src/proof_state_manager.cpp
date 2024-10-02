@@ -185,16 +185,17 @@ void ProofStateManager::apply_erule_imp_e() {
 	_goals.push_front(new_goal_1);
 }
 
-void ProofStateManager::apply_rule_iff_i() {
-	// TODO: handle empty goal list
+ManagerStatus ProofStateManager::apply_rule_iff_i() {
+	if (_goals.empty()) {
+		return ManagerStatus(ManagerStatusCode::EmptyGoalList);
+	}
 	
 	IffIResult result = _goals[0].apply_rule_iff_i();
 	
 	RuleStatus status = result.status;
 	
 	if (status == RuleStatus::Failure) {
-		// TODO: handle failure
-		return;
+		return ManagerStatus(ManagerStatusCode::Failure);
 	}
 	
 	auto left_subformula = result.left_subformula;
@@ -213,6 +214,8 @@ void ProofStateManager::apply_rule_iff_i() {
 	
 	_goals.push_front(new_goal_2);
 	_goals.push_front(new_goal_1);
+	
+	return ManagerStatus(ManagerStatusCode::Success);
 }
 
 ManagerStatus ProofStateManager::apply_erule_iff_e() {
