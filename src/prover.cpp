@@ -253,9 +253,6 @@ ManagerStatus Prover::apply_rule(const Rule& rule) {
 			}
 		case Rule::ExE:
 			return _proof_state_manager.apply_erule_ex_e();
-		case Rule::Done:
-			// TODO handle or remove Done from Rule
-			return ManagerStatus(ManagerStatusCode::Failure);
 	}
 	
 	return ManagerStatus(ManagerStatusCode::Failure);
