@@ -177,8 +177,6 @@ ExecuteStatus Prover::execute(const Command& command) {
 					break;
 			}
 			
-			// TODO: if rule is AllE or ExI, user needs to provide "replacement term"
-			
 			return ExecuteStatus::Continue;
 	}
 	
