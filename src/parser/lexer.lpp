@@ -2,6 +2,7 @@
 #pragma GCC diagnostic ignored "-Wunused-function"
 #include <iostream>
 #include "term.hpp"
+#include "atom.hpp"
 #include "parser.tab.hpp"
 %}
 
