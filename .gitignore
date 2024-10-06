@@ -1,5 +1,5 @@
 *.o
 test
 main.cpp
-src/lex.yy.c
+src/generated/
 
