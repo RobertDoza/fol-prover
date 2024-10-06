@@ -1,8 +1,40 @@
 %{
 
+#include <iostream>
+
+extern int yylex();
+
+void yyerror(const char* s);
+
 %}
 
-%%
+%union {
+	char *str;
+}
+
+%token <str> SYMBOL
+%token <str> VAR
 
 %%
+
+input:
+    | input term {  }
+    ;
+
+term:
+    SYMBOL	{ std::cout << "Constant: " << $1 << std::endl; }
+    | VAR	{ std::cout << "Variable: " << $1 << std::endl; }
+    | SYMBOL '(' term_list ')' { std::cout << "Complex term! " << std::endl; }
+    ;
+
+term_list:
+	term
+	| term ',' term_list
+	;
+
+%%
+
+void yyerror(const char* s) {
+    std::cerr << "Error: " << s << std::endl;
+}
 
