@@ -16,6 +16,8 @@ void yyerror(const char* s);
 	std::vector<std::shared_ptr<Term>> *term_vec;
 }
 
+%token TRUE
+%token FALSE
 %token <str> SYMBOL
 %token <str> VAR
 %token NOT
