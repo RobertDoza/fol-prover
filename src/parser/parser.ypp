@@ -34,9 +34,14 @@ void yyerror(const char* s);
 %%
 
 input:
-	| input term {
-	std::cout << "Term: " << $2->to_string() << std::endl;
-	}
+	| input atomic_formula {}
+	;
+
+atomic_formula:
+	TRUE
+	| FALSE
+	| SYMBOL
+	| SYMBOL '(' term_list ')'
 	;
 
 term:
