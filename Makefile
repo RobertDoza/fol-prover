@@ -14,10 +14,11 @@ PROVER = prover
 EXECUTABLE = test
 
 LEXER = lex.yy
+PARSER = parser.tab
 
 CPPFLAGS = -g -Wall -Wextra -Werror -pedantic
 
-$(EXECUTABLE): $(BIN_DIR)/$(MAIN).o $(BIN_DIR)/$(FORMULA_BASE).o $(BIN_DIR)/$(FORMULA_QUAN).o $(BIN_DIR)/$(FORMULA_CONN).o $(BIN_DIR)/$(FORMULA_ATOM).o $(BIN_DIR)/$(TERM).o $(BIN_DIR)/$(GOAL).o $(BIN_DIR)/$(PROOF_MANAGER).o $(BIN_DIR)/$(PROVER).o $(BIN_DIR)/$(LEXER).o
+$(EXECUTABLE): $(BIN_DIR)/$(MAIN).o $(BIN_DIR)/$(FORMULA_BASE).o $(BIN_DIR)/$(FORMULA_QUAN).o $(BIN_DIR)/$(FORMULA_CONN).o $(BIN_DIR)/$(FORMULA_ATOM).o $(BIN_DIR)/$(TERM).o $(BIN_DIR)/$(GOAL).o $(BIN_DIR)/$(PROOF_MANAGER).o $(BIN_DIR)/$(PROVER).o $(BIN_DIR)/$(LEXER).o $(BIN_DIR)/$(PARSER).o
 	g++ $(CPPFLAGS) $^ -o $@
 
 $(BIN_DIR)/$(MAIN).o: $(SRC_DIR)/$(MAIN).cpp
@@ -47,11 +48,17 @@ $(BIN_DIR)/$(PROOF_MANAGER).o: $(SRC_DIR)/$(PROOF_MANAGER).cpp $(INC_DIR)/$(PROO
 $(BIN_DIR)/$(PROVER).o: $(SRC_DIR)/$(PROVER).cpp $(INC_DIR)/$(PROVER).hpp $(INC_DIR)/$(PROOF_MANAGER).hpp
 	g++ $(CPPFLAGS) -c $< -o $@ -I$(INC_DIR)
 
-$(BIN_DIR)/$(LEXER).o: $(SRC_DIR)/$(LEXER).c
+$(BIN_DIR)/$(LEXER).o: $(SRC_DIR)/$(LEXER).c $(SRC_DIR)/$(PARSER).hpp
+	g++ $(CPPFLAGS) -c $< -o $@
+
+$(BIN_DIR)/$(PARSER).o: $(SRC_DIR)/$(PARSER).cpp
 	g++ $(CPPFLAGS) -c $< -o $@
 
 $(SRC_DIR)/$(LEXER).c: $(SRC_DIR)/parser/lexer.lpp
 	flex -o $@ $<
+
+$(SRC_DIR)/$(PARSER).cpp $(SRC_DIR)/$(PARSER).hpp: $(SRC_DIR)/parser/parser.ypp
+	bison -d $< -o $(SRC_DIR)/$(PARSER).cpp
 
 .PHONY: clean
 
