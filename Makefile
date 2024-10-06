@@ -49,7 +49,7 @@ $(BIN_DIR)/$(PROVER).o: $(SRC_DIR)/$(PROVER).cpp $(INC_DIR)/$(PROVER).hpp $(INC_
 	g++ $(CPPFLAGS) -c $< -o $@ -I$(INC_DIR)
 
 $(BIN_DIR)/$(LEXER).o: $(SRC_DIR)/generated/$(LEXER).c $(SRC_DIR)/generated/$(PARSER).hpp
-	g++ $(CPPFLAGS) -c $< -o $@
+	g++ $(CPPFLAGS) -c $< -o $@ -I$(INC_DIR)
 
 $(BIN_DIR)/$(PARSER).o: $(SRC_DIR)/generated/$(PARSER).cpp
 	g++ $(CPPFLAGS) -c $< -o $@ -I$(INC_DIR)
