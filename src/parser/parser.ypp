@@ -1,6 +1,8 @@
 %{
 
 #include <iostream>
+#include <memory>
+#include "term.hpp"
 
 extern int yylex();
 
@@ -10,26 +12,42 @@ void yyerror(const char* s);
 
 %union {
 	char *str;
+	Term *term;
+	std::vector<std::shared_ptr<Term>> *term_vec;
 }
 
 %token <str> SYMBOL
 %token <str> VAR
 
+%type <term> term
+%type <term_vec> term_list
+
 %%
 
 input:
-    | input term {  }
+    | input term {
+    	std::cout << "Term: " << $2->to_string() << std::endl;
+    }
     ;
 
 term:
-    SYMBOL	{ std::cout << "Constant: " << $1 << std::endl; }
-    | VAR	{ std::cout << "Variable: " << $1 << std::endl; }
-    | SYMBOL '(' term_list ')' { std::cout << "Complex term! " << std::endl; }
+    SYMBOL {
+    	$$ = new Constant($1);
+    }
+    | VAR {
+    	$$ = new Variable($1);
+    }
+    | SYMBOL '(' term_list ')' {
+    	$$ = new ComplexTerm($1, *$3);
+    }
     ;
 
 term_list:
-	term
-	| term ',' term_list
+	term { $$ = new std::vector<std::shared_ptr<Term>>{ std::shared_ptr<Term>($1) }; }
+	| term ',' term_list {
+		$3->insert($3->begin(), std::shared_ptr<Term>($1));
+		$$ = $3;
+	}
 	;
 
 %%
