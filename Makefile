@@ -13,9 +13,11 @@ PROOF_MANAGER = proof_state_manager
 PROVER = prover
 EXECUTABLE = test
 
+LEXER = lex.yy
+
 CPPFLAGS = -g -Wall -Wextra -Werror -pedantic
 
-$(EXECUTABLE): $(BIN_DIR)/$(MAIN).o $(BIN_DIR)/$(FORMULA_BASE).o $(BIN_DIR)/$(FORMULA_QUAN).o $(BIN_DIR)/$(FORMULA_CONN).o $(BIN_DIR)/$(FORMULA_ATOM).o $(BIN_DIR)/$(TERM).o $(BIN_DIR)/$(GOAL).o $(BIN_DIR)/$(PROOF_MANAGER).o $(BIN_DIR)/$(PROVER).o
+$(EXECUTABLE): $(BIN_DIR)/$(MAIN).o $(BIN_DIR)/$(FORMULA_BASE).o $(BIN_DIR)/$(FORMULA_QUAN).o $(BIN_DIR)/$(FORMULA_CONN).o $(BIN_DIR)/$(FORMULA_ATOM).o $(BIN_DIR)/$(TERM).o $(BIN_DIR)/$(GOAL).o $(BIN_DIR)/$(PROOF_MANAGER).o $(BIN_DIR)/$(PROVER).o $(BIN_DIR)/$(LEXER).o
 	g++ $(CPPFLAGS) $^ -o $@
 
 $(BIN_DIR)/$(MAIN).o: $(SRC_DIR)/$(MAIN).cpp
@@ -44,8 +46,6 @@ $(BIN_DIR)/$(PROOF_MANAGER).o: $(SRC_DIR)/$(PROOF_MANAGER).cpp $(INC_DIR)/$(PROO
 
 $(BIN_DIR)/$(PROVER).o: $(SRC_DIR)/$(PROVER).cpp $(INC_DIR)/$(PROVER).hpp $(INC_DIR)/$(PROOF_MANAGER).hpp
 	g++ $(CPPFLAGS) -c $< -o $@ -I$(INC_DIR)
-
-LEXER = lex.yy
 
 $(BIN_DIR)/$(LEXER).o: $(SRC_DIR)/$(LEXER).c
 	g++ $(CPPFLAGS) -c $< -o $@
