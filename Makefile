@@ -48,17 +48,17 @@ $(BIN_DIR)/$(PROOF_MANAGER).o: $(SRC_DIR)/$(PROOF_MANAGER).cpp $(INC_DIR)/$(PROO
 $(BIN_DIR)/$(PROVER).o: $(SRC_DIR)/$(PROVER).cpp $(INC_DIR)/$(PROVER).hpp $(INC_DIR)/$(PROOF_MANAGER).hpp
 	g++ $(CPPFLAGS) -c $< -o $@ -I$(INC_DIR)
 
-$(BIN_DIR)/$(LEXER).o: $(SRC_DIR)/$(LEXER).c $(SRC_DIR)/$(PARSER).hpp
+$(BIN_DIR)/$(LEXER).o: $(SRC_DIR)/generated/$(LEXER).c $(SRC_DIR)/generated/$(PARSER).hpp
 	g++ $(CPPFLAGS) -c $< -o $@
 
-$(BIN_DIR)/$(PARSER).o: $(SRC_DIR)/$(PARSER).cpp
+$(BIN_DIR)/$(PARSER).o: $(SRC_DIR)/generated/$(PARSER).cpp
 	g++ $(CPPFLAGS) -c $< -o $@ -I$(INC_DIR)
 
-$(SRC_DIR)/$(LEXER).c: $(SRC_DIR)/parser/lexer.lpp
+$(SRC_DIR)/generated/$(LEXER).c: $(SRC_DIR)/parser/lexer.lpp
 	flex -o $@ $<
 
-$(SRC_DIR)/$(PARSER).cpp $(SRC_DIR)/$(PARSER).hpp: $(SRC_DIR)/parser/parser.ypp
-	bison -d $< -o $(SRC_DIR)/$(PARSER).cpp
+$(SRC_DIR)/generated/$(PARSER).cpp $(SRC_DIR)/generated/$(PARSER).hpp: $(SRC_DIR)/parser/parser.ypp
+	bison -d $< -o $(SRC_DIR)/generated/$(PARSER).cpp
 
 .PHONY: clean
 
