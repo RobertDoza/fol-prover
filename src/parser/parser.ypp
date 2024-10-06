@@ -18,6 +18,13 @@ void yyerror(const char* s);
 
 %token <str> SYMBOL
 %token <str> VAR
+%token NOT
+%token AND
+%token OR
+%token IMPLIES
+%token IFF
+%token FORALL
+%token EXISTS
 
 %type <term> term
 %type <term_vec> term_list
@@ -43,7 +50,9 @@ term:
     ;
 
 term_list:
-	term { $$ = new std::vector<std::shared_ptr<Term>>{ std::shared_ptr<Term>($1) }; }
+	term {
+		$$ = new std::vector<std::shared_ptr<Term>>{ std::shared_ptr<Term>($1) };
+	}
 	| term ',' term_list {
 		$3->insert($3->begin(), std::shared_ptr<Term>($1));
 		$$ = $3;
