@@ -52,7 +52,7 @@ $(BIN_DIR)/$(LEXER).o: $(SRC_DIR)/$(LEXER).c $(SRC_DIR)/$(PARSER).hpp
 	g++ $(CPPFLAGS) -c $< -o $@
 
 $(BIN_DIR)/$(PARSER).o: $(SRC_DIR)/$(PARSER).cpp
-	g++ $(CPPFLAGS) -c $< -o $@
+	g++ $(CPPFLAGS) -c $< -o $@ -I$(INC_DIR)
 
 $(SRC_DIR)/$(LEXER).c: $(SRC_DIR)/parser/lexer.lpp
 	flex -o $@ $<
