@@ -1,7 +1,8 @@
 %{
 #pragma GCC diagnostic ignored "-Wunused-function"
-#include "parser.tab.hpp"
 #include <iostream>
+#include "term.hpp"
+#include "parser.tab.hpp"
 %}
 
 %option noyywrap
