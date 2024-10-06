@@ -54,11 +54,14 @@ $(BIN_DIR)/$(LEXER).o: $(SRC_DIR)/generated/$(LEXER).c $(SRC_DIR)/generated/$(PA
 $(BIN_DIR)/$(PARSER).o: $(SRC_DIR)/generated/$(PARSER).cpp
 	g++ $(CPPFLAGS) -c $< -o $@ -I$(INC_DIR)
 
-$(SRC_DIR)/generated/$(LEXER).c: $(SRC_DIR)/parser/lexer.lpp
+$(SRC_DIR)/generated/$(LEXER).c: $(SRC_DIR)/parser/lexer.lpp | generated_dir
 	flex -o $@ $<
 
-$(SRC_DIR)/generated/$(PARSER).cpp $(SRC_DIR)/generated/$(PARSER).hpp: $(SRC_DIR)/parser/parser.ypp
+$(SRC_DIR)/generated/$(PARSER).cpp $(SRC_DIR)/generated/$(PARSER).hpp: $(SRC_DIR)/parser/parser.ypp | generated_dir
 	bison -d $< -o $(SRC_DIR)/generated/$(PARSER).cpp
+
+generated_dir:
+	mkdir -p src/generated
 
 .PHONY: clean
 
