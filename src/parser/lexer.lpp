@@ -32,6 +32,8 @@ False { return FALSE; }
 
 \? { return EXISTS; }
 
+\. { return *yytext; }
+
 [ \t\n]+ { }
 
 . { return *yytext; }
