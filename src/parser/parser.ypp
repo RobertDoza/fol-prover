@@ -2,8 +2,11 @@
 
 #include <iostream>
 #include <memory>
-#include "term.hpp"
+#include "formula.hpp"
+#include "quantifier.hpp"
+#include "connective.hpp"
 #include "atom.hpp"
+#include "term.hpp"
 
 extern int yylex();
 
@@ -16,6 +19,7 @@ void yyerror(const char* s);
 	Term *term;
 	std::vector<std::shared_ptr<Term>> *term_vec;
 	AtomicFormula *atomic_formula;
+	Formula *formula;
 }
 
 %token TRUE
@@ -33,90 +37,105 @@ void yyerror(const char* s);
 %type <term> term
 %type <term_vec> term_list
 %type <atomic_formula> atomic_formula
+%type <formula> formula
+%type <formula> quantified_formula
+%type <formula> connective
+%type <formula> implication
+%type <formula> disjunction
+%type <formula> conjunction
+%type <formula> equivalence
+%type <formula> negation
+%type <formula> subformula
 
 %%
 
 input:
 	formula {
-		// TODO
+		// TODO: remove output
+		std::cout << "Formula!" << std::endl;
+		
+		std::shared_ptr<Formula> f($1);
+		
+		// TODO: remove output
+		std::cout << f->to_string() << std::endl;
 	}
 	;
 
 formula:
 	quantified_formula {
-		// TODO
+		$$ = $1;
 	}
 	;
 
 quantified_formula:
 	FORALL VAR '.' quantified_formula {
-		// TODO
+		$$ = new ForAll( $2, std::shared_ptr<Formula>($4) );
 	}
 	| EXISTS VAR '.' quantified_formula {
-		// TODO
+		$$ = new Exists( $2, std::shared_ptr<Formula>($4) );
 	}
 	| connective {
-		// TODO
+		$$ = $1;
 	}
 	;
 
 connective:
 	implication {
-		// TODO
+		$$ = $1;
 	}
 	;
 
 implication:
 	disjunction IMPLIES implication {
-		// TODO
+		$$ = new Implication( std::shared_ptr<Formula>($1), std::shared_ptr<Formula>($3) );
 	}
 	| disjunction {
-		// TODO
+		$$ = $1;
 	}
 	;
 
 disjunction:
 	conjunction OR disjunction {
-		// TODO
+		$$ = new Disjunction( std::shared_ptr<Formula>($1), std::shared_ptr<Formula>($3) );
 	}
 	| conjunction {
-		// TODO
+		$$ = $1;
 	}
 	;
 
 conjunction:
 	equivalence AND conjunction {
-		// TODO
+		$$ = new Conjunction( std::shared_ptr<Formula>($1), std::shared_ptr<Formula>($3) );
 	}
 	| equivalence {
-		// TODO
+		$$ = $1;
 	}
 	;
 
 equivalence:
 	equivalence IFF negation {
-		// TODO
+		$$ = new Equivalence( std::shared_ptr<Formula>($1), std::shared_ptr<Formula>($3) );
 	}
 	| negation {
-		// TODO
+		$$ = $1;
 	}
 	;
 
 negation:
 	NOT negation {
-		// TODO
+		$$ = new Negation( std::shared_ptr<Formula>($2) );
 	}
 	| subformula {
-		// TODO
+		$$ = $1;
 	}
 	;
 
 subformula:
 	atomic_formula {
-		// TODO
+		$$ = $1;
 	}
 	| '(' formula ')' {
-		// TODO
+		$$ = $2;
 	}
 	;
 
