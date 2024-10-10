@@ -58,7 +58,7 @@ $(SRC_DIR)/generated/$(LEXER).c: $(SRC_DIR)/parser/lexer.lpp | generated_dir
 	flex -o $@ $<
 
 $(SRC_DIR)/generated/$(PARSER).cpp $(SRC_DIR)/generated/$(PARSER).hpp: $(SRC_DIR)/parser/parser.ypp | generated_dir
-	bison -d $< -o $(SRC_DIR)/generated/$(PARSER).cpp
+	bison -d $< -o $(SRC_DIR)/generated/$(PARSER).cpp -Wcounterexamples
 
 generated_dir:
 	mkdir -p src/generated
