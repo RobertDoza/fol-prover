@@ -37,8 +37,86 @@ void yyerror(const char* s);
 %%
 
 input:
-	| input atomic_formula {
-		std::cout << "Found atomic formula: " << $2->to_string() << std::endl;
+	formula {
+		// TODO
+	}
+	;
+
+formula:
+	quantified_formula {
+		// TODO
+	}
+	;
+
+quantified_formula:
+	FORALL VAR '.' quantified_formula {
+		// TODO
+	}
+	| EXISTS VAR '.' quantified_formula {
+		// TODO
+	}
+	| connective {
+		// TODO
+	}
+	;
+
+connective:
+	implication {
+		// TODO
+	}
+	;
+
+implication:
+	disjunction IMPLIES implication {
+		// TODO
+	}
+	| disjunction {
+		// TODO
+	}
+	;
+
+disjunction:
+	conjunction OR disjunction {
+		// TODO
+	}
+	| conjunction {
+		// TODO
+	}
+	;
+
+conjunction:
+	equivalence AND conjunction {
+		// TODO
+	}
+	| equivalence {
+		// TODO
+	}
+	;
+
+equivalence:
+	equivalence IFF negation {
+		// TODO
+	}
+	| negation {
+		// TODO
+	}
+	;
+
+negation:
+	NOT negation {
+		// TODO
+	}
+	| subformula {
+		// TODO
+	}
+	;
+
+subformula:
+	atomic_formula {
+		// TODO
+	}
+	| '(' formula ')' {
+		// TODO
 	}
 	;
 
