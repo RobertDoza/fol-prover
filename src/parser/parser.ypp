@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <memory>
+#include <fstream>
 #include "formula.hpp"
 #include "quantifier.hpp"
 #include "connective.hpp"
@@ -13,6 +14,8 @@ extern int yylex();
 void yyerror(const char* s);
 
 std::shared_ptr<Formula> parsed_formula;
+
+extern FILE* yyin;
 
 %}
 
@@ -177,10 +180,35 @@ term_list:
 %%
 
 std::shared_ptr<Formula> parse_formula() {
-	yyparse();
+	std::string input;
+	std::getline(std::cin, input);
 	
-	if (!parsed_formula) {
+	yyin = fmemopen((void*)input.c_str(), input.size(), "r");
+	
+	int parse_result = yyparse();
+	
+	if (parse_result != 0 || !parsed_formula) {
 		throw std::runtime_error("Formula not parsed correctly!");
+	}
+	
+	return parsed_formula;
+}
+
+std::shared_ptr<Formula> parse_formula(const std::string& filename) {
+	FILE* file = fopen(filename.c_str(), "r");
+	
+	if (!file) {
+		throw std::runtime_error("Error opening file: " + filename);
+	}
+	
+	yyin = file;
+	
+	int parse_result = yyparse();
+	
+	fclose(file);
+	
+	if (parse_result != 0 || !parsed_formula) {
+		throw std::runtime_error("Formula not parsed correctly in file: " + filename);
 	}
 	
 	return parsed_formula;
