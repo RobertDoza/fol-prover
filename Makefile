@@ -16,12 +16,15 @@ EXECUTABLE = test
 LEXER = lex.yy
 PARSER = parser.tab
 
-CPPFLAGS = -g -Wall -Wextra -Werror -pedantic
+CPPFLAGS = -g -Wall -Wextra -Werror -pedantic --std=c++17
 
 $(EXECUTABLE): $(BIN_DIR)/$(MAIN).o $(BIN_DIR)/$(FORMULA_BASE).o $(BIN_DIR)/$(FORMULA_QUAN).o $(BIN_DIR)/$(FORMULA_CONN).o $(BIN_DIR)/$(FORMULA_ATOM).o $(BIN_DIR)/$(TERM).o $(BIN_DIR)/$(GOAL).o $(BIN_DIR)/$(PROOF_MANAGER).o $(BIN_DIR)/$(PROVER).o $(BIN_DIR)/$(LEXER).o $(BIN_DIR)/$(PARSER).o
 	g++ $(CPPFLAGS) $^ -o $@
 
-$(BIN_DIR)/$(MAIN).o: $(SRC_DIR)/$(MAIN).cpp
+$(BIN_DIR):
+	mkdir $@ -p
+
+$(BIN_DIR)/$(MAIN).o: $(SRC_DIR)/$(MAIN).cpp | $(BIN_DIR)
 	g++ $(CPPFLAGS) -c $< -o $@ -I$(INC_DIR)
 
 $(BIN_DIR)/$(FORMULA_BASE).o: $(SRC_DIR)/$(FORMULA_BASE).cpp $(INC_DIR)/$(FORMULA_BASE).hpp $(INC_DIR)/$(FORMULA_ATOM).hpp $(INC_DIR)/$(FORMULA_CONN).hpp $(INC_DIR)/$(FORMULA_QUAN).hpp
