@@ -12,6 +12,8 @@ extern int yylex();
 
 void yyerror(const char* s);
 
+std::shared_ptr<Formula> parsed_formula;
+
 %}
 
 %union {
@@ -51,13 +53,9 @@ void yyerror(const char* s);
 
 input:
 	formula {
-		// TODO: remove output
-		std::cout << "Formula!" << std::endl;
-		
 		std::shared_ptr<Formula> f($1);
 		
-		// TODO: remove output
-		std::cout << f->to_string() << std::endl;
+		parsed_formula = f;
 	}
 	;
 
@@ -177,6 +175,16 @@ term_list:
 	;
 
 %%
+
+std::shared_ptr<Formula> parse_formula() {
+	yyparse();
+	
+	if (!parsed_formula) {
+		throw std::runtime_error("Formula not parsed correctly!");
+	}
+	
+	return parsed_formula;
+}
 
 void yyerror(const char* s) {
     std::cerr << "Error: " << s << std::endl;
