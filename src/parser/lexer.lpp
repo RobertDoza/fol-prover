@@ -18,6 +18,10 @@ False { return FALSE; }
 
 [a-z][a-zA-Z0-9_]* { yylval.str = strdup(yytext); return SYMBOL; }
 
+_TERM { return OPTION_TERM; }
+
+_FORMULA { return OPTION_FORMULA; }
+
 ~ { return NOT; }
 
 & { return AND; }

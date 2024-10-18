@@ -38,6 +38,8 @@ extern FILE* yyin;
 %token IFF
 %token FORALL
 %token EXISTS
+%token OPTION_TERM
+%token OPTION_FORMULA
 
 %type <term> term
 %type <term_vec> term_list
