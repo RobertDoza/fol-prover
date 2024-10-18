@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+extern std::shared_ptr<Term> parse_term();
+
 // TODO: move to a more appropriate place
 std::vector<std::string> split_into_words(const std::string& input) {
     std::vector<std::string> words;
@@ -215,35 +217,21 @@ ManagerStatus Prover::apply_rule(const Rule& rule) {
 				std::string user_input;
 				
 				std::cout << "Instantiate variable: ";
-				std::getline(std::cin, user_input);
 				
-				if (user_input.empty()) {
-					std::cout << "Error: Variable name cannot be empty." << std::endl;
-					return ManagerStatus(ManagerStatusCode::Failure);
-				}
+				std::shared_ptr<Term> term = parse_term();
+				// TODO: catch exceptions
 				
-				// TODO: parse term from user input
-				Variable var(user_input);
-				
-				// TODO: use parsed term as argument for apply_erule_all_e
-				return _proof_state_manager.apply_erule_all_e(std::make_shared<Variable>(var));
+				return _proof_state_manager.apply_erule_all_e(term);
 			}
 		case Rule::ExI: {
 				std::string user_input;
 				
 				std::cout << "Instantiate variable: ";
-				std::getline(std::cin, user_input);
 				
-				if (user_input.empty()) {
-					std::cout << "Error: Variable name cannot be empty." << std::endl;
-					return ManagerStatus(ManagerStatusCode::Failure);
-				}
+				std::shared_ptr<Term> term = parse_term();
+				// TODO: catch exceptions
 				
-				// TODO: parse term from user input
-				Variable var(user_input);
-				
-				// TODO: use parsed term as argument for apply_rule_ex_i
-				return _proof_state_manager.apply_rule_ex_i(std::make_shared<Variable>(var));
+				return _proof_state_manager.apply_rule_ex_i(term);
 			}
 		case Rule::ExE:
 			return _proof_state_manager.apply_erule_ex_e();
