@@ -57,10 +57,15 @@ extern FILE* yyin;
 %%
 
 input:
-	formula {
-		std::shared_ptr<Formula> f($1);
+	OPTION_FORMULA formula {
+		std::shared_ptr<Formula> f($2);
 		
 		parsed_formula = f;
+	}
+	| OPTION_TERM term {
+		std::shared_ptr<Term> t($2);
+		
+		parsed_term = t;
 	}
 	;
 
