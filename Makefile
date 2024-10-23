@@ -11,7 +11,7 @@ FORMULA_QUAN = quantifier
 GOAL = goal
 PROOF_MANAGER = proof_state_manager
 PROVER = prover
-EXECUTABLE = test
+EXECUTABLE = prover
 
 LEXER = lex.yy
 PARSER = parser.tab
@@ -69,5 +69,5 @@ generated_dir:
 .PHONY: clean
 
 clean:
-	rm -f $(BIN_DIR)/*.o $(BIN_DIR)/$(EXECUTABLE) $(SRC_DIR)/generated/*
+	rm -f $(BIN_DIR)/*.o $(BIN_DIR)/$(EXECUTABLE) $(SRC_DIR)/generated/* $(EXECUTABLE)
 
