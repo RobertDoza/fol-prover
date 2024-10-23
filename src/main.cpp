@@ -14,7 +14,7 @@ int main(int argc, char** argv) {
 			throw std::invalid_argument(std::string("Usage: ") + argv[0] + " <filename>");
 		}
 		
-		f = parse_formula("input.txt");
+		f = parse_formula(argv[1]);
 		
 		Prover p(f);
 		p.start();
