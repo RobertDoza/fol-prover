@@ -50,6 +50,7 @@ class ProofStateManager {
 		ManagerStatus apply_rule_ex_i(const std::shared_ptr<Term>& replacement_term);
 		ManagerStatus apply_erule_ex_e();
 		bool goals_solved() const;
+		void shift();
 	private:
 		std::deque<Goal> _goals;
 };

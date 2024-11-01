@@ -319,3 +319,7 @@ bool ProofStateManager::goals_solved() const {
 	return _goals.empty();
 }
 
+void ProofStateManager::shift() {
+	// TODO implement
+}
+
