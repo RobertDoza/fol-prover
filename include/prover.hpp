@@ -9,6 +9,7 @@
 constexpr const char* commands =
 	"Commands:\n"
 	"* apply - apply a natural deduction rule on current goal (for the list of available rules, see 'list')\n"
+	"* shift - rotate the assumptions of current goal (one position to the left)\n"
 	"* help - receive this help message\n"
 	"* list - show list of natural deduction rules\n"
 	"* exit - stop the program";
