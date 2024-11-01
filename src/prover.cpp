@@ -159,7 +159,7 @@ ExecuteStatus Prover::execute(const Command& command) {
 			}
 			
 			return ExecuteStatus::StopSuccess;
-		case CommandType::RuleApplication:
+		case CommandType::RuleApplication: {
 			auto rule = command.rule_to_apply;
 			
 			if (!rule.has_value()) {
@@ -179,6 +179,10 @@ ExecuteStatus Prover::execute(const Command& command) {
 					break;
 			}
 			
+			return ExecuteStatus::Continue;
+		}
+		case CommandType::Shift:
+			// TODO: implement
 			return ExecuteStatus::Continue;
 	}
 	
