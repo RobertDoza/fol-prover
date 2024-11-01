@@ -193,7 +193,12 @@ ExecuteStatus Prover::execute(const Command& command) {
 			return ExecuteStatus::Continue;
 		}
 		case CommandType::Shift:
-			// TODO: implement
+			ManagerStatus manager_status = _proof_state_manager.shift();
+			
+			if (manager_status.code == ManagerStatusCode::EmptyGoalList) {
+				std::cout << "There are no goals to apply shift to." << std::endl;
+			}
+			
 			return ExecuteStatus::Continue;
 	}
 	
