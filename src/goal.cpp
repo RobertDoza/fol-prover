@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include "goal.hpp"
 #include "atom.hpp"
 #include "connective.hpp"
@@ -379,7 +381,9 @@ RuleStatus Goal::apply_erule_ex_e() {
 }
 
 void Goal::shift_assumptions(unsigned n) {
-	(void) n;
-	// TODO: implement
+	if (n > 0 && !_assumptions.empty()) {
+		n %= _assumptions.size();
+		std::rotate(_assumptions.rbegin(), _assumptions.rend() + n, _assumptions.rend());
+	}
 }
 
