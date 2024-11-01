@@ -319,7 +319,13 @@ bool ProofStateManager::goals_solved() const {
 	return _goals.empty();
 }
 
-void ProofStateManager::shift() {
-	// TODO implement
+ManagerStatus ProofStateManager::shift() {
+	if (_goals.empty()) {
+		return ManagerStatus(ManagerStatusCode::EmptyGoalList);
+	}
+	
+	_goals[0].shift_assumptions(1);
+	
+	return ManagerStatus(ManagerStatusCode::Success);
 }
 
