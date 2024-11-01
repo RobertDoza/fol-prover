@@ -378,3 +378,8 @@ RuleStatus Goal::apply_erule_ex_e() {
 	return RuleStatus::Failure;
 }
 
+void Goal::shift_assumptions(unsigned n) {
+	(void) n;
+	// TODO: implement
+}
+
