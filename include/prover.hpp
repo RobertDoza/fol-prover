@@ -33,7 +33,10 @@ constexpr const char* list_of_rules =
 	"apply erule impE\n"
 	"apply erule iffE\n"
 	"apply erule allE\n"
-	"apply erule exE";
+	"apply erule exE\n"
+	"4) Rules of classical logic:\n"
+	"apply rule ccontr\n"
+	"apply rule classical";
 
 enum class Rule {
 	Assumption,
