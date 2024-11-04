@@ -316,9 +316,17 @@ ManagerStatus ProofStateManager::apply_erule_ex_e() {
 }
 
 ManagerStatus ProofStateManager::apply_rule_ccontr() {
-	// TODO: implement me
+	if (_goals.empty()) {
+		return ManagerStatus(ManagerStatusCode::EmptyGoalList);
+	}
 	
-	return ManagerStatus(ManagerStatusCode::Failure);
+	RuleStatus status = _goals[0].apply_rule_ccontr();
+	
+	if (status == RuleStatus::Failure) {
+		return ManagerStatus(ManagerStatusCode::Failure);
+	}
+	
+	return ManagerStatus(ManagerStatusCode::Success);
 }
 
 ManagerStatus ProofStateManager::apply_rule_classical() {
