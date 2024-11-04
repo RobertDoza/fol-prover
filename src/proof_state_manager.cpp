@@ -330,9 +330,17 @@ ManagerStatus ProofStateManager::apply_rule_ccontr() {
 }
 
 ManagerStatus ProofStateManager::apply_rule_classical() {
-	// TODO: implement me
+	if (_goals.empty()) {
+		return ManagerStatus(ManagerStatusCode::EmptyGoalList);
+	}
 	
-	return ManagerStatus(ManagerStatusCode::Failure);
+	RuleStatus status = _goals[0].apply_rule_classical();
+	
+	if (status == RuleStatus::Failure) {
+		return ManagerStatus(ManagerStatusCode::Failure);
+	}
+	
+	return ManagerStatus(ManagerStatusCode::Success);
 }
 
 bool ProofStateManager::goals_solved() const {
