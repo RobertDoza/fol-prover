@@ -258,9 +258,8 @@ ManagerStatus Prover::apply_rule(const Rule& rule) {
 			return _proof_state_manager.apply_erule_ex_e();
 		case Rule::Ccontr:
 			return _proof_state_manager.apply_rule_ccontr();
-		case Rule::Classical: {
-				// TODO
-			}
+		case Rule::Classical:
+			return _proof_state_manager.apply_rule_classical();
 	}
 	
 	return ManagerStatus(ManagerStatusCode::Failure);
