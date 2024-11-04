@@ -46,9 +46,6 @@ Command Prover::parse_user_input(const std::string& user_input) {
 		if (length > 1) {
 			return {CommandType::UnknownCommand, {}};
 		}
-		
-		// TODO: remove me
-		std::cout << "SHIFT MESSAGE PLACEHOLDER" << std::endl;
 	
 		return {CommandType::Shift, {}};
 	}
