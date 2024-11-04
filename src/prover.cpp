@@ -84,6 +84,10 @@ Command Prover::parse_user_input(const std::string& user_input) {
 				return {CommandType::RuleApplication, {Rule::AllI}};
 			} else if (words[2] == "exI") {
 				return {CommandType::RuleApplication, {Rule::ExI}};
+			} else if (words[2] == "ccontr") {
+				return {CommandType::RuleApplication, {Rule::Ccontr}};
+			} else if (words[2] == "classical") {
+				return {CommandType::RuleApplication, {Rule::Classical}};
 			}
 			
 			return {CommandType::UnknownCommand, {}};
