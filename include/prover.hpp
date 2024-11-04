@@ -27,13 +27,13 @@ constexpr const char* list_of_rules =
 	"apply rule allI\n"
 	"apply rule exI\n"
 	"3) Elimination rules:\n"
-	"apply rule notE\n"
-	"apply rule conjE\n"
-	"apply rule disjE\n"
-	"apply rule impE\n"
-	"apply rule iffE\n"
-	"apply rule allE\n"
-	"apply rule exE";
+	"apply erule notE\n"
+	"apply erule conjE\n"
+	"apply erule disjE\n"
+	"apply erule impE\n"
+	"apply erule iffE\n"
+	"apply erule allE\n"
+	"apply erule exE";
 
 enum class Rule {
 	Assumption,
