@@ -380,6 +380,16 @@ RuleStatus Goal::apply_erule_ex_e() {
 	return RuleStatus::Failure;
 }
 
+RuleStatus Goal::apply_rule_ccontr() {
+	// TODO: implement me
+	return RuleStatus::Failure;
+}
+
+RuleStatus Goal::apply_rule_classical() {
+	// TODO: implement me
+	return RuleStatus::Failure;
+}
+
 void Goal::shift_assumptions(unsigned n) {
 	if (n > 0 && !_assumptions.empty()) {
 		n %= _assumptions.size();

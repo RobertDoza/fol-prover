@@ -66,6 +66,8 @@ class Goal {
 		RuleStatus apply_erule_all_e(const std::shared_ptr<Term>& replacement_term);
 		RuleStatus apply_rule_ex_i(const std::shared_ptr<Term>& replacement_term);
 		RuleStatus apply_erule_ex_e();
+		RuleStatus apply_rule_ccontr();
+		RuleStatus apply_rule_classical();
 		void shift_assumptions(unsigned n);
 	private:
 		std::string body_to_string() const;
