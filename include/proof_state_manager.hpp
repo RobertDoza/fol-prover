@@ -49,6 +49,8 @@ class ProofStateManager {
 		ManagerStatus apply_erule_all_e(const std::shared_ptr<Term>& replacement_term);
 		ManagerStatus apply_rule_ex_i(const std::shared_ptr<Term>& replacement_term);
 		ManagerStatus apply_erule_ex_e();
+		ManagerStatus apply_rule_ccontr();
+		ManagerStatus apply_rule_classical();
 		bool goals_solved() const;
 		ManagerStatus shift();
 	private:

@@ -315,6 +315,18 @@ ManagerStatus ProofStateManager::apply_erule_ex_e() {
 	return ManagerStatus(ManagerStatusCode::Success);
 }
 
+ManagerStatus ProofStateManager::apply_rule_ccontr() {
+	// TODO: implement me
+	
+	return ManagerStatus(ManagerStatusCode::Failure);
+}
+
+ManagerStatus ProofStateManager::apply_rule_classical() {
+	// TODO: implement me
+	
+	return ManagerStatus(ManagerStatusCode::Failure);
+}
+
 bool ProofStateManager::goals_solved() const {
 	return _goals.empty();
 }
