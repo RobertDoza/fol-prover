@@ -389,8 +389,9 @@ RuleStatus Goal::apply_rule_ccontr() {
 }
 
 RuleStatus Goal::apply_rule_classical() {
-	// TODO: implement me
-	return RuleStatus::Failure;
+	add_assumption(std::make_shared<Negation>(_target_formula));
+	
+	return RuleStatus::Success;
 }
 
 void Goal::shift_assumptions(unsigned n) {
