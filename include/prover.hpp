@@ -51,7 +51,9 @@ enum class Rule {
 	AllI,
 	AllE,
 	ExI,
-	ExE
+	ExE,
+	Ccontr,
+	Classical
 };
 
 enum class CommandType {
