@@ -381,8 +381,11 @@ RuleStatus Goal::apply_erule_ex_e() {
 }
 
 RuleStatus Goal::apply_rule_ccontr() {
-	// TODO: implement me
-	return RuleStatus::Failure;
+	add_assumption(std::make_shared<Negation>(_target_formula));
+	
+	set_target(std::make_shared<False>());
+	
+	return RuleStatus::Success;
 }
 
 RuleStatus Goal::apply_rule_classical() {
