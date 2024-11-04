@@ -89,7 +89,6 @@ class Prover {
 		
 		void start();
 	private:
-		void interact_with_user();
 		void print_intro_message();
 		Command parse_user_input(const std::string& user_input);
 		ExecuteStatus execute(const Command& command);

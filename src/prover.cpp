@@ -20,8 +20,23 @@ std::vector<std::string> split_into_words(const std::string& input) {
 void Prover::start() {
 	print_intro_message();
 	
-	// TODO...
-	interact_with_user();
+	std::string user_input;
+
+	while (true) {
+		std::cout << std::endl;
+		std::cout << _proof_state_manager.to_string() << std::endl;
+		std::cout << "> ";
+		
+		std::getline(std::cin, user_input);
+		
+		Command command = parse_user_input(user_input);
+		
+		ExecuteStatus status = execute(command);
+		
+		if (status != ExecuteStatus::Continue) {
+			break;
+		}
+	}
 }
 
 void Prover::print_intro_message() {
@@ -263,27 +278,5 @@ ManagerStatus Prover::apply_rule(const Rule& rule) {
 	}
 	
 	return ManagerStatus(ManagerStatusCode::Failure);
-}
-
-void Prover::interact_with_user() {
-	std::string user_input;
-
-	while (true) {
-		std::cout << std::endl;
-		std::cout << _proof_state_manager.to_string() << std::endl;
-		std::cout << "> ";
-		
-		std::getline(std::cin, user_input);
-		
-		Command command = parse_user_input(user_input);
-		
-		// TODO
-		
-		ExecuteStatus status = execute(command);
-		
-		if (status != ExecuteStatus::Continue) {
-			break;
-		}
-	}
 }
 
