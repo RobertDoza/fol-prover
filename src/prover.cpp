@@ -9,6 +9,10 @@ void Prover::start_interactive_proof(const std::shared_ptr<Formula>& formula_to_
 	prover.start();
 }
 
+Prover::Prover(const std::shared_ptr<Formula>& f)
+	:_formula_to_prove(f), _proof_state_manager(f)
+{}
+
 void Prover::start() {
     print_intro_message();
 	
