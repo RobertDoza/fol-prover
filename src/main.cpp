@@ -16,8 +16,10 @@ int main(int argc, char** argv) {
 		
 		f = parse_formula(argv[1]);
 		
+		/*
 		Prover p(f);
 		p.start();
+		*/
 	} catch (const std::exception& e) {
 		std::cerr << "Error:" << std::endl;
 		std::cerr << e.what() << std::endl;

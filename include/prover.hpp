@@ -83,12 +83,11 @@ enum class ExecuteStatus {
 
 class Prover {
 	public:
+	private:
 		Prover(const std::shared_ptr<Formula>& f)
 			:_formula_to_prove(f), _proof_state_manager(f)
 		{}
-		
 		void start();
-	private:
 		void print_intro_message();
 		Command parse_user_input(const std::string& user_input);
 		ExecuteStatus execute(const Command& command);
