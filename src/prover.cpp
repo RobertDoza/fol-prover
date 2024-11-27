@@ -34,7 +34,7 @@ void Prover::start() {
 		
 		std::getline(std::cin, user_input);
 		
-		Command command = parse_user_input(user_input);
+		Command command = parse_command(user_input);
 		
 		ExecuteStatus status = execute(command);
 		
@@ -51,7 +51,7 @@ void Prover::print_intro_message() {
 	std::cout << commands << std::endl;
 }
 
-Command Prover::parse_user_input(const std::string& user_input) {
+Command Prover::parse_command(const std::string& user_input) {
 	std::vector<std::string> words = split_into_words(user_input);
 	
 	auto length = words.size();
