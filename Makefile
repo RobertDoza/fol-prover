@@ -12,6 +12,7 @@ GOAL = goal
 PROOF_MANAGER = proof_state_manager
 PROVER = prover
 COMMAND = command
+
 EXECUTABLE = prover
 
 LEXER = lex.yy
@@ -19,7 +20,23 @@ PARSER = parser.tab
 
 CPPFLAGS = -g -Wall -Wextra -Werror -pedantic --std=c++17
 
-$(EXECUTABLE): $(BIN_DIR)/$(MAIN).o $(BIN_DIR)/$(FORMULA_BASE).o $(BIN_DIR)/$(FORMULA_QUAN).o $(BIN_DIR)/$(FORMULA_CONN).o $(BIN_DIR)/$(FORMULA_ATOM).o $(BIN_DIR)/$(TERM).o $(BIN_DIR)/$(GOAL).o $(BIN_DIR)/$(PROOF_MANAGER).o $(BIN_DIR)/$(PROVER).o $(BIN_DIR)/$(LEXER).o $(BIN_DIR)/$(PARSER).o $(BIN_DIR)/$(COMMAND).o
+MODULES := $(MAIN)
+MODULES += $(TERM)
+MODULES += $(FORMULA_BASE)
+MODULES += $(FORMULA_ATOM)
+MODULES += $(FORMULA_CONN)
+MODULES += $(FORMULA_QUAN)
+MODULES += $(GOAL)
+MODULES += $(PROOF_MANAGER)
+MODULES += $(PROVER)
+MODULES += $(COMMAND)
+
+OBJ_FILES := $(addprefix $(BIN_DIR)/, $(MODULES))
+OBJ_FILES := $(addsuffix .o, $(OBJ_FILES))
+OBJ_FILES += $(BIN_DIR)/$(LEXER).o
+OBJ_FILES += $(BIN_DIR)/$(PARSER).o
+
+$(EXECUTABLE): $(OBJ_FILES)
 	g++ $(CPPFLAGS) $^ -o $@
 
 $(BIN_DIR):
