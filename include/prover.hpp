@@ -50,8 +50,8 @@ class Prover {
 		Prover(const std::shared_ptr<Formula>&);
 		void start();
 		void print_intro_message();
-		ExecuteStatus execute(const Command& command);
-		ManagerStatus apply_rule(const Rule& rule);
+		ExecuteStatus execute(const Command&);
+		ManagerStatus apply_rule(const Rule&);
 	private:
 		std::shared_ptr<Formula> _formula_to_prove;
 		ProofStateManager _proof_state_manager;
