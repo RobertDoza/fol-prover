@@ -11,6 +11,7 @@ FORMULA_QUAN = quantifier
 GOAL = goal
 PROOF_MANAGER = proof_state_manager
 PROVER = prover
+COMMAND = command
 EXECUTABLE = prover
 
 LEXER = lex.yy
@@ -18,7 +19,7 @@ PARSER = parser.tab
 
 CPPFLAGS = -g -Wall -Wextra -Werror -pedantic --std=c++17
 
-$(EXECUTABLE): $(BIN_DIR)/$(MAIN).o $(BIN_DIR)/$(FORMULA_BASE).o $(BIN_DIR)/$(FORMULA_QUAN).o $(BIN_DIR)/$(FORMULA_CONN).o $(BIN_DIR)/$(FORMULA_ATOM).o $(BIN_DIR)/$(TERM).o $(BIN_DIR)/$(GOAL).o $(BIN_DIR)/$(PROOF_MANAGER).o $(BIN_DIR)/$(PROVER).o $(BIN_DIR)/$(LEXER).o $(BIN_DIR)/$(PARSER).o
+$(EXECUTABLE): $(BIN_DIR)/$(MAIN).o $(BIN_DIR)/$(FORMULA_BASE).o $(BIN_DIR)/$(FORMULA_QUAN).o $(BIN_DIR)/$(FORMULA_CONN).o $(BIN_DIR)/$(FORMULA_ATOM).o $(BIN_DIR)/$(TERM).o $(BIN_DIR)/$(GOAL).o $(BIN_DIR)/$(PROOF_MANAGER).o $(BIN_DIR)/$(PROVER).o $(BIN_DIR)/$(LEXER).o $(BIN_DIR)/$(PARSER).o $(BIN_DIR)/$(COMMAND).o
 	g++ $(CPPFLAGS) $^ -o $@
 
 $(BIN_DIR):
@@ -49,6 +50,9 @@ $(BIN_DIR)/$(PROOF_MANAGER).o: $(SRC_DIR)/$(PROOF_MANAGER).cpp $(INC_DIR)/$(PROO
 	g++ $(CPPFLAGS) -c $< -o $@ -I$(INC_DIR)
 
 $(BIN_DIR)/$(PROVER).o: $(SRC_DIR)/$(PROVER).cpp $(INC_DIR)/$(PROVER).hpp $(INC_DIR)/$(PROOF_MANAGER).hpp
+	g++ $(CPPFLAGS) -c $< -o $@ -I$(INC_DIR)
+
+$(BIN_DIR)/$(COMMAND).o: $(SRC_DIR)/$(COMMAND).cpp $(INC_DIR)/$(COMMAND).hpp
 	g++ $(CPPFLAGS) -c $< -o $@ -I$(INC_DIR)
 
 $(BIN_DIR)/$(LEXER).o: $(SRC_DIR)/generated/$(LEXER).c $(SRC_DIR)/generated/$(PARSER).hpp
