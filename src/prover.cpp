@@ -22,8 +22,7 @@ void Prover::start_interactive_proof(const std::shared_ptr<Formula>& formula_to_
 	prover.start();
 }
 
-void Prover::start()
-{
+void Prover::start() {
     print_intro_message();
 	
 	std::string user_input;
