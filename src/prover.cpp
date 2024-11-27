@@ -17,8 +17,14 @@ std::vector<std::string> split_into_words(const std::string& input) {
     return words;
 }
 
-void Prover::start() {
-	print_intro_message();
+void Prover::start_interactive_proof(const std::shared_ptr<Formula>& formula_to_prove) {
+	Prover prover(formula_to_prove);
+	prover.start();
+}
+
+void Prover::start()
+{
+    print_intro_message();
 	
 	std::string user_input;
 

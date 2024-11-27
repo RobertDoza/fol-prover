@@ -83,6 +83,7 @@ enum class ExecuteStatus {
 
 class Prover {
 	public:
+		static void start_interactive_proof(const std::shared_ptr<Formula>&);
 	private:
 		Prover(const std::shared_ptr<Formula>& f)
 			:_formula_to_prove(f), _proof_state_manager(f)
