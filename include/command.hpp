@@ -1,6 +1,7 @@
 #pragma once
 
 #include <optional>
+#include <string>
 
 enum class Rule {
 	Assumption,
@@ -37,4 +38,6 @@ enum class CommandType {
 struct Command {
 	CommandType type;
 	std::optional<Rule> rule_to_apply;
+
+    static Command parse_command(const std::string&);
 };

@@ -52,7 +52,6 @@ class Prover {
 		{}
 		void start();
 		void print_intro_message();
-		Command parse_command(const std::string& user_input);
 		ExecuteStatus execute(const Command& command);
 		ManagerStatus apply_rule(const Rule& rule);
 	private:
