@@ -210,24 +210,6 @@ std::shared_ptr<Formula> parse_formula() {
 	return parsed_formula;
 }
 
-std::shared_ptr<Term> parse_term() {
-	std::string input;
-	std::getline(std::cin, input);
-	input = "_TERM " + input;
-	
-	yyin = fmemopen((void*)input.c_str(), input.size(), "r");
-	
-	int parse_result = yyparse();
-	
-	fclose(yyin);
-	
-	if (parse_result != 0 || !parsed_term) {
-		throw std::runtime_error("Term not parsed correctly!");
-	}
-	
-	return parsed_term;
-}
-
 std::shared_ptr<Term> parse_term(const std::string& input_string) {
 	std::string input = "_TERM " + input_string;
 	

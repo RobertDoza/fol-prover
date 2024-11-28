@@ -2,7 +2,6 @@
 
 #include <iostream>
 
-extern std::shared_ptr<Term> parse_term();
 extern std::shared_ptr<Term> parse_term(const std::string&);
 
 void Prover::start_interactive_proof(const std::shared_ptr<Formula>& formula_to_prove) {
