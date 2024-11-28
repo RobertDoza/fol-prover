@@ -102,7 +102,7 @@ Command Command::parse_command(const std::string& user_input) {
 		}
 		
 		return {CommandType::UnknownCommand, {}};
-	} else if (command_word == "exit") {
+	} else if (command_word == "exit" || command_word == "quit") {
 		if (length > 1) {
 			return {CommandType::UnknownCommand, {}};
 		}
