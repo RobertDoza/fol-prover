@@ -52,6 +52,7 @@ class Prover {
 		void print_intro_message();
 		ExecuteStatus execute(const Command&);
 		ManagerStatus apply_rule(const Rule&);
+		std::shared_ptr<Term> get_term_from_user();
 	private:
 		std::shared_ptr<Formula> _formula_to_prove;
 		ProofStateManager _proof_state_manager;

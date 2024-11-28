@@ -188,7 +188,8 @@ term_list:
 %%
 
 void yyerror(const char* s) {
-    std::cerr << "Error: " << s << std::endl;
+	(void) s;
+    // std::cerr << "Error: " << s << std::endl;
 }
 
 std::shared_ptr<Formula> parse_formula() {
@@ -227,6 +228,22 @@ std::shared_ptr<Term> parse_term() {
 	return parsed_term;
 }
 
+std::shared_ptr<Term> parse_term(const std::string& input_string) {
+	std::string input = "_TERM " + input_string;
+	
+	yyin = fmemopen((void*)input.c_str(), input.size(), "r");
+	
+	int parse_result = yyparse();
+	
+	fclose(yyin);
+	
+	if (parse_result != 0 || !parsed_term) {
+		throw std::runtime_error("Term not parsed correctly!");
+	}
+	
+	return parsed_term;
+}
+
 std::shared_ptr<Formula> parse_formula(const std::string& filename) {
 	std::ifstream file(filename);
 	
@@ -249,29 +266,5 @@ std::shared_ptr<Formula> parse_formula(const std::string& filename) {
 	}
 	
 	return parsed_formula;
-}
-
-std::shared_ptr<Term> parse_term(const std::string& filename) {
-	std::ifstream file(filename);
-	
-	if (!file) {
-		throw std::runtime_error("Error opening file: " + filename);
-	}
-	
-	std::string file_content((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
-	
-	std::string input = "_TERM " + file_content;
-	
-	yyin = fmemopen((void*)input.c_str(), input.size(), "r");
-	
-	int parse_result = yyparse();
-	
-	fclose(yyin);
-	
-	if (parse_result != 0 || !parsed_term) {
-		throw std::runtime_error("Term not parsed correctly in file: " + filename);
-	}
-	
-	return parsed_term;
 }
 

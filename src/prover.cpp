@@ -3,6 +3,7 @@
 #include <iostream>
 
 extern std::shared_ptr<Term> parse_term();
+extern std::shared_ptr<Term> parse_term(const std::string&);
 
 void Prover::start_interactive_proof(const std::shared_ptr<Formula>& formula_to_prove) {
 	Prover prover(formula_to_prove);
@@ -130,23 +131,11 @@ ManagerStatus Prover::apply_rule(const Rule& rule) {
 		case Rule::AllI:
 			return _proof_state_manager.apply_rule_all_i();
 		case Rule::AllE: {
-				std::string user_input;
-				
-				std::cout << "Instantiate variable: ";
-				
-				std::shared_ptr<Term> term = parse_term();
-				// TODO: catch exceptions
-				
+				std::shared_ptr<Term> term = get_term_from_user();
 				return _proof_state_manager.apply_erule_all_e(term);
 			}
 		case Rule::ExI: {
-				std::string user_input;
-				
-				std::cout << "Instantiate variable: ";
-				
-				std::shared_ptr<Term> term = parse_term();
-				// TODO: catch exceptions
-				
+				std::shared_ptr<Term> term = get_term_from_user();
 				return _proof_state_manager.apply_rule_ex_i(term);
 			}
 		case Rule::ExE:
@@ -160,3 +149,20 @@ ManagerStatus Prover::apply_rule(const Rule& rule) {
 	return ManagerStatus(ManagerStatusCode::Failure);
 }
 
+std::shared_ptr<Term> Prover::get_term_from_user() {
+	std::string user_input;
+    std::shared_ptr<Term> term;
+
+	do {
+		std::cout << "Instantiate variable: ";
+		std::getline(std::cin, user_input);
+		
+		try {
+			term = parse_term(user_input);
+			return term;
+		} catch (const std::exception&) {
+			std::cout << "Error parsing term! Please try again." << std::endl;
+			continue;
+		}
+	} while (true);
+}
