@@ -83,6 +83,7 @@ Here are some example formulas:
 4. `(? X. ! Y. p(X, Y)) => (! Y. ? X. p(X, Y))`
 5. `~(! X. p(X)) <=> (? X. ~p(X))`
 
+Some examples can be found in the `assets/formula_examples` directory.
 
 ### Example usage
 Assuming there is a file `formula.txt` with the formula `(!X. (p(X) => q(X))) & (!Y. (q(Y) => r(Y))) => (!Z. p(Z) => r(Z))` written inside, by running
